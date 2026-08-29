@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rustures.local/schemas/parity-fixture-v1.json",
+  "title": "rustures parity fixture",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "reference",
+    "signal",
+    "parameters",
+    "breakpoints",
+    "objective"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "reference": {
+      "type": "object",
+      "required": ["project", "commit"],
+      "properties": {
+        "project": { "const": "ruptures" },
+        "commit": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+        "python": { "type": "string" },
+        "platform": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "signal": {
+      "type": "object",
+      "required": ["shape", "dtype", "values"],
+      "properties": {
+        "shape": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 2,
+          "items": { "type": "integer", "minimum": 1 }
+        },
+        "dtype": { "const": "float64" },
+        "values": { "type": "array", "items": { "type": "number" } }
+      },
+      "additionalProperties": false
+    },
+    "parameters": { "type": "object" },
+    "breakpoints": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "integer", "minimum": 1 }
+    },
+    "segment_cost": { "type": "number" },
+    "objective": { "type": "number" },
+    "expected_difference": { "type": ["string", "null"] }
+  },
+  "additionalProperties": false
+}
+

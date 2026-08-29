@@ -1,0 +1,17 @@
+schema_version = 1
+reference_project = "ruptures"
+reference_commit = "ee1c8ff8a548d54c641b2bb471562165931f31c7"
+allowed_fields = [
+  "input values and shape",
+  "public constructor and method parameters",
+  "returned breakpoints",
+  "segment cost and objective values",
+  "runtime version and platform metadata",
+]
+prohibited_material = [
+  "source code",
+  "comments and docstrings",
+  "private implementation details",
+  "copied tests",
+]
+
