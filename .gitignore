@@ -1,0 +1,98 @@
+# Rust build output
+/target/
+**/*.rs.bk
+
+# Cargo.lock is intentionally tracked because wheels are release artifacts.
+
+# Python bytecode and caches
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.pyright/
+.ruff_cache/
+.hypothesis/
+.tox/
+.nox/
+.coverage
+.coverage.*
+htmlcov/
+.ipynb_checkpoints/
+
+# Python environments
+.venv/
+venv/
+env/
+ENV/
+.conda/
+.pixi/
+
+# Python and maturin packaging output
+/build/
+/dist/
+/wheelhouse/
+/.maturin/
+*.egg-info/
+*.egg
+*.whl
+
+# Locally built native extension modules
+*.pyd
+*.so
+*.dylib
+
+# Documentation build output
+/site/
+/docs/_build/
+
+# Local environment and secrets
+.env
+.env.*
+!.env.example
+
+# Editor and IDE state
+/.vscode/
+/.idea/
+/.vs/
+*.suo
+*.user
+*.swp
+*.swo
+*~
+
+# Operating-system metadata
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Profiling and crash output
+*.profraw
+*.profdata
+perf.data
+perf.data.old
+core
+core.*
+
+# Research scratch space and cloned upstream source
+/tmp/
+
+# Local Codex research, planning, and verification documents
+/AGENTS.md
+/docs/README.md
+/docs/SUMMARY_KO.md
+/docs/PAPER_INDEX.md
+/docs/RUST_PORT_SPEC.md
+/docs/IMPLEMENTATION_PLAN.md
+/docs/PYTHON_WHEEL_SPEC.md
+/output/pdf/README.md
+/artifacts/**/*.md
+
+# Collected papers are local research inputs and are not redistributed.
+/output/pdf/*
+
+# Keep text evidence under artifacts, but ignore generated wheels and envs.
+/artifacts/**/*.whl
+/artifacts/**/.venv/
+/artifacts/**/venv/
+/artifacts/**/target/
