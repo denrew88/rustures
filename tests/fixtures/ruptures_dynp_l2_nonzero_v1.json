@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "reference": {
+    "project": "ruptures",
+    "commit": "ee1c8ff8a548d54c641b2bb471562165931f31c7",
+    "python": "3.11.14",
+    "platform": "win32"
+  },
+  "signal": {
+    "shape": [10],
+    "dtype": "float64",
+    "values": [0.0, 1.0, 0.0, 5.0, 6.0, 5.0, -2.0, -1.0, -2.0, 3.0]
+  },
+  "parameters": {
+    "algorithm": "Dynp",
+    "model": "l2",
+    "min_size": 2,
+    "jump": 1,
+    "n_bkps": 2
+  },
+  "breakpoints": [3, 6, 10],
+  "segment_cost": 18.333333333333332,
+  "objective": 18.333333333333332,
+  "expected_difference": null
+}

@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "reference": {
+    "project": "ruptures",
+    "commit": "ee1c8ff8a548d54c641b2bb471562165931f31c7",
+    "python": "3.11.14",
+    "platform": "win32"
+  },
+  "signal": {
+    "shape": [12, 2],
+    "dtype": "float64",
+    "values": [
+      0.0, 1.0,
+      0.2, 0.8,
+      -0.1, 1.1,
+      5.0, -2.0,
+      5.1, -2.2,
+      4.9, -1.8,
+      -3.0, 4.0,
+      -3.2, 4.1,
+      -2.8, 3.9,
+      6.0, 0.0,
+      6.1, 0.2,
+      5.9, -0.2
+    ]
+  },
+  "parameters": {
+    "algorithm": "Pelt",
+    "model": "l2",
+    "min_size": 2,
+    "jump": 1,
+    "pen": 2.0
+  },
+  "breakpoints": [3, 6, 9, 12],
+  "segment_cost": 0.3933333333333332,
+  "objective": 6.3933333333333335,
+  "expected_difference": null
+}

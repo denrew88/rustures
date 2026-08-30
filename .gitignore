@@ -71,8 +71,8 @@ Desktop.ini
 *.profdata
 perf.data
 perf.data.old
-core
-core.*
+/core
+/core.*
 
 # Research scratch space and cloned upstream source
 /tmp/
@@ -85,6 +85,7 @@ core.*
 /docs/RUST_PORT_SPEC.md
 /docs/IMPLEMENTATION_PLAN.md
 /docs/PYTHON_WHEEL_SPEC.md
+/docs/CUSTOM_COST_DESIGN.md
 /output/pdf/README.md
 /artifacts/**/*.md
 

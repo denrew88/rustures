@@ -1,0 +1,31 @@
+{
+  "source": {
+    "package": "ruptures",
+    "commit": "ee1c8ff8a548d54c641b2bb471562165931f31c7"
+  },
+  "greedy": {
+    "signal": [0.0, 0.0, 0.0, 0.0, 0.0, 8.0, 8.0, 8.0, 8.0, 8.0, -5.0, -5.0, -5.0, -5.0, -5.0, 4.0, 4.0, 4.0, 4.0, 4.0],
+    "parameters": {"model": "l2", "min_size": 2, "jump": 1, "width": 6, "n_bkps": 3},
+    "breakpoints": {
+      "binseg": [5, 10, 15, 20],
+      "bottomup": [5, 10, 15, 20],
+      "window": [5, 10, 15, 20]
+    }
+  },
+  "kernel_rbf": {
+    "signal": [0.0, 0.0, 0.0, 0.0, 5.0, 5.0, 5.0, 5.0, -3.0, -3.0, -3.0, -3.0],
+    "parameters": {"kernel": "rbf", "min_size": 1, "jump": 1, "n_bkps": 2},
+    "breakpoints": [4, 8, 12]
+  },
+  "metrics": {
+    "truth": [3, 7, 10],
+    "prediction": [2, 5, 10],
+    "margin": 2,
+    "hausdorff_prediction": [2, 8, 10],
+    "hausdorff": 1.0,
+    "precision_recall": [0.5, 0.5],
+    "rand_truth": [2, 4],
+    "rand_prediction": [1, 3, 4],
+    "rand_index": 0.5
+  }
+}

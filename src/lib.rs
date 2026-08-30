@@ -1,41 +1,28 @@
-mod error;
-mod segmentation;
-mod signal;
+mod core;
+mod cost;
+mod datasets;
+mod kernel;
+mod metrics;
+mod python;
+mod search;
 
 #[cfg(test)]
-mod oracle;
+mod testing;
 
-pub use error::Error;
-pub use segmentation::{
-    candidate_is_better, partition_cost, validate_breakpoints, validate_jump, validate_min_size,
-    validate_penalty, validate_segment,
+pub use core::error::Error;
+pub use core::segmentation::{
+    candidate_is_better, objective_values_tied, partition_cost, validate_breakpoints,
+    validate_budget, validate_jump, validate_min_size, validate_penalty, validate_segment,
+    Detector, DetectorCapabilities, SearchGrid, Segmentation, Stop,
 };
-pub use signal::{validate_finite, validate_signal_shape, SignalShape};
+pub use core::signal::{validate_finite, validate_signal_shape, SignalShape, SignalView};
+pub use cost::{CostL2, SegmentCost};
+pub use kernel::{
+    resolve_gamma, CosineKernel, FullGramPrefix, FusedKernel, GammaPolicy, Kernel, KernelBackend,
+    KernelCPD, KernelCost, KernelKind, LinearKernel, RbfKernel, StreamingKernelCost,
+};
+pub use metrics::{hausdorff, precision_recall, rand_index};
+pub use search::{Binseg, BottomUp, Dynp, FusedKernelCPD, Pelt, Window};
 
-use numpy::{PyReadonlyArrayDyn, PyUntypedArrayMethods};
-use pyo3::create_exception;
-use pyo3::exceptions::PyException;
-use pyo3::prelude::*;
-
-create_exception!(_rustures, RusturesError, PyException);
-
-#[pyfunction]
-fn version() -> &'static str {
-    env!("CARGO_PKG_VERSION")
-}
-
-#[pyfunction]
-fn validate_signal(signal: PyReadonlyArrayDyn<'_, f64>) -> PyResult<(usize, usize)> {
-    let shape = validate_signal_shape(signal.ndim(), signal.shape())?;
-    validate_finite(signal.as_array().iter().copied(), shape)?;
-    Ok((shape.n_samples, shape.n_features))
-}
-
-#[pymodule]
-fn _rustures(module: &Bound<'_, PyModule>) -> PyResult<()> {
-    module.add("RusturesError", module.py().get_type::<RusturesError>())?;
-    module.add("__version__", env!("CARGO_PKG_VERSION"))?;
-    module.add_function(wrap_pyfunction!(version, module)?)?;
-    module.add_function(wrap_pyfunction!(validate_signal, module)?)?;
-    Ok(())
-}
+#[cfg(test)]
+pub(crate) use testing::oracle;
