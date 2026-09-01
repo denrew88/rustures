@@ -3,24 +3,93 @@ use crate::{
     Segmentation, Stop,
 };
 
-use super::candidate_positions;
-
-const NO_PREDECESSOR: usize = usize::MAX;
+pub const DEFAULT_DYNP_MEMORY_LIMIT_BYTES: usize = 536_870_912;
+const NO_PREDECESSOR: u32 = u32::MAX;
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct Dynp {
     grid: SearchGrid,
+    max_memory_bytes: usize,
 }
 
 impl Dynp {
     pub fn new(min_size: usize, jump: usize) -> Result<Self, Error> {
+        Self::with_memory_limit(min_size, jump, DEFAULT_DYNP_MEMORY_LIMIT_BYTES)
+    }
+
+    pub fn with_memory_limit(
+        min_size: usize,
+        jump: usize,
+        max_memory_bytes: usize,
+    ) -> Result<Self, Error> {
+        if max_memory_bytes == 0 {
+            return Err(Error::InvalidMemoryLimit {
+                value: max_memory_bytes,
+            });
+        }
         Ok(Self {
             grid: SearchGrid::new(min_size, jump)?,
+            max_memory_bytes,
         })
     }
 
     pub fn grid(self) -> SearchGrid {
         self.grid
+    }
+
+    pub fn max_memory_bytes(self) -> usize {
+        self.max_memory_bytes
+    }
+
+    pub fn estimated_memory_bytes(&self, n_samples: usize, changes: usize) -> Result<usize, Error> {
+        if changes == 0 {
+            return Ok(0);
+        }
+        let n_positions = candidate_position_count(n_samples, self.grid.jump)?;
+        if n_positions >= NO_PREDECESSOR as usize {
+            return Err(Error::DynpMemoryLimit {
+                requested: usize::MAX,
+                maximum: self.max_memory_bytes,
+            });
+        }
+        let n_segments = changes.checked_add(1).ok_or(Error::DynpMemoryLimit {
+            requested: usize::MAX,
+            maximum: self.max_memory_bytes,
+        })?;
+        let state_len = n_segments
+            .checked_add(1)
+            .and_then(|rows| rows.checked_mul(n_positions))
+            .ok_or(Error::DynpMemoryLimit {
+                requested: usize::MAX,
+                maximum: self.max_memory_bytes,
+            })?;
+
+        let state_bytes = state_len
+            .checked_mul(size_of::<f64>() + size_of::<u32>())
+            .ok_or(Error::DynpMemoryLimit {
+                requested: usize::MAX,
+                maximum: self.max_memory_bytes,
+            })?;
+        let position_and_batch_bytes = n_positions
+            .checked_mul(size_of::<usize>() + size_of::<f64>())
+            .ok_or(Error::DynpMemoryLimit {
+                requested: usize::MAX,
+                maximum: self.max_memory_bytes,
+            })?;
+        let path_bytes =
+            n_segments
+                .checked_mul(3 * size_of::<usize>())
+                .ok_or(Error::DynpMemoryLimit {
+                    requested: usize::MAX,
+                    maximum: self.max_memory_bytes,
+                })?;
+        state_bytes
+            .checked_add(position_and_batch_bytes)
+            .and_then(|bytes| bytes.checked_add(path_bytes))
+            .ok_or(Error::DynpMemoryLimit {
+                requested: usize::MAX,
+                maximum: self.max_memory_bytes,
+            })
     }
 
     pub fn predict_changes<C: SegmentCost>(
@@ -41,7 +110,15 @@ impl Dynp {
             );
         }
 
-        let positions = candidate_positions(cost.n_samples(), self.grid.jump);
+        let estimated_memory = self.estimated_memory_bytes(cost.n_samples(), changes)?;
+        if estimated_memory > self.max_memory_bytes {
+            return Err(Error::DynpMemoryLimit {
+                requested: estimated_memory,
+                maximum: self.max_memory_bytes,
+            });
+        }
+
+        let positions = checked_candidate_positions(cost.n_samples(), self.grid.jump)?;
         let n_positions = positions.len();
         let n_segments = changes
             .checked_add(1)
@@ -53,11 +130,30 @@ impl Dynp {
                 context: "allocating Dynp state tables",
             })?;
 
-        let mut predecessors = vec![NO_PREDECESSOR; state_len];
-        let mut scores = vec![f64::INFINITY; state_len];
+        let mut predecessors = try_filled_vec(
+            state_len,
+            NO_PREDECESSOR,
+            "allocating Dynp predecessor states",
+        )?;
+        let mut scores = try_filled_vec(state_len, f64::INFINITY, "allocating Dynp score states")?;
         let mut segment_costs = Vec::new();
+        segment_costs
+            .try_reserve_exact(n_positions)
+            .map_err(|_| Error::AllocationFailure {
+                context: "allocating a Dynp endpoint cost batch",
+            })?;
         let mut candidate_path = Vec::new();
         let mut best_path = Vec::new();
+        candidate_path
+            .try_reserve_exact(n_segments)
+            .map_err(|_| Error::AllocationFailure {
+                context: "allocating a Dynp tie path",
+            })?;
+        best_path
+            .try_reserve_exact(n_segments)
+            .map_err(|_| Error::AllocationFailure {
+                context: "allocating a Dynp tie path",
+            })?;
         scores[0] = 0.0;
 
         // Endpoint-major traversal evaluates every admissible segment cost once
@@ -80,7 +176,7 @@ impl Dynp {
             }
 
             for segment_count in 1..=n_segments.min(end_index) {
-                let mut best_predecessor = NO_PREDECESSOR;
+                let mut best_predecessor = usize::MAX;
                 let mut best_score = f64::INFINITY;
 
                 let previous_row = (segment_count - 1) * n_positions;
@@ -120,9 +216,12 @@ impl Dynp {
                     }
                 }
 
-                if best_predecessor != NO_PREDECESSOR {
+                if best_predecessor != usize::MAX {
                     scores[segment_count * n_positions + end_index] = best_score;
-                    predecessors[segment_count * n_positions + end_index] = best_predecessor;
+                    predecessors[segment_count * n_positions + end_index] =
+                        u32::try_from(best_predecessor).map_err(|_| Error::NumericalFailure {
+                            context: "storing a compact Dynp predecessor",
+                        })?;
                 }
             }
         }
@@ -133,16 +232,22 @@ impl Dynp {
             return Err(self.infeasible(cost.n_samples(), changes, min_size));
         }
 
-        let mut breakpoints = Vec::with_capacity(n_segments);
+        let mut breakpoints = Vec::new();
+        breakpoints
+            .try_reserve_exact(n_segments)
+            .map_err(|_| Error::AllocationFailure {
+                context: "allocating Dynp breakpoints",
+            })?;
         let mut end_index = final_index;
         for segment_count in (1..=n_segments).rev() {
             breakpoints.push(positions[end_index]);
-            end_index = predecessors[segment_count * n_positions + end_index];
-            if end_index == NO_PREDECESSOR {
+            let predecessor = predecessors[segment_count * n_positions + end_index];
+            if predecessor == NO_PREDECESSOR {
                 return Err(Error::NumericalFailure {
                     context: "backtracking a Dynp segmentation",
                 });
             }
+            end_index = predecessor as usize;
         }
         if end_index != 0 {
             return Err(Error::NumericalFailure {
@@ -231,18 +336,68 @@ fn validate_feasible(
     Ok(())
 }
 
+fn candidate_position_count(n_samples: usize, jump: usize) -> Result<usize, Error> {
+    if n_samples == 0 {
+        return Err(Error::EmptySignal);
+    }
+    if jump == 0 {
+        return Err(Error::InvalidJump { value: jump });
+    }
+    (n_samples - 1)
+        .checked_div(jump)
+        .and_then(|internal| internal.checked_add(2))
+        .ok_or(Error::NumericalFailure {
+            context: "counting Dynp search-grid positions",
+        })
+}
+
+fn checked_candidate_positions(n_samples: usize, jump: usize) -> Result<Vec<usize>, Error> {
+    let expected = candidate_position_count(n_samples, jump)?;
+    let mut positions = Vec::new();
+    positions
+        .try_reserve_exact(expected)
+        .map_err(|_| Error::AllocationFailure {
+            context: "allocating Dynp search-grid positions",
+        })?;
+    positions.push(0);
+    let mut position = jump;
+    while position < n_samples {
+        positions.push(position);
+        match position.checked_add(jump) {
+            Some(next) => position = next,
+            None => break,
+        }
+    }
+    positions.push(n_samples);
+    debug_assert_eq!(positions.len(), expected);
+    Ok(positions)
+}
+
+fn try_filled_vec<T: Clone>(
+    length: usize,
+    value: T,
+    context: &'static str,
+) -> Result<Vec<T>, Error> {
+    let mut output = Vec::new();
+    output
+        .try_reserve_exact(length)
+        .map_err(|_| Error::AllocationFailure { context })?;
+    output.resize(length, value);
+    Ok(output)
+}
+
 #[allow(clippy::too_many_arguments)]
 fn state_path_is_smaller(
     segment_count: usize,
     candidate_end: usize,
     best_end: usize,
     positions: &[usize],
-    predecessors: &[usize],
+    predecessors: &[u32],
     n_positions: usize,
     candidate_path: &mut Vec<usize>,
     best_path: &mut Vec<usize>,
 ) -> Result<bool, Error> {
-    if best_end == NO_PREDECESSOR {
+    if best_end == usize::MAX {
         return Ok(true);
     }
     build_state_path(
@@ -268,7 +423,7 @@ fn build_state_path(
     segment_count: usize,
     end_index: usize,
     positions: &[usize],
-    predecessors: &[usize],
+    predecessors: &[u32],
     n_positions: usize,
     output: &mut Vec<usize>,
 ) -> Result<(), Error> {
@@ -276,12 +431,13 @@ fn build_state_path(
     let mut cursor = end_index;
     for count in (1..=segment_count).rev() {
         output.push(positions[cursor]);
-        cursor = predecessors[count * n_positions + cursor];
-        if cursor == NO_PREDECESSOR {
+        let predecessor = predecessors[count * n_positions + cursor];
+        if predecessor == NO_PREDECESSOR {
             return Err(Error::NumericalFailure {
                 context: "comparing Dynp segmentation paths",
             });
         }
+        cursor = predecessor as usize;
     }
     if cursor != 0 {
         return Err(Error::NumericalFailure {
@@ -433,5 +589,39 @@ mod tests {
         assert_eq!(result.breakpoints, [2, 4, 6, 8]);
         assert_eq!(cost.batch_calls.load(Ordering::Relaxed), 8);
         assert_eq!(cost.scalar_calls.load(Ordering::Relaxed), 0);
+    }
+
+    #[test]
+    fn estimates_compact_state_memory_and_rejects_before_cost_evaluation() {
+        let cost = CountingBatchCost {
+            values: vec![0.0, 0.0, 3.0, 3.0, -2.0, -2.0, 1.0, 1.0],
+            batch_calls: AtomicUsize::new(0),
+            scalar_calls: AtomicUsize::new(0),
+        };
+        let detector = Dynp::with_memory_limit(1, 1, 779).unwrap();
+        // M=9 positions, K+2=5 state rows: 45*(8+4) state bytes,
+        // 9*(8+8) endpoint bytes, and 3*(K+1)*8 path bytes.
+        assert_eq!(detector.estimated_memory_bytes(8, 3), Ok(780));
+        assert_eq!(
+            detector.predict_changes(&cost, 3),
+            Err(Error::DynpMemoryLimit {
+                requested: 780,
+                maximum: 779,
+            })
+        );
+        assert_eq!(cost.batch_calls.load(Ordering::Relaxed), 0);
+        assert_eq!(cost.scalar_calls.load(Ordering::Relaxed), 0);
+    }
+
+    #[test]
+    fn memory_estimate_respects_jump_and_zero_change_fast_path() {
+        let detector = Dynp::new(1, 3).unwrap();
+        assert_eq!(detector.estimated_memory_bytes(7, 0), Ok(0));
+        // Positions are [0, 3, 6, 7], so M=4 and K=1 gives 3 rows.
+        assert_eq!(detector.estimated_memory_bytes(7, 1), Ok(256));
+        assert_eq!(
+            Dynp::with_memory_limit(1, 1, 0),
+            Err(Error::InvalidMemoryLimit { value: 0 })
+        );
     }
 }

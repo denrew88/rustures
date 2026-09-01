@@ -621,6 +621,16 @@ fn stopping_rule(
 }
 
 impl PyDynp {
+    fn fitted_n_samples(&self) -> Result<usize, Error> {
+        if let Some(custom) = &self.custom_cost {
+            return Ok(custom.n_samples());
+        }
+        self.cost
+            .as_ref()
+            .map(|cost| cost.n_samples())
+            .ok_or(Error::NotFitted { object: "Dynp" })
+    }
+
     fn predict_inner(&self, py: Python<'_>, n_bkps: usize) -> PyResult<Vec<usize>> {
         if let Some(custom) = &self.custom_cost {
             custom.take_callback_error();
@@ -697,13 +707,14 @@ impl PyKernelCPD {
 #[pymethods]
 impl PyDynp {
     #[new]
-    #[pyo3(signature = (model = "l2", custom_cost = None, min_size = 2, jump = 5))]
+    #[pyo3(signature = (model = "l2", custom_cost = None, min_size = 2, jump = 5, max_memory_bytes = 536_870_912))]
     fn new(
         py: Python<'_>,
         model: &str,
         custom_cost: Option<Py<PyAny>>,
         min_size: usize,
         jump: usize,
+        max_memory_bytes: usize,
     ) -> PyResult<Self> {
         catch_panic("constructing Dynp", || {
             validate_min_size(min_size)?;
@@ -722,7 +733,7 @@ impl PyDynp {
             Ok(Self {
                 model,
                 spec,
-                detector: RustDynp::new(min_size, jump)?,
+                detector: RustDynp::with_memory_limit(min_size, jump, max_memory_bytes)?,
                 cost: None,
                 custom_source: custom_cost,
                 custom_cost: None,
@@ -755,6 +766,14 @@ impl PyDynp {
 
     fn predict(&self, py: Python<'_>, n_bkps: usize) -> PyResult<Vec<usize>> {
         catch_panic("predicting with Dynp", || self.predict_inner(py, n_bkps))
+    }
+
+    fn estimated_memory_bytes(&self, n_bkps: usize) -> PyResult<usize> {
+        catch_panic("estimating Dynp prediction memory", || {
+            Ok(self
+                .detector
+                .estimated_memory_bytes(self.fitted_n_samples()?, n_bkps)?)
+        })
     }
 
     fn fit_predict(
@@ -800,6 +819,13 @@ impl PyDynp {
     }
 
     #[getter]
+    fn max_memory_bytes(&self) -> PyResult<usize> {
+        catch_panic("reading Dynp.max_memory_bytes", || {
+            Ok(self.detector.max_memory_bytes())
+        })
+    }
+
+    #[getter]
     fn is_fitted(&self) -> PyResult<bool> {
         catch_panic("reading Dynp.is_fitted", || {
             Ok(self.cost.is_some() || self.custom_cost.is_some())
@@ -826,10 +852,11 @@ impl PyDynp {
     fn __repr__(&self) -> PyResult<String> {
         catch_panic("formatting Dynp", || {
             Ok(format!(
-                "Dynp(model={:?}, min_size={}, jump={}, custom_cost={})",
+                "Dynp(model={:?}, min_size={}, jump={}, max_memory_bytes={}, custom_cost={})",
                 self.model,
                 self.detector.grid().min_size,
                 self.detector.grid().jump,
+                self.detector.max_memory_bytes(),
                 self.custom_source.is_some()
             ))
         })

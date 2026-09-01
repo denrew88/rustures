@@ -1,0 +1,306 @@
+{
+  "seed": 20260831,
+  "costs": {
+    "l1": [
+      {
+        "segment": [
+          0,
+          12
+        ],
+        "reference": 11.447355603974705,
+        "rustures": 11.447355603974707,
+        "absolute_error": 1.7763568394002505e-15
+      },
+      {
+        "segment": [
+          6,
+          24
+        ],
+        "reference": 47.953592177513414,
+        "rustures": 47.953592177513414,
+        "absolute_error": 0.0
+      },
+      {
+        "segment": [
+          12,
+          36
+        ],
+        "reference": 106.53567764709908,
+        "rustures": 106.53567764709908,
+        "absolute_error": 0.0
+      }
+    ],
+    "rank": [
+      {
+        "segment": [
+          0,
+          12
+        ],
+        "reference": -0.2058541001613824,
+        "rustures": -0.2058541001613823,
+        "absolute_error": 8.326672684688674e-17
+      },
+      {
+        "segment": [
+          6,
+          24
+        ],
+        "reference": -10.421103439739722,
+        "rustures": -10.421103439739719,
+        "absolute_error": 3.552713678800501e-15
+      },
+      {
+        "segment": [
+          12,
+          36
+        ],
+        "reference": -0.1029270500806912,
+        "rustures": -0.10292705008069115,
+        "absolute_error": 4.163336342344337e-17
+      }
+    ],
+    "normal": [
+      {
+        "segment": [
+          0,
+          12
+        ],
+        "reference": -22.175815409946885,
+        "rustures": -22.175815409946885,
+        "absolute_error": 0.0
+      },
+      {
+        "segment": [
+          6,
+          24
+        ],
+        "reference": 24.964996522830905,
+        "rustures": 24.964996522830905,
+        "absolute_error": 0.0
+      },
+      {
+        "segment": [
+          12,
+          36
+        ],
+        "reference": 61.76825396176753,
+        "rustures": 61.76825396176751,
+        "absolute_error": 1.4210854715202004e-14
+      }
+    ],
+    "linear": [
+      {
+        "segment": [
+          0,
+          12
+        ],
+        "reference": 0.020031632948514334,
+        "rustures": 0.02003163294851427,
+        "absolute_error": 6.245004513516506e-17
+      },
+      {
+        "segment": [
+          6,
+          24
+        ],
+        "reference": 0.021818983933547857,
+        "rustures": 0.021818983933547656,
+        "absolute_error": 2.0122792321330962e-16
+      },
+      {
+        "segment": [
+          12,
+          36
+        ],
+        "reference": 0.049727408487388526,
+        "rustures": 0.04972740848738853,
+        "absolute_error": 6.938893903907228e-18
+      }
+    ],
+    "ar": [
+      {
+        "segment": [
+          0,
+          12
+        ],
+        "reference": 1.6883979657115842,
+        "rustures": 1.6340196463894572,
+        "absolute_error": 0.054378319322127
+      },
+      {
+        "segment": [
+          6,
+          24
+        ],
+        "reference": 36.108424334961185,
+        "rustures": 36.108424334961185,
+        "absolute_error": 0.0
+      },
+      {
+        "segment": [
+          12,
+          36
+        ],
+        "reference": 87.8652640501714,
+        "rustures": 87.86526405017143,
+        "absolute_error": 2.842170943040401e-14
+      }
+    ],
+    "clinear": [
+      {
+        "segment": [
+          0,
+          12
+        ],
+        "reference": 2.4752204320118842,
+        "rustures": 2.4752204320118842,
+        "absolute_error": 0.0
+      },
+      {
+        "segment": [
+          6,
+          24
+        ],
+        "reference": 72.29694681588921,
+        "rustures": 72.29694681588921,
+        "absolute_error": 0.0
+      },
+      {
+        "segment": [
+          12,
+          36
+        ],
+        "reference": 448.88147452611713,
+        "rustures": 448.88147452611724,
+        "absolute_error": 1.1368683772161603e-13
+      }
+    ],
+    "mahalanobis": [
+      {
+        "segment": [
+          0,
+          12
+        ],
+        "reference": 12.220751467378975,
+        "rustures": 12.220751467378976,
+        "absolute_error": 1.7763568394002505e-15
+      },
+      {
+        "segment": [
+          6,
+          24
+        ],
+        "reference": 253.14364817577643,
+        "rustures": 253.14364817577652,
+        "absolute_error": 8.526512829121202e-14
+      },
+      {
+        "segment": [
+          12,
+          36
+        ],
+        "reference": 689.8618247908009,
+        "rustures": 689.8618247908006,
+        "absolute_error": 3.410605131648481e-13
+      }
+    ]
+  },
+  "dynp": {
+    "l1": {
+      "reference": [
+        12,
+        24,
+        36
+      ],
+      "rustures": [
+        12,
+        24,
+        36
+      ]
+    },
+    "rank": {
+      "reference": [
+        12,
+        24,
+        36
+      ],
+      "rustures": [
+        12,
+        24,
+        36
+      ]
+    },
+    "normal": {
+      "reference": [
+        12,
+        24,
+        36
+      ],
+      "rustures": [
+        12,
+        24,
+        36
+      ]
+    },
+    "linear": {
+      "reference": [
+        25,
+        29,
+        36
+      ],
+      "rustures": [
+        25,
+        29,
+        36
+      ]
+    },
+    "ar": {
+      "reference": [
+        12,
+        24,
+        36
+      ],
+      "rustures": [
+        12,
+        24,
+        36
+      ]
+    },
+    "clinear": {
+      "reference": [
+        23,
+        26,
+        36
+      ],
+      "rustures": [
+        23,
+        26,
+        36
+      ]
+    },
+    "mahalanobis": {
+      "reference": [
+        12,
+        24,
+        36
+      ],
+      "rustures": [
+        12,
+        24,
+        36
+      ]
+    }
+  },
+  "l1_potts": {
+    "rustures": [
+      3,
+      6,
+      8
+    ],
+    "reference": [
+      3,
+      6,
+      8
+    ]
+  }
+}

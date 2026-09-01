@@ -11,7 +11,9 @@ impl From<Error> for PyErr {
         let message = value.to_string();
         match value {
             Error::NotFitted { .. } => PyRuntimeError::new_err(message),
-            Error::GramMemoryLimit { .. } => PyMemoryError::new_err(message),
+            Error::GramMemoryLimit { .. }
+            | Error::DynpMemoryLimit { .. }
+            | Error::AllocationFailure { .. } => PyMemoryError::new_err(message),
             Error::NumericalFailure { .. } | Error::NonFiniteObjective { .. } => {
                 RusturesError::new_err(message)
             }

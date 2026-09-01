@@ -104,6 +104,15 @@ pub enum Error {
     #[error("Gram prefix requires {requested} bytes, above configured limit {maximum}")]
     GramMemoryLimit { requested: usize, maximum: usize },
 
+    #[error("Dynp prediction requires {requested} bytes, above configured limit {maximum}")]
+    DynpMemoryLimit { requested: usize, maximum: usize },
+
+    #[error("memory limit must be positive, got {value}")]
+    InvalidMemoryLimit { value: usize },
+
+    #[error("memory allocation failed while {context}")]
+    AllocationFailure { context: &'static str },
+
     #[error("unsupported model {model:?}; supported models: l2, l1, rank, normal, linear, ar, clinear, mahalanobis")]
     UnsupportedModel { model: String },
 

@@ -294,6 +294,27 @@ class WheelSmokeTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "cannot segment"):
             rustures.Dynp(min_size=2, jump=1).fit(np.zeros(5)).predict(2)
 
+    def test_dynp_memory_estimate_limit_and_process_survival(self) -> None:
+        with self.assertRaisesRegex(ValueError, "memory limit must be positive"):
+            rustures.Dynp(max_memory_bytes=0)
+
+        detector = rustures.Dynp(min_size=1, jump=1, max_memory_bytes=1_000)
+        self.assertEqual(detector.max_memory_bytes, 1_000)
+        with self.assertRaisesRegex(RuntimeError, "must be fitted"):
+            detector.estimated_memory_bytes(n_bkps=1)
+
+        detector.fit(np.arange(20.0))
+        self.assertEqual(detector.estimated_memory_bytes(n_bkps=0), 0)
+        self.assertEqual(detector.estimated_memory_bytes(n_bkps=1), 1_140)
+        with self.assertRaisesRegex(
+            MemoryError,
+            r"requires 1140 bytes, above configured limit 1000",
+        ):
+            detector.predict(n_bkps=1)
+
+        # A rejected allocation must not poison or terminate the interpreter.
+        self.assertEqual(rustures.CostL2().fit(np.arange(4.0)).error(0, 4), 5.0)
+
     def test_pelt_fit_predict_and_grid_behavior(self) -> None:
         signal = np.array([0.0, 0.0, 0.0, 9.0, 9.0, 9.0, 9.0])
         detector = rustures.Pelt(model="l2", min_size=1, jump=1)

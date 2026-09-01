@@ -4,7 +4,7 @@ use nalgebra::DMatrix;
 
 use crate::{validate_segment, Error, SegmentCost, SignalShape, SignalView};
 
-const FAST_PATH_DIAGONAL_RATIO: f64 = 1.0e-6;
+const FAST_PATH_DIAGONAL_RATIO: f64 = 1.0e-4;
 const FAST_PATH_CANCELLATION_RATIO: f64 = 1.0e-10;
 
 pub(super) fn least_squares_residual(

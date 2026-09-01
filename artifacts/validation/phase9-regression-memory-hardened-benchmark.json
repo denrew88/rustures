@@ -1,0 +1,576 @@
+{
+  "seed_base": 20260831,
+  "timing_scope": "fresh Dynp.fit_predict, median of 5, alternating order",
+  "min_size": 5,
+  "jump": 5,
+  "k_definition": "requested number of change points",
+  "rows": [
+    {
+      "model": "l1",
+      "array_len": 100,
+      "changes_k": 1,
+      "rustures_seconds": 0.0002756000030785799,
+      "ruptures_seconds": 0.0018068000208586454,
+      "speedup": 6.55587808663226,
+      "breakpoints_match": true
+    },
+    {
+      "model": "l1",
+      "array_len": 100,
+      "changes_k": 4,
+      "rustures_seconds": 0.0002804999239742756,
+      "ruptures_seconds": 0.00971490005031228,
+      "speedup": 34.6342341654368,
+      "breakpoints_match": true
+    },
+    {
+      "model": "l1",
+      "array_len": 100,
+      "changes_k": 8,
+      "rustures_seconds": 0.00028009992092847824,
+      "ruptures_seconds": 0.009483099915087223,
+      "speedup": 33.8561320676298,
+      "breakpoints_match": true
+    },
+    {
+      "model": "l1",
+      "array_len": 200,
+      "changes_k": 1,
+      "rustures_seconds": 0.0017987999599426985,
+      "ruptures_seconds": 0.003683599876239896,
+      "speedup": 2.0478096276793547,
+      "breakpoints_match": true
+    },
+    {
+      "model": "l1",
+      "array_len": 200,
+      "changes_k": 4,
+      "rustures_seconds": 0.0017188000492751598,
+      "ruptures_seconds": 0.039837999967858195,
+      "speedup": 23.177797780875323,
+      "breakpoints_match": true
+    },
+    {
+      "model": "l1",
+      "array_len": 200,
+      "changes_k": 8,
+      "rustures_seconds": 0.0015964999329298735,
+      "ruptures_seconds": 0.03955410001799464,
+      "speedup": 24.77550997788364,
+      "breakpoints_match": true
+    },
+    {
+      "model": "l1",
+      "array_len": 400,
+      "changes_k": 1,
+      "rustures_seconds": 0.016621399903669953,
+      "ruptures_seconds": 0.009337499970570207,
+      "speedup": 0.5617757845119,
+      "breakpoints_match": true
+    },
+    {
+      "model": "l1",
+      "array_len": 400,
+      "changes_k": 4,
+      "rustures_seconds": 0.014340899884700775,
+      "ruptures_seconds": 0.1892560999840498,
+      "speedup": 13.196947297983222,
+      "breakpoints_match": true
+    },
+    {
+      "model": "l1",
+      "array_len": 400,
+      "changes_k": 8,
+      "rustures_seconds": 0.014666099799796939,
+      "ruptures_seconds": 0.22562280017882586,
+      "speedup": 15.383967330015697,
+      "breakpoints_match": true
+    },
+    {
+      "model": "rank",
+      "array_len": 100,
+      "changes_k": 1,
+      "rustures_seconds": 9.17001161724329e-05,
+      "ruptures_seconds": 0.0018076000269502401,
+      "speedup": 19.7120800103593,
+      "breakpoints_match": true
+    },
+    {
+      "model": "rank",
+      "array_len": 100,
+      "changes_k": 4,
+      "rustures_seconds": 0.00010109995491802692,
+      "ruptures_seconds": 0.008840000024065375,
+      "speedup": 87.43821924780238,
+      "breakpoints_match": true
+    },
+    {
+      "model": "rank",
+      "array_len": 100,
+      "changes_k": 8,
+      "rustures_seconds": 0.00010879989713430405,
+      "ruptures_seconds": 0.010225499980151653,
+      "speedup": 93.98446367581727,
+      "breakpoints_match": true
+    },
+    {
+      "model": "rank",
+      "array_len": 200,
+      "changes_k": 1,
+      "rustures_seconds": 0.00018880004063248634,
+      "ruptures_seconds": 0.002822199836373329,
+      "speedup": 14.948089136627656,
+      "breakpoints_match": true
+    },
+    {
+      "model": "rank",
+      "array_len": 200,
+      "changes_k": 4,
+      "rustures_seconds": 0.00019299983978271484,
+      "ruptures_seconds": 0.029892999911680818,
+      "speedup": 154.88613848247374,
+      "breakpoints_match": true
+    },
+    {
+      "model": "rank",
+      "array_len": 200,
+      "changes_k": 8,
+      "rustures_seconds": 0.00025109993293881416,
+      "ruptures_seconds": 0.0562948000151664,
+      "speedup": 224.19281182716932,
+      "breakpoints_match": true
+    },
+    {
+      "model": "rank",
+      "array_len": 400,
+      "changes_k": 1,
+      "rustures_seconds": 0.0006327000446617603,
+      "ruptures_seconds": 0.006261399947106838,
+      "speedup": 9.896316587829807,
+      "breakpoints_match": true
+    },
+    {
+      "model": "rank",
+      "array_len": 400,
+      "changes_k": 4,
+      "rustures_seconds": 0.000742100179195404,
+      "ruptures_seconds": 0.14456379995681345,
+      "speedup": 194.80361817666136,
+      "breakpoints_match": true
+    },
+    {
+      "model": "rank",
+      "array_len": 400,
+      "changes_k": 8,
+      "rustures_seconds": 0.000727799953892827,
+      "ruptures_seconds": 0.21196570014581084,
+      "speedup": 291.24170592764847,
+      "breakpoints_match": true
+    },
+    {
+      "model": "normal",
+      "array_len": 100,
+      "changes_k": 1,
+      "rustures_seconds": 0.00013449997641146183,
+      "ruptures_seconds": 0.0021782999392598867,
+      "speedup": 16.1955414222233,
+      "breakpoints_match": true
+    },
+    {
+      "model": "normal",
+      "array_len": 100,
+      "changes_k": 4,
+      "rustures_seconds": 0.00014030002057552338,
+      "ruptures_seconds": 0.012307500001043081,
+      "speedup": 87.72272413472645,
+      "breakpoints_match": true
+    },
+    {
+      "model": "normal",
+      "array_len": 100,
+      "changes_k": 8,
+      "rustures_seconds": 0.00014570006169378757,
+      "ruptures_seconds": 0.016503499820828438,
+      "speedup": 113.2703694766666,
+      "breakpoints_match": true
+    },
+    {
+      "model": "normal",
+      "array_len": 200,
+      "changes_k": 1,
+      "rustures_seconds": 0.0005278999451547861,
+      "ruptures_seconds": 0.0068252000492066145,
+      "speedup": 12.928965255348512,
+      "breakpoints_match": true
+    },
+    {
+      "model": "normal",
+      "array_len": 200,
+      "changes_k": 4,
+      "rustures_seconds": 0.00038510002195835114,
+      "ruptures_seconds": 0.05211559985764325,
+      "speedup": 135.3300360582155,
+      "breakpoints_match": true
+    },
+    {
+      "model": "normal",
+      "array_len": 200,
+      "changes_k": 8,
+      "rustures_seconds": 0.0003830001223832369,
+      "ruptures_seconds": 0.06338069983758032,
+      "speedup": 165.48480309403254,
+      "breakpoints_match": true
+    },
+    {
+      "model": "normal",
+      "array_len": 400,
+      "changes_k": 1,
+      "rustures_seconds": 0.0012095998972654343,
+      "ruptures_seconds": 0.009035499999299645,
+      "speedup": 7.469825369303002,
+      "breakpoints_match": true
+    },
+    {
+      "model": "normal",
+      "array_len": 400,
+      "changes_k": 4,
+      "rustures_seconds": 0.0012855001259595156,
+      "ruptures_seconds": 0.2171807000413537,
+      "speedup": 168.94646344686038,
+      "breakpoints_match": true
+    },
+    {
+      "model": "normal",
+      "array_len": 400,
+      "changes_k": 8,
+      "rustures_seconds": 0.001319000031799078,
+      "ruptures_seconds": 0.23814240004867315,
+      "speedup": 180.54768332632545,
+      "breakpoints_match": true
+    },
+    {
+      "model": "linear",
+      "array_len": 100,
+      "changes_k": 1,
+      "rustures_seconds": 0.0001620999537408352,
+      "ruptures_seconds": 0.000998100033029914,
+      "speedup": 6.157312263183447,
+      "breakpoints_match": true
+    },
+    {
+      "model": "linear",
+      "array_len": 100,
+      "changes_k": 4,
+      "rustures_seconds": 0.00017699995078146458,
+      "ruptures_seconds": 0.005631400039419532,
+      "speedup": 31.815828278802275,
+      "breakpoints_match": true
+    },
+    {
+      "model": "linear",
+      "array_len": 100,
+      "changes_k": 8,
+      "rustures_seconds": 0.00018789991736412048,
+      "ruptures_seconds": 0.008764800149947405,
+      "speedup": 46.6461096572097,
+      "breakpoints_match": true
+    },
+    {
+      "model": "linear",
+      "array_len": 200,
+      "changes_k": 1,
+      "rustures_seconds": 0.0005672001279890537,
+      "ruptures_seconds": 0.0022600002121180296,
+      "speedup": 3.984484665281396,
+      "breakpoints_match": true
+    },
+    {
+      "model": "linear",
+      "array_len": 200,
+      "changes_k": 4,
+      "rustures_seconds": 0.0007356000132858753,
+      "ruptures_seconds": 0.027032099897041917,
+      "speedup": 36.748367874942474,
+      "breakpoints_match": true
+    },
+    {
+      "model": "linear",
+      "array_len": 200,
+      "changes_k": 8,
+      "rustures_seconds": 0.0006061000749468803,
+      "ruptures_seconds": 0.030767699936404824,
+      "speedup": 50.76339899661183,
+      "breakpoints_match": true
+    },
+    {
+      "model": "linear",
+      "array_len": 400,
+      "changes_k": 1,
+      "rustures_seconds": 0.002041000174358487,
+      "ruptures_seconds": 0.004853000165894628,
+      "speedup": 2.3777558801140173,
+      "breakpoints_match": true
+    },
+    {
+      "model": "linear",
+      "array_len": 400,
+      "changes_k": 4,
+      "rustures_seconds": 0.0017903998959809542,
+      "ruptures_seconds": 0.09969070018269122,
+      "speedup": 55.68068921723826,
+      "breakpoints_match": true
+    },
+    {
+      "model": "linear",
+      "array_len": 400,
+      "changes_k": 8,
+      "rustures_seconds": 0.0021730998996645212,
+      "ruptures_seconds": 0.1283985001500696,
+      "speedup": 59.085410739695625,
+      "breakpoints_match": true
+    },
+    {
+      "model": "ar",
+      "array_len": 100,
+      "changes_k": 1,
+      "rustures_seconds": 0.0004298998974263668,
+      "ruptures_seconds": 0.001884200144559145,
+      "speedup": 4.3828811214868235,
+      "breakpoints_match": true
+    },
+    {
+      "model": "ar",
+      "array_len": 100,
+      "changes_k": 4,
+      "rustures_seconds": 0.0004257999826222658,
+      "ruptures_seconds": 0.00858040014281869,
+      "speedup": 20.151245873653554,
+      "breakpoints_match": true
+    },
+    {
+      "model": "ar",
+      "array_len": 100,
+      "changes_k": 8,
+      "rustures_seconds": 0.0004545999690890312,
+      "ruptures_seconds": 0.008428400149568915,
+      "speedup": 18.540256759054582,
+      "breakpoints_match": false
+    },
+    {
+      "model": "ar",
+      "array_len": 200,
+      "changes_k": 1,
+      "rustures_seconds": 0.0013577002100646496,
+      "ruptures_seconds": 0.0036446000449359417,
+      "speedup": 2.6843923407527477,
+      "breakpoints_match": true
+    },
+    {
+      "model": "ar",
+      "array_len": 200,
+      "changes_k": 4,
+      "rustures_seconds": 0.0013109000865370035,
+      "ruptures_seconds": 0.04055309994146228,
+      "speedup": 30.935309531171935,
+      "breakpoints_match": true
+    },
+    {
+      "model": "ar",
+      "array_len": 200,
+      "changes_k": 8,
+      "rustures_seconds": 0.0014629000797867775,
+      "ruptures_seconds": 0.051446600118651986,
+      "speedup": 35.16754208267628,
+      "breakpoints_match": true
+    },
+    {
+      "model": "ar",
+      "array_len": 400,
+      "changes_k": 1,
+      "rustures_seconds": 0.005068500060588121,
+      "ruptures_seconds": 0.010050800163298845,
+      "speedup": 1.9829930044693744,
+      "breakpoints_match": true
+    },
+    {
+      "model": "ar",
+      "array_len": 400,
+      "changes_k": 4,
+      "rustures_seconds": 0.004082300001755357,
+      "ruptures_seconds": 0.13900880003347993,
+      "speedup": 34.051588558828904,
+      "breakpoints_match": true
+    },
+    {
+      "model": "ar",
+      "array_len": 400,
+      "changes_k": 8,
+      "rustures_seconds": 0.004537200089544058,
+      "ruptures_seconds": 0.20450900006107986,
+      "speedup": 45.07383320660009,
+      "breakpoints_match": true
+    },
+    {
+      "model": "clinear",
+      "array_len": 100,
+      "changes_k": 1,
+      "rustures_seconds": 8.499994874000549e-05,
+      "ruptures_seconds": 0.0011477998923510313,
+      "speedup": 13.503536288732086,
+      "breakpoints_match": true
+    },
+    {
+      "model": "clinear",
+      "array_len": 100,
+      "changes_k": 4,
+      "rustures_seconds": 6.989995017647743e-05,
+      "ruptures_seconds": 0.005892700050026178,
+      "speedup": 84.30192060436083,
+      "breakpoints_match": true
+    },
+    {
+      "model": "clinear",
+      "array_len": 100,
+      "changes_k": 8,
+      "rustures_seconds": 7.589999586343765e-05,
+      "ruptures_seconds": 0.0056056000757962465,
+      "speedup": 73.85507748751488,
+      "breakpoints_match": true
+    },
+    {
+      "model": "clinear",
+      "array_len": 200,
+      "changes_k": 1,
+      "rustures_seconds": 0.0001976999919861555,
+      "ruptures_seconds": 0.0018327999860048294,
+      "speedup": 9.270612343439934,
+      "breakpoints_match": true
+    },
+    {
+      "model": "clinear",
+      "array_len": 200,
+      "changes_k": 4,
+      "rustures_seconds": 0.0002764998935163021,
+      "ruptures_seconds": 0.027584399795159698,
+      "speedup": 99.7627863228575,
+      "breakpoints_match": true
+    },
+    {
+      "model": "clinear",
+      "array_len": 200,
+      "changes_k": 8,
+      "rustures_seconds": 0.0002569998614490032,
+      "ruptures_seconds": 0.03392259986139834,
+      "speedup": 131.99462314935778,
+      "breakpoints_match": true
+    },
+    {
+      "model": "clinear",
+      "array_len": 400,
+      "changes_k": 1,
+      "rustures_seconds": 0.0012482998427003622,
+      "ruptures_seconds": 0.004921599989756942,
+      "speedup": 3.9426424817216823,
+      "breakpoints_match": true
+    },
+    {
+      "model": "clinear",
+      "array_len": 400,
+      "changes_k": 4,
+      "rustures_seconds": 0.0012805999722331762,
+      "ruptures_seconds": 0.10357509995810688,
+      "speedup": 80.88013603302464,
+      "breakpoints_match": true
+    },
+    {
+      "model": "clinear",
+      "array_len": 400,
+      "changes_k": 8,
+      "rustures_seconds": 0.0012533999979496002,
+      "ruptures_seconds": 0.12779499986208975,
+      "speedup": 101.9586724678042,
+      "breakpoints_match": true
+    },
+    {
+      "model": "mahalanobis",
+      "array_len": 100,
+      "changes_k": 1,
+      "rustures_seconds": 0.00010249996557831764,
+      "ruptures_seconds": 0.0008056999649852514,
+      "speedup": 7.860490102990682,
+      "breakpoints_match": true
+    },
+    {
+      "model": "mahalanobis",
+      "array_len": 100,
+      "changes_k": 4,
+      "rustures_seconds": 0.0001262999139726162,
+      "ruptures_seconds": 0.004318200051784515,
+      "speedup": 34.19004745102811,
+      "breakpoints_match": true
+    },
+    {
+      "model": "mahalanobis",
+      "array_len": 100,
+      "changes_k": 8,
+      "rustures_seconds": 0.00012569990940392017,
+      "ruptures_seconds": 0.004307599971070886,
+      "speedup": 34.26891866110244,
+      "breakpoints_match": true
+    },
+    {
+      "model": "mahalanobis",
+      "array_len": 200,
+      "changes_k": 1,
+      "rustures_seconds": 0.0003082999028265476,
+      "ruptures_seconds": 0.0022424000781029463,
+      "speedup": 7.27343751180013,
+      "breakpoints_match": true
+    },
+    {
+      "model": "mahalanobis",
+      "array_len": 200,
+      "changes_k": 4,
+      "rustures_seconds": 0.00031450018286705017,
+      "ruptures_seconds": 0.01994639984332025,
+      "speedup": 63.42253814126482,
+      "breakpoints_match": true
+    },
+    {
+      "model": "mahalanobis",
+      "array_len": 200,
+      "changes_k": 8,
+      "rustures_seconds": 0.0005105999298393726,
+      "ruptures_seconds": 0.024858999997377396,
+      "speedup": 48.68586645751729,
+      "breakpoints_match": true
+    },
+    {
+      "model": "mahalanobis",
+      "array_len": 400,
+      "changes_k": 1,
+      "rustures_seconds": 0.0007416000589728355,
+      "ruptures_seconds": 0.010061200009658933,
+      "speedup": 13.566881350568325,
+      "breakpoints_match": true
+    },
+    {
+      "model": "mahalanobis",
+      "array_len": 400,
+      "changes_k": 4,
+      "rustures_seconds": 0.0008992999792098999,
+      "ruptures_seconds": 0.12792359990999103,
+      "speedup": 142.24797383224802,
+      "breakpoints_match": true
+    },
+    {
+      "model": "mahalanobis",
+      "array_len": 400,
+      "changes_k": 8,
+      "rustures_seconds": 0.001179700018838048,
+      "ruptures_seconds": 0.1731503999326378,
+      "speedup": 146.77494038118542,
+      "breakpoints_match": true
+    }
+  ]
+}

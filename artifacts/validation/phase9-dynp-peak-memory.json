@@ -1,0 +1,57 @@
+{
+  "method": "isolated child process; custom batch cost aborts after Dynp state allocation",
+  "platform": "win32",
+  "python": "3.11.14 | packaged by Anaconda, Inc. | (main, Oct 21 2025, 18:30:03) [MSC v.1929 64 bit (AMD64)]",
+  "rows": [
+    {
+      "n_samples": 50000,
+      "changes_k": 1,
+      "estimated_bytes": 2600100,
+      "rss_before_bytes": 37728256,
+      "peak_before_bytes": 37728256,
+      "peak_after_bytes": 39964672,
+      "peak_delta_bytes": 2236416,
+      "delta_over_estimate": 0.8601269181954541
+    },
+    {
+      "n_samples": 50000,
+      "changes_k": 8,
+      "estimated_bytes": 6800352,
+      "rss_before_bytes": 37482496,
+      "peak_before_bytes": 37482496,
+      "peak_after_bytes": 43925504,
+      "peak_delta_bytes": 6443008,
+      "delta_over_estimate": 0.9474521318896434
+    },
+    {
+      "n_samples": 50000,
+      "changes_k": 32,
+      "estimated_bytes": 21201216,
+      "rss_before_bytes": 37552128,
+      "peak_before_bytes": 37552128,
+      "peak_after_bytes": 58396672,
+      "peak_delta_bytes": 20844544,
+      "delta_over_estimate": 0.9831768140091587
+    },
+    {
+      "n_samples": 50000,
+      "changes_k": 64,
+      "estimated_bytes": 40402368,
+      "rss_before_bytes": 37638144,
+      "peak_before_bytes": 37638144,
+      "peak_after_bytes": 77680640,
+      "peak_delta_bytes": 40042496,
+      "delta_over_estimate": 0.9910927993131492
+    },
+    {
+      "n_samples": 200000,
+      "changes_k": 64,
+      "estimated_bytes": 161602368,
+      "rss_before_bytes": 38903808,
+      "peak_before_bytes": 38903808,
+      "peak_after_bytes": 198942720,
+      "peak_delta_bytes": 160038912,
+      "delta_over_estimate": 0.9903252902828751
+    }
+  ]
+}
