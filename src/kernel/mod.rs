@@ -21,6 +21,26 @@ impl Kernel for LinearKernel {
     }
 }
 
+fn centered_linear_values(signal: SignalView<'_>) -> Result<Vec<f64>, Error> {
+    let shape = signal.shape();
+    let reference = signal.row(0).ok_or(Error::NumericalFailure {
+        context: "reading the linear kernel centering reference",
+    })?;
+    let mut centered = Vec::with_capacity(signal.values().len());
+    for values in signal.values().chunks_exact(shape.n_features) {
+        for (&value, &offset) in values.iter().zip(reference) {
+            let translated = value - offset;
+            if !translated.is_finite() {
+                return Err(Error::NumericalFailure {
+                    context: "centering linear kernel observations",
+                });
+            }
+            centered.push(translated);
+        }
+    }
+    Ok(centered)
+}
+
 #[derive(Clone, Copy, Debug, Default)]
 pub struct CosineKernel;
 
@@ -278,6 +298,9 @@ impl<K: Kernel> SegmentCost for FullGramPrefix<K> {
     fn min_size(&self) -> usize {
         1
     }
+    fn pelt_pruning_constant(&self) -> Option<f64> {
+        Some(0.0)
+    }
     fn cost(&self, segment: Range<usize>) -> Result<f64, Error> {
         validate_segment(segment.clone(), self.n_samples, 1)?;
         let diagonal = self.diagonal_prefix[segment.end] - self.diagonal_prefix[segment.start];
@@ -337,6 +360,9 @@ impl<K: Kernel> SegmentCost for StreamingKernelCost<K> {
     fn min_size(&self) -> usize {
         1
     }
+    fn pelt_pruning_constant(&self) -> Option<f64> {
+        Some(0.0)
+    }
     fn cost(&self, segment: Range<usize>) -> Result<f64, Error> {
         validate_segment(segment.clone(), self.n_samples, 1)?;
         let mut block = 0.0;
@@ -394,7 +420,16 @@ impl FusedKernel {
     ) -> Result<Self, Error> {
         Ok(match kind {
             KernelKind::Linear => {
-                Self::Linear(FusedKernelCPD::fit(signal, LinearKernel, min_size, jump)?)
+                let shape = signal.shape();
+                let centered = centered_linear_values(signal)?;
+                let centered_signal =
+                    SignalView::new(&centered, shape.n_samples, shape.n_features)?;
+                Self::Linear(FusedKernelCPD::fit(
+                    centered_signal,
+                    LinearKernel,
+                    min_size,
+                    jump,
+                )?)
             }
             KernelKind::Rbf(policy) => {
                 let kernel = RbfKernel::new(resolve_gamma(signal, policy)?)?;
@@ -469,10 +504,22 @@ impl KernelCost {
     ) -> Result<Self, Error> {
         Ok(match (kind, backend) {
             (KernelKind::Linear, KernelBackend::FullGram) => {
-                Self::FullLinear(FullGramPrefix::fit(signal, LinearKernel, max_gram_bytes)?)
+                let shape = signal.shape();
+                let centered = centered_linear_values(signal)?;
+                let centered_signal =
+                    SignalView::new(&centered, shape.n_samples, shape.n_features)?;
+                Self::FullLinear(FullGramPrefix::fit(
+                    centered_signal,
+                    LinearKernel,
+                    max_gram_bytes,
+                )?)
             }
             (KernelKind::Linear, KernelBackend::Streaming) => {
-                Self::StreamingLinear(StreamingKernelCost::fit(signal, LinearKernel))
+                let shape = signal.shape();
+                let centered = centered_linear_values(signal)?;
+                let centered_signal =
+                    SignalView::new(&centered, shape.n_samples, shape.n_features)?;
+                Self::StreamingLinear(StreamingKernelCost::fit(centered_signal, LinearKernel))
             }
             (KernelKind::Cosine, KernelBackend::FullGram) => {
                 Self::FullCosine(FullGramPrefix::fit(signal, CosineKernel, max_gram_bytes)?)
@@ -535,6 +582,9 @@ impl SegmentCost for KernelCost {
     fn min_size(&self) -> usize {
         1
     }
+    fn pelt_pruning_constant(&self) -> Option<f64> {
+        Some(0.0)
+    }
     fn cost(&self, segment: Range<usize>) -> Result<f64, Error> {
         match self {
             Self::FullLinear(cost) => cost.cost(segment),
@@ -589,6 +639,7 @@ impl KernelCPD {
 mod tests {
     use super::*;
     use crate::oracle::{best_fixed_changes, best_penalized};
+    use crate::CostL2;
 
     #[test]
     fn full_and_streaming_costs_match_for_all_kernels() {
@@ -660,5 +711,91 @@ mod tests {
         assert!((full_penalty.objective - streaming_penalty.objective).abs() < 1e-10);
         assert!((full_penalty.objective - brute_penalty.1).abs() < 1e-10);
         assert_eq!(streaming.cost().stored_gram_entries(), 0);
+    }
+
+    #[test]
+    fn linear_detectors_are_stable_under_large_feature_translations() {
+        let base = [
+            0.0, 1.0, 0.0, 2.0, 0.0, 1.0, 5.0, -2.0, 5.0, -1.0, 5.0, -2.0, -3.0, 4.0, -3.0, 5.0,
+            -3.0, 4.0,
+        ];
+        let mut translated = base;
+        for row in translated.chunks_exact_mut(2) {
+            row[0] += 1.0e12;
+            row[1] -= 1.0e12;
+        }
+        let base_signal = SignalView::new(&base, 9, 2).unwrap();
+        let translated_signal = SignalView::new(&translated, 9, 2).unwrap();
+
+        let base_fused = FusedKernel::fit(base_signal, KernelKind::Linear, 1, 1).unwrap();
+        let translated_fused =
+            FusedKernel::fit(translated_signal, KernelKind::Linear, 1, 1).unwrap();
+        assert_eq!(
+            base_fused.predict_changes(2).unwrap().breakpoints,
+            translated_fused.predict_changes(2).unwrap().breakpoints
+        );
+        assert_eq!(
+            base_fused.predict_penalty(1.0).unwrap().breakpoints,
+            translated_fused.predict_penalty(1.0).unwrap().breakpoints
+        );
+
+        let l2 = CostL2::fit(translated_signal).unwrap();
+        for backend in [KernelBackend::FullGram, KernelBackend::Streaming] {
+            let base_detector =
+                KernelCPD::fit(base_signal, KernelKind::Linear, backend, 1, 1, usize::MAX).unwrap();
+            let translated_detector = KernelCPD::fit(
+                translated_signal,
+                KernelKind::Linear,
+                backend,
+                1,
+                1,
+                usize::MAX,
+            )
+            .unwrap();
+            assert_eq!(
+                base_detector.predict_changes(2).unwrap().breakpoints,
+                translated_detector.predict_changes(2).unwrap().breakpoints
+            );
+            assert_eq!(
+                base_detector.predict_penalty(1.0).unwrap().breakpoints,
+                translated_detector
+                    .predict_penalty(1.0)
+                    .unwrap()
+                    .breakpoints
+            );
+            for start in 0..9 {
+                for end in start + 1..=9 {
+                    let kernel_cost = translated_detector.cost().cost(start..end).unwrap();
+                    let l2_cost = l2.cost(start..end).unwrap();
+                    assert!(
+                        (kernel_cost - l2_cost).abs() <= 1.0e-12,
+                        "segment {start}..{end}: kernel={kernel_cost}, l2={l2_cost}"
+                    );
+                }
+            }
+        }
+    }
+
+    #[test]
+    fn linear_centering_overflow_is_a_typed_error() {
+        let values = [f64::MAX, -f64::MAX];
+        let signal = SignalView::new(&values, 2, 1).unwrap();
+        assert!(matches!(
+            FusedKernel::fit(signal, KernelKind::Linear, 1, 1),
+            Err(Error::NumericalFailure {
+                context: "centering linear kernel observations"
+            })
+        ));
+        assert!(matches!(
+            KernelCost::fit(
+                signal,
+                KernelKind::Linear,
+                KernelBackend::Streaming,
+                usize::MAX
+            ),
+            Err(Error::NumericalFailure {
+                context: "centering linear kernel observations"
+            })
+        ));
     }
 }

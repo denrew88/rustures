@@ -7,6 +7,88 @@ import numpy as np
 import rustures
 
 
+class ScalarL2CustomCost:
+    min_size = 1
+
+    def __init__(self) -> None:
+        self.signal = None
+        self.fit_calls = 0
+        self.error_calls = 0
+
+    def fit(self, signal):
+        self.signal = np.asarray(signal, dtype=np.float64)
+        if self.signal.ndim == 1:
+            self.signal = self.signal[:, None]
+        self.fit_calls += 1
+        return self
+
+    def error(self, start: int, end: int) -> float:
+        self.error_calls += 1
+        segment = self.signal[start:end]
+        return float(np.square(segment - segment.mean(axis=0)).sum())
+
+
+class BatchL2CustomCost(ScalarL2CustomCost):
+    def __init__(self) -> None:
+        super().__init__()
+        self.batch_calls = 0
+        self.maximum_batch = 0
+
+    def error_many(self, starts, ends):
+        starts = np.asarray(starts)
+        ends = np.asarray(ends)
+        self.batch_calls += 1
+        self.maximum_batch = max(self.maximum_batch, len(starts))
+        return np.asarray(
+            [
+                np.square(
+                    self.signal[start:end]
+                    - self.signal[start:end].mean(axis=0)
+                ).sum()
+                for start, end in zip(starts, ends, strict=True)
+            ],
+            dtype=np.float64,
+        )
+
+
+class BatchBernoulliCustomCost:
+    min_size = 1
+
+    def fit(self, signal):
+        values = np.asarray(signal, dtype=np.float64)
+        if values.ndim == 1:
+            values = values[:, None]
+        if not np.all((values == 0.0) | (values == 1.0)):
+            raise ValueError("Bernoulli observations must be 0 or 1")
+        zeros = np.zeros((1, values.shape[1]), dtype=np.float64)
+        self.ones_prefix = np.vstack((zeros, np.cumsum(values, axis=0)))
+        return self
+
+    @staticmethod
+    def costs(ones, trials):
+        mixed = (ones > 0.0) & (ones < trials)
+        costs = np.zeros_like(ones)
+        probabilities = ones[mixed] / trials[mixed]
+        costs[mixed] = (
+            -ones[mixed] * np.log(probabilities)
+            - (trials[mixed] - ones[mixed]) * np.log1p(-probabilities)
+        )
+        return costs
+
+    def error(self, start: int, end: int) -> float:
+        ones = self.ones_prefix[end] - self.ones_prefix[start]
+        trials = np.full_like(ones, end - start, dtype=np.float64)
+        return float(self.costs(ones, trials).sum())
+
+    def error_many(self, starts, ends):
+        starts = np.asarray(starts)
+        ends = np.asarray(ends)
+        lengths = (ends - starts)[:, None].astype(np.float64)
+        ones = self.ones_prefix[ends] - self.ones_prefix[starts]
+        trials = np.broadcast_to(lengths, ones.shape)
+        return self.costs(ones, trials).sum(axis=1).astype(np.float64, copy=False)
+
+
 class WheelSmokeTests(unittest.TestCase):
     def test_version_is_exported(self) -> None:
         self.assertEqual(rustures.version(), rustures.__version__)
@@ -81,6 +163,86 @@ class WheelSmokeTests(unittest.TestCase):
             cost.sum_of_costs(cost_fixture["breakpoints"]),
             cost_fixture["objective"],
         )
+
+    def test_stage7_cost_classes_and_edge_cases(self) -> None:
+        signal = np.array([[0.0, 0.0], [1.0, 2.0], [8.0, 3.0], [9.0, 5.0]])
+        l1 = rustures.CostL1().fit(signal)
+        direct_l1 = np.abs(signal - np.median(signal, axis=0)).sum()
+        self.assertAlmostEqual(l1.error(0, 4), direct_l1)
+
+        metric = np.diag([2.0, 0.5])
+        ml = rustures.CostMahalanobis(metric).fit(signal)
+        centered = signal - signal.mean(axis=0)
+        self.assertAlmostEqual(ml.error(0, 4), np.einsum("ni,ij,nj->", centered, metric, centered))
+        self.assertIs(rustures.CostMl, rustures.CostMahalanobis)
+        with self.assertRaisesRegex(ValueError, "positive semidefinite"):
+            rustures.CostMahalanobis(np.diag([1.0, -1.0])).fit(signal)
+
+        relation = np.column_stack((2.0 + 3.0 * np.arange(8.0), np.ones(8), np.arange(8.0)))
+        self.assertAlmostEqual(rustures.CostLinear().fit(relation).error(0, 8), 0.0, places=10)
+        straight = np.column_stack((np.arange(8.0), 2.0 * np.arange(8.0)))
+        self.assertAlmostEqual(rustures.CostCLinear().fit(straight).error(0, 8), 0.0, places=10)
+
+        tied = np.array([0.0, 0.0, 1.0, 1.0, 9.0, 9.0, 10.0, 10.0])
+        self.assertTrue(np.isfinite(rustures.CostRank().fit(tied).error(0, 4)))
+        self.assertTrue(np.isfinite(rustures.CostNormal().fit(np.ones(8)).error(0, 8)))
+        with self.assertRaisesRegex(ValueError, "ridge"):
+            rustures.CostNormal(ridge=0.0)
+
+        ar_signal = np.array([1.0, 2.0, 3.5, 5.75, 9.125, 14.1875, 21.78125])
+        ar = rustures.CostAR(order=1).fit(ar_signal)
+        self.assertEqual(ar.min_size, 5)
+        self.assertTrue(np.isfinite(ar.error(0, len(ar_signal))))
+
+    def test_stage7_models_compose_with_search_algorithms(self) -> None:
+        scalar = np.repeat(np.array([0.0, 5.0, -2.0]), 6)
+        x = np.arange(18.0)
+        linear = np.column_stack((np.where(x < 9, x, -x + 18), np.ones_like(x), x))
+        cases = {
+            "l1": (scalar, 2),
+            "rank": (scalar, 2),
+            "normal": (scalar, 2),
+            "linear": (linear, 2),
+            "ar": (scalar, 5),
+            "clinear": (scalar, 3),
+            "mahalanobis": (scalar, 2),
+        }
+        for model, (signal, min_size) in cases.items():
+            detectors = [
+                ("Dynp", rustures.Dynp(model=model, min_size=min_size, jump=1), {"n_bkps": 1}),
+                ("Pelt", rustures.Pelt(model=model, min_size=min_size, jump=1), {"pen": 2.0}),
+                ("Binseg", rustures.Binseg(model=model, min_size=min_size, jump=1), {"n_bkps": 1}),
+                ("BottomUp", rustures.BottomUp(model=model, min_size=min_size, jump=1), {"n_bkps": 1}),
+                (
+                    "Window",
+                    rustures.Window(width=max(6, 2 * min_size), model=model, min_size=min_size, jump=1),
+                    {"n_bkps": 1},
+                ),
+            ]
+            for detector_name, detector, stopping_rule in detectors:
+                with self.subTest(model=model, detector=detector_name):
+                    result = detector.fit(signal).predict(**stopping_rule)
+                    self.assertEqual(result[-1], len(signal))
+
+    def test_l1_potts_weighted_smoke_and_validation(self) -> None:
+        signal = np.array([0.0, 0.0, 1.0, 9.0, 9.0, 10.0])
+        detector = rustures.L1Potts()
+        self.assertEqual(detector.fit_predict(signal, pen=2.0), [3, 6])
+        self.assertTrue(detector.is_fitted)
+        self.assertEqual((detector.n_samples, detector.distinct_levels), (6, 4))
+        self.assertEqual(detector.predict(2.0), [3, 6])
+        self.assertEqual(
+            rustures.L1Potts().fit_predict(signal, pen=2.0, weights=np.zeros(6)),
+            [6],
+        )
+        with self.assertRaisesRegex(ValueError, "weights have length"):
+            rustures.L1Potts().fit(signal, weights=np.ones(5))
+        with self.assertRaisesRegex(ValueError, "finite and nonnegative"):
+            rustures.L1Potts().fit(signal, weights=np.array([1, 1, -1, 1, 1, 1], dtype=float))
+        with self.assertRaisesRegex(ValueError, "scalar signal"):
+            rustures.L1Potts().fit(np.zeros((6, 2)))
+        with self.assertRaisesRegex(ValueError, "non-finite"):
+            rustures.L1Potts().fit(np.array([0.0, np.nan]))
 
     def test_dynp_fit_predict_and_pinned_fixture(self) -> None:
         fixture_directory = (
@@ -182,6 +344,271 @@ class WheelSmokeTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "penalty must be finite and positive"):
             detector.predict(pen=0.0)
 
+    def test_dynp_custom_cost_scalar_matches_native_l2(self) -> None:
+        signal = np.repeat(np.array([0.0, 8.0, -3.0]), 4)
+        custom = ScalarL2CustomCost()
+        detector = rustures.Dynp(
+            custom_cost=custom,
+            min_size=1,
+            jump=1,
+        )
+        self.assertEqual(detector.model, "custom")
+        self.assertTrue(detector.uses_custom_cost)
+        self.assertFalse(detector.uses_batch_callback)
+        self.assertEqual(detector.fit_predict(signal, n_bkps=2), [4, 8, 12])
+        self.assertEqual(custom.fit_calls, 1)
+        self.assertGreater(custom.error_calls, 0)
+        self.assertEqual(
+            detector.predict(n_bkps=2),
+            rustures.Dynp(min_size=1, jump=1).fit_predict(signal, n_bkps=2),
+        )
+        self.assertEqual(custom.fit_calls, 1)
+
+    def test_custom_cost_batch_matches_scalar_for_dynp_and_pelt(self) -> None:
+        signal = np.column_stack(
+            (
+                np.repeat(np.array([0.0, 5.0, -2.0]), 4),
+                np.repeat(np.array([1.0, -3.0, 7.0]), 4),
+            )
+        )
+        for detector_type, predict_argument in [
+            (rustures.Dynp, {"n_bkps": 2}),
+            (rustures.Pelt, {"pen": 1.0}),
+        ]:
+            with self.subTest(detector=detector_type.__name__):
+                scalar = ScalarL2CustomCost()
+                batch = BatchL2CustomCost()
+                scalar_detector = detector_type(
+                    custom_cost=scalar, min_size=1, jump=1
+                )
+                batch_detector = detector_type(
+                    custom_cost=batch, min_size=1, jump=1
+                )
+                expected = scalar_detector.fit_predict(signal, **predict_argument)
+                actual = batch_detector.fit_predict(signal, **predict_argument)
+                self.assertEqual(actual, expected)
+                self.assertTrue(batch_detector.uses_batch_callback)
+                self.assertGreater(batch.batch_calls, 0)
+                self.assertEqual(batch.error_calls, 0)
+                self.assertLessEqual(batch.maximum_batch, len(signal))
+
+    def test_custom_cost_matches_native_l2_across_small_parameter_grid(self) -> None:
+        rng = np.random.default_rng(20260901)
+        for n_samples in [6, 8, 10]:
+            for n_features in [1, 2]:
+                signal = rng.normal(size=(n_samples, n_features))
+                if n_features == 1:
+                    signal = signal[:, 0]
+                for min_size in [1, 2]:
+                    for jump in [1, 2]:
+                        for n_bkps in [0, 1]:
+                            with self.subTest(
+                                detector="Dynp",
+                                n=n_samples,
+                                d=n_features,
+                                min_size=min_size,
+                                jump=jump,
+                                n_bkps=n_bkps,
+                            ):
+                                native = rustures.Dynp(
+                                    min_size=min_size, jump=jump
+                                ).fit(signal)
+                                scalar = rustures.Dynp(
+                                    custom_cost=ScalarL2CustomCost(),
+                                    min_size=min_size,
+                                    jump=jump,
+                                ).fit(signal)
+                                batch = rustures.Dynp(
+                                    custom_cost=BatchL2CustomCost(),
+                                    min_size=min_size,
+                                    jump=jump,
+                                ).fit(signal)
+                                expected = native.predict(n_bkps=n_bkps)
+                                self.assertEqual(
+                                    scalar.predict(n_bkps=n_bkps), expected
+                                )
+                                self.assertEqual(
+                                    batch.predict(n_bkps=n_bkps), expected
+                                )
+
+                        for penalty in [0.25, 2.0, 20.0]:
+                            with self.subTest(
+                                detector="Pelt",
+                                n=n_samples,
+                                d=n_features,
+                                min_size=min_size,
+                                jump=jump,
+                                penalty=penalty,
+                            ):
+                                native = rustures.Pelt(
+                                    min_size=min_size, jump=jump
+                                ).fit(signal)
+                                scalar = rustures.Pelt(
+                                    custom_cost=ScalarL2CustomCost(),
+                                    min_size=min_size,
+                                    jump=jump,
+                                ).fit(signal)
+                                batch = rustures.Pelt(
+                                    custom_cost=BatchL2CustomCost(),
+                                    min_size=min_size,
+                                    jump=jump,
+                                ).fit(signal)
+                                expected = native.predict(pen=penalty)
+                                self.assertEqual(scalar.predict(pen=penalty), expected)
+                                self.assertEqual(batch.predict(pen=penalty), expected)
+
+    def test_custom_cost_min_size_and_protocol_validation(self) -> None:
+        class MinimumThreeCost(ScalarL2CustomCost):
+            min_size = 3
+
+        detector = rustures.Dynp(
+            custom_cost=MinimumThreeCost(), min_size=1, jump=1
+        )
+        self.assertEqual(detector.min_size, 3)
+
+        class MissingMinSize:
+            def fit(self, signal):
+                return self
+
+            def error(self, start, end):
+                return 0.0
+
+        with self.assertRaisesRegex(TypeError, "min_size"):
+            rustures.Dynp(custom_cost=MissingMinSize())
+
+        invalid = ScalarL2CustomCost()
+        invalid.min_size = 0
+        with self.assertRaisesRegex(ValueError, "must be positive"):
+            rustures.Pelt(custom_cost=invalid)
+
+        class MissingError:
+            min_size = 1
+
+            def fit(self, signal):
+                return self
+
+        with self.assertRaisesRegex(TypeError, "error"):
+            rustures.Dynp(custom_cost=MissingError())
+
+        invalid_batch = ScalarL2CustomCost()
+        invalid_batch.error_many = 3
+        with self.assertRaisesRegex(TypeError, "error_many"):
+            rustures.Pelt(custom_cost=invalid_batch).fit(np.arange(6.0))
+
+        self.assertEqual(
+            rustures.Dynp(
+                model="ignored-when-custom",
+                custom_cost=ScalarL2CustomCost(),
+                min_size=1,
+                jump=1,
+            ).model,
+            "custom",
+        )
+
+    def test_custom_cost_preserves_callback_exception_and_traceback(self) -> None:
+        class CustomCostFailure(RuntimeError):
+            pass
+
+        class FailingCost(ScalarL2CustomCost):
+            def error(self, start: int, end: int) -> float:
+                raise CustomCostFailure(f"failed on [{start}, {end})")
+
+        detector = rustures.Dynp(
+            custom_cost=FailingCost(), min_size=1, jump=1
+        ).fit(np.arange(6.0))
+        try:
+            detector.predict(n_bkps=1)
+        except CustomCostFailure as error:
+            self.assertRegex(str(error), "failed on")
+            traceback = error.__traceback__
+        else:
+            self.fail("custom callback exception was not propagated")
+
+        frames = []
+        while traceback is not None:
+            frames.append(traceback.tb_frame.f_code.co_name)
+            traceback = traceback.tb_next
+        self.assertIn("error", frames)
+
+    def test_custom_cost_rejects_invalid_scalar_and_batch_outputs(self) -> None:
+        class NonFiniteCost(ScalarL2CustomCost):
+            def error(self, start: int, end: int) -> float:
+                return np.nan
+
+        with self.assertRaisesRegex(ValueError, "non-finite"):
+            rustures.Dynp(
+                custom_cost=NonFiniteCost(), min_size=1, jump=1
+            ).fit_predict(np.arange(6.0), n_bkps=1)
+
+        class WrongBatchLength(BatchL2CustomCost):
+            def error_many(self, starts, ends):
+                return np.zeros(len(starts) + 1, dtype=np.float64)
+
+        with self.assertRaisesRegex(ValueError, "returned .* values"):
+            rustures.Pelt(
+                custom_cost=WrongBatchLength(), min_size=1, jump=1
+            ).fit_predict(np.arange(6.0), pen=1.0)
+
+        class WrongBatchDtype(BatchL2CustomCost):
+            def error_many(self, starts, ends):
+                return np.zeros(len(starts), dtype=np.float32)
+
+        with self.assertRaisesRegex(TypeError, "float64 NumPy array"):
+            rustures.Dynp(
+                custom_cost=WrongBatchDtype(), min_size=1, jump=1
+            ).fit_predict(np.arange(6.0), n_bkps=1)
+
+    def test_batch_bernoulli_custom_cost_detects_probability_change(self) -> None:
+        signal = np.array([0.0, 0.0, 0.0, 1.0, 1.0, 1.0])
+        dynp = rustures.Dynp(
+            custom_cost=BatchBernoulliCustomCost(), min_size=1, jump=1
+        )
+        self.assertEqual(dynp.fit_predict(signal, n_bkps=1), [3, 6])
+        self.assertTrue(dynp.uses_batch_callback)
+
+        pelt = rustures.Pelt(
+            custom_cost=BatchBernoulliCustomCost(), min_size=1, jump=1
+        )
+        self.assertEqual(pelt.fit_predict(signal, pen=1.0), [3, 6])
+
+    def test_custom_pelt_is_exact_for_an_arbitrary_additive_cost(self) -> None:
+        class TableCost:
+            min_size = 1
+
+            def fit(self, signal):
+                self.n_samples = len(signal)
+                return self
+
+            def error(self, start: int, end: int) -> float:
+                return float(
+                    ((7 * start + 11 * end + 3 * (end - start) ** 2) % 19) - 9
+                )
+
+        n_samples = 7
+        penalty = 2.5
+        cost = TableCost().fit(np.zeros(n_samples))
+        candidates = []
+        for mask in range(1 << (n_samples - 1)):
+            breakpoints = [
+                position
+                for position in range(1, n_samples)
+                if mask & (1 << (position - 1))
+            ]
+            breakpoints.append(n_samples)
+            start = 0
+            raw_cost = 0.0
+            for end in breakpoints:
+                raw_cost += cost.error(start, end)
+                start = end
+            objective = raw_cost + penalty * (len(breakpoints) - 1)
+            candidates.append((objective, breakpoints))
+        expected = min(candidates)[1]
+
+        actual = rustures.Pelt(
+            custom_cost=TableCost(), min_size=1, jump=1
+        ).fit_predict(np.zeros(n_samples), pen=penalty)
+        self.assertEqual(actual, expected)
+
     def test_greedy_detectors_and_stopping_rules(self) -> None:
         signal = np.repeat(np.array([0.0, 8.0, -5.0, 4.0]), 5)
         expected = [5, 10, 15, 20]
@@ -269,6 +696,43 @@ class WheelSmokeTests(unittest.TestCase):
                 self.assertEqual(fused.predict(pen=1.0), full.predict(pen=1.0))
                 self.assertEqual(fused.stored_gram_entries, 0)
                 self.assertEqual(fused.backend, "fused")
+
+    def test_linear_kernel_is_stable_under_large_feature_translations(self) -> None:
+        signal = np.array(
+            [
+                [0.0, 1.0],
+                [0.0, 2.0],
+                [0.0, 1.0],
+                [5.0, -2.0],
+                [5.0, -1.0],
+                [5.0, -2.0],
+                [-3.0, 4.0],
+                [-3.0, 5.0],
+                [-3.0, 4.0],
+            ]
+        )
+        translated = signal + np.array([1.0e12, -1.0e12])
+        for backend in ["fused", "full", "streaming"]:
+            with self.subTest(backend=backend):
+                base = rustures.KernelCPD(
+                    kernel="linear", min_size=1, jump=1, backend=backend
+                ).fit(signal)
+                shifted = rustures.KernelCPD(
+                    kernel="linear", min_size=1, jump=1, backend=backend
+                ).fit(translated)
+                self.assertEqual(base.predict(n_bkps=2), [3, 6, 9])
+                self.assertEqual(shifted.predict(n_bkps=2), [3, 6, 9])
+                self.assertEqual(shifted.predict(pen=1.0), base.predict(pen=1.0))
+
+        extreme = np.array([np.finfo(np.float64).max, -np.finfo(np.float64).max])
+        with self.assertRaisesRegex(rustures.RusturesError, "centering linear kernel"):
+            rustures.KernelCPD(kernel="linear", backend="fused").fit(extreme)
+        self.assertEqual(
+            rustures.KernelCPD(kernel="linear", min_size=1)
+            .fit(signal)
+            .predict(n_bkps=2),
+            [3, 6, 9],
+        )
 
     def test_kernel_policies_and_memory_limit(self) -> None:
         signal = np.arange(20.0).reshape(10, 2)

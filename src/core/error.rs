@@ -15,6 +15,9 @@ pub enum Error {
     #[error("signal storage has length {actual}, expected {expected}")]
     DimensionMismatch { expected: usize, actual: usize },
 
+    #[error("response and design have different sample counts: {response} and {design}")]
+    SampleCountMismatch { response: usize, design: usize },
+
     #[error("invalid segment [{start}, {end}) for a signal of length {n_samples}")]
     InvalidRange {
         start: usize,
@@ -101,8 +104,40 @@ pub enum Error {
     #[error("Gram prefix requires {requested} bytes, above configured limit {maximum}")]
     GramMemoryLimit { requested: usize, maximum: usize },
 
-    #[error("unsupported model {model:?}; currently supported models: l2")]
+    #[error("unsupported model {model:?}; supported models: l2, l1, rank, normal, linear, ar, clinear, mahalanobis")]
     UnsupportedModel { model: String },
+
+    #[error("ridge must be finite and positive, got {value}")]
+    InvalidRidge { value: f64 },
+
+    #[error("autoregressive order must be positive, got {value}")]
+    InvalidOrder { value: usize },
+
+    #[error("{model} requires at least {minimum} features, got {actual}")]
+    InsufficientFeatures {
+        model: &'static str,
+        minimum: usize,
+        actual: usize,
+    },
+
+    #[error("{model} requires a scalar signal with exactly one feature, got {actual}")]
+    ScalarSignalRequired { model: &'static str, actual: usize },
+
+    #[error("weights have length {actual}, expected {expected}")]
+    InvalidWeightsLength { expected: usize, actual: usize },
+
+    #[error("weight at position {position} must be finite and nonnegative, got {value}")]
+    InvalidWeight { position: usize, value: f64 },
+
+    #[error("Mahalanobis metric must be a {expected}x{expected} matrix, got {rows}x{columns}")]
+    InvalidMetricShape {
+        expected: usize,
+        rows: usize,
+        columns: usize,
+    },
+
+    #[error("Mahalanobis metric must be finite, symmetric, and positive semidefinite")]
+    NonPositiveSemidefiniteMetric,
 
     #[error("unsupported kernel {kernel:?}; supported kernels: linear, rbf, cosine")]
     UnsupportedKernel { kernel: String },

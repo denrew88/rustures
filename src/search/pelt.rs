@@ -33,7 +33,12 @@ impl Pelt {
         cost: &C,
         penalty: f64,
     ) -> Result<Segmentation, Error> {
-        solve_penalized(cost, self.grid, penalty, true)
+        solve_penalized(
+            cost,
+            self.grid,
+            penalty,
+            cost.pelt_pruning_constant().is_some(),
+        )
     }
 }
 
@@ -134,14 +139,21 @@ fn solve_unpruned<C: SegmentCost>(
     left_path: &mut Vec<usize>,
     right_path: &mut Vec<usize>,
 ) -> Result<(), Error> {
+    let mut segment_costs = Vec::new();
     for end_index in 1..positions.len() {
         let end = positions[end_index];
-        for start_index in 0..end_index {
-            let start = positions[start_index];
-            if !best_cost[start_index].is_finite() || end - start < min_size {
+        let valid_start_count =
+            positions[..end_index].partition_point(|&start| end - start >= min_size);
+        cost.costs_ending_at(&positions[..valid_start_count], end, &mut segment_costs)?;
+        if segment_costs.len() != valid_start_count {
+            return Err(Error::NumericalFailure {
+                context: "evaluating an unpruned Pelt endpoint cost batch",
+            });
+        }
+        for (start_index, &segment_cost) in segment_costs.iter().enumerate() {
+            if !best_cost[start_index].is_finite() {
                 continue;
             }
-            let segment_cost = cost.cost(start..end)?;
             consider_candidate(
                 start_index,
                 end_index,
@@ -170,6 +182,8 @@ fn solve_pruned<C: SegmentCost>(
 ) -> Result<(), Error> {
     let mut active = Vec::with_capacity(positions.len());
     let mut evaluated = Vec::with_capacity(positions.len());
+    let mut evaluated_starts = Vec::with_capacity(positions.len());
+    let mut segment_costs = Vec::with_capacity(positions.len());
     let mut prune_at = vec![usize::MAX; positions.len()];
     active.push(0);
 
@@ -177,13 +191,30 @@ fn solve_pruned<C: SegmentCost>(
         let end = positions[end_index];
         active.retain(|&start_index| prune_at[start_index] > end);
         evaluated.clear();
+        evaluated_starts.clear();
 
         for &start_index in &active {
             let start = positions[start_index];
             if end - start < min_size {
                 continue;
             }
-            let segment_cost = cost.cost(start..end)?;
+            evaluated_starts.push(start);
+        }
+        cost.costs_ending_at(&evaluated_starts, end, &mut segment_costs)?;
+        if segment_costs.len() != evaluated_starts.len() {
+            return Err(Error::NumericalFailure {
+                context: "evaluating a pruned Pelt endpoint cost batch",
+            });
+        }
+
+        let mut cost_index = 0;
+        for &start_index in &active {
+            let start = positions[start_index];
+            if end - start < min_size {
+                continue;
+            }
+            let segment_cost = segment_costs[cost_index];
+            cost_index += 1;
             evaluated.push((start_index, segment_cost));
             consider_candidate(
                 start_index,

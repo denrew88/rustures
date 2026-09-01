@@ -1,0 +1,4991 @@
+{
+  "seed": 314159,
+  "small_cases": 60,
+  "medium_cases": 32,
+  "checks": {
+    "medium:dynp:reference": 1072,
+    "medium:kernel-cosine:full:reference": 128,
+    "medium:kernel-cosine:fused:reference": 128,
+    "medium:kernel-cosine:streaming:reference": 128,
+    "medium:kernel-linear:full:reference": 128,
+    "medium:kernel-linear:fused:reference": 128,
+    "medium:kernel-linear:streaming:reference": 128,
+    "medium:kernel-rbf:full:reference": 128,
+    "medium:kernel-rbf:fused:reference": 128,
+    "medium:kernel-rbf:streaming:reference": 128,
+    "medium:pelt:reference": 1440,
+    "medium:ruptures-dynp:reference": 1072,
+    "medium:ruptures-kernel-cosine:reference": 128,
+    "medium:ruptures-kernel-linear:reference": 128,
+    "medium:ruptures-kernel-rbf:reference": 128,
+    "medium:ruptures-pelt:reference": 1440,
+    "small:dynp:exhaustive": 1737,
+    "small:kernel-cosine:full:fixed": 640,
+    "small:kernel-cosine:full:penalty": 540,
+    "small:kernel-cosine:fused:fixed": 640,
+    "small:kernel-cosine:fused:penalty": 540,
+    "small:kernel-cosine:streaming:fixed": 640,
+    "small:kernel-cosine:streaming:penalty": 540,
+    "small:kernel-linear:full:fixed": 640,
+    "small:kernel-linear:full:penalty": 540,
+    "small:kernel-linear:fused:fixed": 640,
+    "small:kernel-linear:fused:penalty": 540,
+    "small:kernel-linear:streaming:fixed": 640,
+    "small:kernel-linear:streaming:penalty": 540,
+    "small:kernel-rbf:full:fixed": 640,
+    "small:kernel-rbf:full:penalty": 540,
+    "small:kernel-rbf:fused:fixed": 640,
+    "small:kernel-rbf:fused:penalty": 540,
+    "small:kernel-rbf:streaming:fixed": 640,
+    "small:kernel-rbf:streaming:penalty": 540,
+    "small:pelt:exhaustive": 2700
+  },
+  "total_checks": 21617,
+  "expected_or_tied_divergences": {
+    "medium:kernel-cosine:rust-vs-ruptures-path": 13,
+    "medium:kernel-rbf:rust-vs-ruptures-path": 10,
+    "medium:pelt:rust-vs-ruptures-path": 6,
+    "medium:ruptures-kernel-cosine:reference:alternate_optimum": 13,
+    "medium:ruptures-kernel-rbf:reference:alternate_optimum": 8,
+    "small:kernel-cosine:fused:penalty:alternate_optimum": 1
+  },
+  "failure_count": 236,
+  "failures": [
+    {
+      "category": "small:kernel-linear:fused:fixed",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 7,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "fused",
+      "min_size": 1,
+      "jump": 1,
+      "K": 1,
+      "exception_type": "RusturesError",
+      "exception": "numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "category": "small:kernel-linear:full:fixed",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 7,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "full",
+      "min_size": 1,
+      "jump": 1,
+      "K": 1,
+      "actual": [
+        6,
+        7
+      ],
+      "expected": [
+        3,
+        7
+      ],
+      "actual_objective": 12.06169730424881,
+      "expected_objective": 0.9138432443141937
+    },
+    {
+      "category": "small:kernel-linear:fused:fixed",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 7,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "fused",
+      "min_size": 1,
+      "jump": 1,
+      "K": 2,
+      "exception_type": "RusturesError",
+      "exception": "numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "category": "small:kernel-linear:full:fixed",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 7,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "full",
+      "min_size": 1,
+      "jump": 1,
+      "K": 2,
+      "actual": [
+        4,
+        6,
+        7
+      ],
+      "expected": [
+        1,
+        3,
+        7
+      ],
+      "actual_objective": 6.145885765552521,
+      "expected_objective": 0.6506471633911133
+    },
+    {
+      "category": "small:kernel-linear:streaming:fixed",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 7,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "streaming",
+      "min_size": 1,
+      "jump": 1,
+      "K": 2,
+      "actual": [
+        1,
+        5,
+        7
+      ],
+      "expected": [
+        1,
+        3,
+        7
+      ],
+      "actual_objective": 9.912257552146912,
+      "expected_objective": 0.6506471633911133
+    },
+    {
+      "category": "small:kernel-linear:fused:fixed",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 7,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "fused",
+      "min_size": 1,
+      "jump": 1,
+      "K": 3,
+      "exception_type": "RusturesError",
+      "exception": "numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "category": "small:kernel-linear:full:fixed",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 7,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "full",
+      "min_size": 1,
+      "jump": 1,
+      "K": 3,
+      "actual": [
+        3,
+        4,
+        6,
+        7
+      ],
+      "expected": [
+        3,
+        4,
+        5,
+        7
+      ],
+      "actual_objective": 0.5469142198562622,
+      "expected_objective": 0.4678581655025482
+    },
+    {
+      "category": "small:kernel-linear:streaming:fixed",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 7,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "streaming",
+      "min_size": 1,
+      "jump": 1,
+      "K": 3,
+      "actual": [
+        1,
+        5,
+        6,
+        7
+      ],
+      "expected": [
+        3,
+        4,
+        5,
+        7
+      ],
+      "actual_objective": 9.760209158062935,
+      "expected_objective": 0.4678581655025482
+    },
+    {
+      "category": "small:kernel-linear:fused:penalty",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 7,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "fused",
+      "min_size": 1,
+      "jump": 1,
+      "penalty": 0.4076647375524044,
+      "exception_type": "RusturesError",
+      "exception": "numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "category": "small:kernel-linear:full:penalty",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 7,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "full",
+      "min_size": 1,
+      "jump": 1,
+      "penalty": 0.4076647375524044,
+      "actual": [
+        2,
+        3,
+        4,
+        6,
+        7
+      ],
+      "expected": [
+        3,
+        7
+      ],
+      "actual_objective": 2.0352854239940643,
+      "expected_objective": 1.3215079818665982
+    },
+    {
+      "category": "small:kernel-linear:fused:penalty",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 7,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "fused",
+      "min_size": 1,
+      "jump": 1,
+      "penalty": 4.076647375524044,
+      "exception_type": "RusturesError",
+      "exception": "numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "category": "small:kernel-linear:full:penalty",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 7,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "full",
+      "min_size": 1,
+      "jump": 1,
+      "penalty": 4.076647375524044,
+      "actual": [
+        2,
+        3,
+        4,
+        6,
+        7
+      ],
+      "expected": [
+        3,
+        7
+      ],
+      "actual_objective": 16.711215975880624,
+      "expected_objective": 4.990490619838238
+    },
+    {
+      "category": "small:kernel-linear:fused:penalty",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 7,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "fused",
+      "min_size": 1,
+      "jump": 1,
+      "penalty": 27.177649170160294,
+      "exception_type": "RusturesError",
+      "exception": "numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "category": "small:kernel-linear:full:penalty",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 7,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "full",
+      "min_size": 1,
+      "jump": 1,
+      "penalty": 27.177649170160294,
+      "actual": [
+        2,
+        3,
+        4,
+        6,
+        7
+      ],
+      "expected": [
+        7
+      ],
+      "actual_objective": 109.11522315442562,
+      "expected_objective": 13.588824585080147
+    },
+    {
+      "category": "small:kernel-linear:streaming:penalty",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 7,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "streaming",
+      "min_size": 1,
+      "jump": 1,
+      "penalty": 27.177649170160294,
+      "actual": [
+        3,
+        7
+      ],
+      "expected": [
+        7
+      ],
+      "actual_objective": 28.091492414474487,
+      "expected_objective": 13.588824585080147
+    },
+    {
+      "category": "small:kernel-linear:fused:fixed",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 7,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "fused",
+      "min_size": 1,
+      "jump": 2,
+      "K": 1,
+      "exception_type": "RusturesError",
+      "exception": "numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "category": "small:kernel-linear:full:fixed",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 7,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "full",
+      "min_size": 1,
+      "jump": 2,
+      "K": 1,
+      "actual": [
+        6,
+        7
+      ],
+      "expected": [
+        4,
+        7
+      ],
+      "actual_objective": 12.06169730424881,
+      "expected_objective": 6.43917253613472
+    },
+    {
+      "category": "small:kernel-linear:fused:fixed",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 7,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "fused",
+      "min_size": 1,
+      "jump": 2,
+      "K": 2,
+      "exception_type": "RusturesError",
+      "exception": "numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "category": "small:kernel-linear:full:fixed",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 7,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "full",
+      "min_size": 1,
+      "jump": 2,
+      "K": 2,
+      "actual": [
+        4,
+        6,
+        7
+      ],
+      "expected": [
+        2,
+        4,
+        7
+      ],
+      "actual_objective": 6.145885765552521,
+      "expected_objective": 4.743514329195023
+    },
+    {
+      "category": "small:kernel-linear:fused:fixed",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 7,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "fused",
+      "min_size": 1,
+      "jump": 2,
+      "K": 3,
+      "exception_type": "RusturesError",
+      "exception": "numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "category": "small:kernel-linear:fused:penalty",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 7,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "fused",
+      "min_size": 1,
+      "jump": 2,
+      "penalty": 0.4076647375524044,
+      "exception_type": "RusturesError",
+      "exception": "numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "category": "small:kernel-linear:full:penalty",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 7,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "full",
+      "min_size": 1,
+      "jump": 2,
+      "penalty": 0.4076647375524044,
+      "actual": [
+        2,
+        4,
+        6,
+        7
+      ],
+      "expected": [
+        2,
+        4,
+        7
+      ],
+      "actual_objective": 5.673221771270036,
+      "expected_objective": 5.558843804299832
+    },
+    {
+      "category": "small:kernel-linear:streaming:penalty",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 7,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "streaming",
+      "min_size": 1,
+      "jump": 2,
+      "penalty": 0.4076647375524044,
+      "actual": [
+        7
+      ],
+      "expected": [
+        2,
+        4,
+        7
+      ],
+      "actual_objective": 13.588824585080147,
+      "expected_objective": 5.558843804299832
+    },
+    {
+      "category": "small:kernel-linear:fused:penalty",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 7,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "fused",
+      "min_size": 1,
+      "jump": 2,
+      "penalty": 4.076647375524044,
+      "exception_type": "RusturesError",
+      "exception": "numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "category": "small:kernel-linear:full:penalty",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 7,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "full",
+      "min_size": 1,
+      "jump": 2,
+      "penalty": 4.076647375524044,
+      "actual": [
+        2,
+        4,
+        6,
+        7
+      ],
+      "expected": [
+        4,
+        7
+      ],
+      "actual_objective": 16.680169685184957,
+      "expected_objective": 10.515819911658763
+    },
+    {
+      "category": "small:kernel-linear:streaming:penalty",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 7,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "streaming",
+      "min_size": 1,
+      "jump": 2,
+      "penalty": 4.076647375524044,
+      "actual": [
+        7
+      ],
+      "expected": [
+        4,
+        7
+      ],
+      "actual_objective": 13.588824585080147,
+      "expected_objective": 10.515819911658763
+    },
+    {
+      "category": "small:kernel-linear:fused:penalty",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 7,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "fused",
+      "min_size": 1,
+      "jump": 2,
+      "penalty": 27.177649170160294,
+      "exception_type": "RusturesError",
+      "exception": "numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "category": "small:kernel-linear:full:penalty",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 7,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "full",
+      "min_size": 1,
+      "jump": 2,
+      "penalty": 27.177649170160294,
+      "actual": [
+        2,
+        4,
+        6,
+        7
+      ],
+      "expected": [
+        7
+      ],
+      "actual_objective": 85.9831750690937,
+      "expected_objective": 13.588824585080147
+    },
+    {
+      "category": "small:kernel-linear:fused:fixed",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 7,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "fused",
+      "min_size": 1,
+      "jump": 3,
+      "K": 1,
+      "actual": [
+        6,
+        7
+      ],
+      "expected": [
+        3,
+        7
+      ],
+      "actual_objective": 12.06169730424881,
+      "expected_objective": 0.9138432443141937
+    },
+    {
+      "category": "small:kernel-linear:full:fixed",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 7,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "full",
+      "min_size": 1,
+      "jump": 3,
+      "K": 1,
+      "actual": [
+        6,
+        7
+      ],
+      "expected": [
+        3,
+        7
+      ],
+      "actual_objective": 12.06169730424881,
+      "expected_objective": 0.9138432443141937
+    },
+    {
+      "category": "small:kernel-linear:fused:penalty",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 7,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "fused",
+      "min_size": 1,
+      "jump": 3,
+      "penalty": 0.4076647375524044,
+      "actual": [
+        7
+      ],
+      "expected": [
+        3,
+        7
+      ],
+      "actual_objective": 13.588824585080147,
+      "expected_objective": 1.3215079818665982
+    },
+    {
+      "category": "small:kernel-linear:full:penalty",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 7,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "full",
+      "min_size": 1,
+      "jump": 3,
+      "penalty": 0.4076647375524044,
+      "actual": [
+        3,
+        6,
+        7
+      ],
+      "expected": [
+        3,
+        7
+      ],
+      "actual_objective": 1.55102404743433,
+      "expected_objective": 1.3215079818665982
+    },
+    {
+      "category": "small:kernel-linear:fused:penalty",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 7,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "fused",
+      "min_size": 1,
+      "jump": 3,
+      "penalty": 4.076647375524044,
+      "actual": [
+        7
+      ],
+      "expected": [
+        3,
+        7
+      ],
+      "actual_objective": 13.588824585080147,
+      "expected_objective": 4.990490619838238
+    },
+    {
+      "category": "small:kernel-linear:full:penalty",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 7,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "full",
+      "min_size": 1,
+      "jump": 3,
+      "penalty": 4.076647375524044,
+      "actual": [
+        3,
+        6,
+        7
+      ],
+      "expected": [
+        3,
+        7
+      ],
+      "actual_objective": 8.88898932337761,
+      "expected_objective": 4.990490619838238
+    },
+    {
+      "category": "small:kernel-linear:full:penalty",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 7,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "full",
+      "min_size": 1,
+      "jump": 3,
+      "penalty": 27.177649170160294,
+      "actual": [
+        3,
+        6,
+        7
+      ],
+      "expected": [
+        7
+      ],
+      "actual_objective": 55.09099291265011,
+      "expected_objective": 13.588824585080147
+    },
+    {
+      "category": "small:kernel-linear:streaming:penalty",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 7,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "streaming",
+      "min_size": 1,
+      "jump": 3,
+      "penalty": 27.177649170160294,
+      "actual": [
+        3,
+        7
+      ],
+      "expected": [
+        7
+      ],
+      "actual_objective": 28.091492414474487,
+      "expected_objective": 13.588824585080147
+    },
+    {
+      "category": "small:kernel-linear:fused:fixed",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 7,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "fused",
+      "min_size": 2,
+      "jump": 1,
+      "K": 1,
+      "exception_type": "RusturesError",
+      "exception": "numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "category": "small:kernel-linear:full:fixed",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 7,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "full",
+      "min_size": 2,
+      "jump": 1,
+      "K": 1,
+      "actual": [
+        5,
+        7
+      ],
+      "expected": [
+        3,
+        7
+      ],
+      "actual_objective": 10.819843456149101,
+      "expected_objective": 0.9138432443141937
+    },
+    {
+      "category": "small:kernel-linear:fused:fixed",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 7,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "fused",
+      "min_size": 2,
+      "jump": 1,
+      "K": 2,
+      "exception_type": "RusturesError",
+      "exception": "numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "category": "small:kernel-linear:fused:penalty",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 7,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "fused",
+      "min_size": 2,
+      "jump": 1,
+      "penalty": 0.4076647375524044,
+      "exception_type": "RusturesError",
+      "exception": "numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "category": "small:kernel-linear:full:penalty",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 7,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "full",
+      "min_size": 2,
+      "jump": 1,
+      "penalty": 0.4076647375524044,
+      "actual": [
+        3,
+        5,
+        7
+      ],
+      "expected": [
+        3,
+        7
+      ],
+      "actual_objective": 1.5661888548731804,
+      "expected_objective": 1.3215079818665982
+    },
+    {
+      "category": "small:kernel-linear:fused:penalty",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 7,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "fused",
+      "min_size": 2,
+      "jump": 1,
+      "penalty": 4.076647375524044,
+      "exception_type": "RusturesError",
+      "exception": "numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "category": "small:kernel-linear:full:penalty",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 7,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "full",
+      "min_size": 2,
+      "jump": 1,
+      "penalty": 4.076647375524044,
+      "actual": [
+        3,
+        5,
+        7
+      ],
+      "expected": [
+        3,
+        7
+      ],
+      "actual_objective": 8.90415413081646,
+      "expected_objective": 4.990490619838238
+    },
+    {
+      "category": "small:kernel-linear:fused:penalty",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 7,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "fused",
+      "min_size": 2,
+      "jump": 1,
+      "penalty": 27.177649170160294,
+      "exception_type": "RusturesError",
+      "exception": "numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "category": "small:kernel-linear:full:penalty",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 7,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "full",
+      "min_size": 2,
+      "jump": 1,
+      "penalty": 27.177649170160294,
+      "actual": [
+        3,
+        5,
+        7
+      ],
+      "expected": [
+        7
+      ],
+      "actual_objective": 55.10615772008896,
+      "expected_objective": 13.588824585080147
+    },
+    {
+      "category": "small:kernel-linear:streaming:penalty",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 7,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "streaming",
+      "min_size": 2,
+      "jump": 1,
+      "penalty": 27.177649170160294,
+      "actual": [
+        3,
+        7
+      ],
+      "expected": [
+        7
+      ],
+      "actual_objective": 28.091492414474487,
+      "expected_objective": 13.588824585080147
+    },
+    {
+      "category": "small:kernel-linear:fused:fixed",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 7,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "fused",
+      "min_size": 2,
+      "jump": 2,
+      "K": 1,
+      "exception_type": "RusturesError",
+      "exception": "numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "category": "small:kernel-linear:fused:fixed",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 7,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "fused",
+      "min_size": 2,
+      "jump": 2,
+      "K": 2,
+      "exception_type": "RusturesError",
+      "exception": "numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "category": "small:kernel-linear:fused:penalty",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 7,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "fused",
+      "min_size": 2,
+      "jump": 2,
+      "penalty": 0.4076647375524044,
+      "exception_type": "RusturesError",
+      "exception": "numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "category": "small:kernel-linear:streaming:penalty",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 7,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "streaming",
+      "min_size": 2,
+      "jump": 2,
+      "penalty": 0.4076647375524044,
+      "actual": [
+        7
+      ],
+      "expected": [
+        2,
+        4,
+        7
+      ],
+      "actual_objective": 13.588824585080147,
+      "expected_objective": 5.558843804299832
+    },
+    {
+      "category": "small:kernel-linear:fused:penalty",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 7,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "fused",
+      "min_size": 2,
+      "jump": 2,
+      "penalty": 4.076647375524044,
+      "exception_type": "RusturesError",
+      "exception": "numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "category": "small:kernel-linear:full:penalty",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 7,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "full",
+      "min_size": 2,
+      "jump": 2,
+      "penalty": 4.076647375524044,
+      "actual": [
+        2,
+        4,
+        7
+      ],
+      "expected": [
+        4,
+        7
+      ],
+      "actual_objective": 12.896809080243111,
+      "expected_objective": 10.515819911658763
+    },
+    {
+      "category": "small:kernel-linear:streaming:penalty",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 7,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "streaming",
+      "min_size": 2,
+      "jump": 2,
+      "penalty": 4.076647375524044,
+      "actual": [
+        7
+      ],
+      "expected": [
+        4,
+        7
+      ],
+      "actual_objective": 13.588824585080147,
+      "expected_objective": 10.515819911658763
+    },
+    {
+      "category": "small:kernel-linear:fused:penalty",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 7,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "fused",
+      "min_size": 2,
+      "jump": 2,
+      "penalty": 27.177649170160294,
+      "exception_type": "RusturesError",
+      "exception": "numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "category": "small:kernel-linear:full:penalty",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 7,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "full",
+      "min_size": 2,
+      "jump": 2,
+      "penalty": 27.177649170160294,
+      "actual": [
+        2,
+        4,
+        7
+      ],
+      "expected": [
+        7
+      ],
+      "actual_objective": 59.09881266951561,
+      "expected_objective": 13.588824585080147
+    },
+    {
+      "category": "small:kernel-linear:fused:penalty",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 7,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "fused",
+      "min_size": 2,
+      "jump": 3,
+      "penalty": 0.4076647375524044,
+      "actual": [
+        7
+      ],
+      "expected": [
+        3,
+        7
+      ],
+      "actual_objective": 13.588824585080147,
+      "expected_objective": 1.3215079818665982
+    },
+    {
+      "category": "small:kernel-linear:fused:penalty",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 7,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "fused",
+      "min_size": 2,
+      "jump": 3,
+      "penalty": 4.076647375524044,
+      "actual": [
+        7
+      ],
+      "expected": [
+        3,
+        7
+      ],
+      "actual_objective": 13.588824585080147,
+      "expected_objective": 4.990490619838238
+    },
+    {
+      "category": "small:kernel-linear:full:penalty",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 7,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "full",
+      "min_size": 2,
+      "jump": 3,
+      "penalty": 27.177649170160294,
+      "actual": [
+        3,
+        7
+      ],
+      "expected": [
+        7
+      ],
+      "actual_objective": 28.091492414474487,
+      "expected_objective": 13.588824585080147
+    },
+    {
+      "category": "small:kernel-linear:streaming:penalty",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 7,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "streaming",
+      "min_size": 2,
+      "jump": 3,
+      "penalty": 27.177649170160294,
+      "actual": [
+        3,
+        7
+      ],
+      "expected": [
+        7
+      ],
+      "actual_objective": 28.091492414474487,
+      "expected_objective": 13.588824585080147
+    },
+    {
+      "category": "small:kernel-linear:fused:fixed",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "fused",
+      "min_size": 1,
+      "jump": 1,
+      "K": 0,
+      "exception_type": "RusturesError",
+      "exception": "numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "category": "small:kernel-linear:fused:fixed",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "fused",
+      "min_size": 1,
+      "jump": 1,
+      "K": 1,
+      "exception_type": "RusturesError",
+      "exception": "numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "category": "small:kernel-linear:full:fixed",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "full",
+      "min_size": 1,
+      "jump": 1,
+      "K": 1,
+      "actual": [
+        6,
+        10
+      ],
+      "expected": [
+        5,
+        10
+      ],
+      "actual_objective": 11.434523165225983,
+      "expected_objective": 1.2258097231388092
+    },
+    {
+      "category": "small:kernel-linear:fused:fixed",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "fused",
+      "min_size": 1,
+      "jump": 1,
+      "K": 2,
+      "exception_type": "RusturesError",
+      "exception": "numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "category": "small:kernel-linear:full:fixed",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "full",
+      "min_size": 1,
+      "jump": 1,
+      "K": 2,
+      "actual": [
+        1,
+        5,
+        10
+      ],
+      "expected": [
+        4,
+        5,
+        10
+      ],
+      "actual_objective": 1.2048283964395523,
+      "expected_objective": 0.9725708365440369
+    },
+    {
+      "category": "small:kernel-linear:streaming:fixed",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "streaming",
+      "min_size": 1,
+      "jump": 1,
+      "K": 2,
+      "actual": [
+        5,
+        9,
+        10
+      ],
+      "expected": [
+        4,
+        5,
+        10
+      ],
+      "actual_objective": 1.0731902122497559,
+      "expected_objective": 0.9725708365440369
+    },
+    {
+      "category": "small:kernel-linear:fused:fixed",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "fused",
+      "min_size": 1,
+      "jump": 1,
+      "K": 3,
+      "exception_type": "RusturesError",
+      "exception": "numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "category": "small:kernel-linear:full:fixed",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "full",
+      "min_size": 1,
+      "jump": 1,
+      "K": 3,
+      "actual": [
+        1,
+        5,
+        9,
+        10
+      ],
+      "expected": [
+        2,
+        4,
+        5,
+        10
+      ],
+      "actual_objective": 1.052208885550499,
+      "expected_objective": 0.7347354590892792
+    },
+    {
+      "category": "small:kernel-linear:streaming:fixed",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "streaming",
+      "min_size": 1,
+      "jump": 1,
+      "K": 3,
+      "actual": [
+        5,
+        6,
+        7,
+        10
+      ],
+      "expected": [
+        2,
+        4,
+        5,
+        10
+      ],
+      "actual_objective": 0.9339226484298706,
+      "expected_objective": 0.7347354590892792
+    },
+    {
+      "category": "small:kernel-linear:fused:penalty",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "fused",
+      "min_size": 1,
+      "jump": 1,
+      "penalty": 0.9084677168726921,
+      "exception_type": "RusturesError",
+      "exception": "numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "category": "small:kernel-linear:full:penalty",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "full",
+      "min_size": 1,
+      "jump": 1,
+      "penalty": 0.9084677168726921,
+      "actual": [
+        6,
+        10
+      ],
+      "expected": [
+        5,
+        10
+      ],
+      "actual_objective": 12.342990882098675,
+      "expected_objective": 2.1342774400115014
+    },
+    {
+      "category": "small:kernel-linear:streaming:penalty",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "streaming",
+      "min_size": 1,
+      "jump": 1,
+      "penalty": 0.9084677168726921,
+      "actual": [
+        3,
+        5,
+        7,
+        8,
+        10
+      ],
+      "expected": [
+        5,
+        10
+      ],
+      "actual_objective": 4.785385174155236,
+      "expected_objective": 2.1342774400115014
+    },
+    {
+      "category": "small:kernel-linear:fused:penalty",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "fused",
+      "min_size": 1,
+      "jump": 1,
+      "penalty": 9.084677168726921,
+      "exception_type": "RusturesError",
+      "exception": "numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "category": "small:kernel-linear:full:penalty",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "full",
+      "min_size": 1,
+      "jump": 1,
+      "penalty": 9.084677168726921,
+      "actual": [
+        6,
+        10
+      ],
+      "expected": [
+        5,
+        10
+      ],
+      "actual_objective": 20.519200333952902,
+      "expected_objective": 10.31048689186573
+    },
+    {
+      "category": "small:kernel-linear:streaming:penalty",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "streaming",
+      "min_size": 1,
+      "jump": 1,
+      "penalty": 9.084677168726921,
+      "actual": [
+        3,
+        5,
+        7,
+        8,
+        10
+      ],
+      "expected": [
+        5,
+        10
+      ],
+      "actual_objective": 37.49022298157215,
+      "expected_objective": 10.31048689186573
+    },
+    {
+      "category": "small:kernel-linear:fused:penalty",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "fused",
+      "min_size": 1,
+      "jump": 1,
+      "penalty": 60.564514458179474,
+      "exception_type": "RusturesError",
+      "exception": "numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "category": "small:kernel-linear:full:penalty",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "full",
+      "min_size": 1,
+      "jump": 1,
+      "penalty": 60.564514458179474,
+      "actual": [
+        6,
+        10
+      ],
+      "expected": [
+        10
+      ],
+      "actual_objective": 71.99903762340546,
+      "expected_objective": 30.282257229089737
+    },
+    {
+      "category": "small:kernel-linear:streaming:penalty",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "streaming",
+      "min_size": 1,
+      "jump": 1,
+      "penalty": 60.564514458179474,
+      "actual": [
+        3,
+        5,
+        7,
+        8,
+        10
+      ],
+      "expected": [
+        10
+      ],
+      "actual_objective": 243.40957213938236,
+      "expected_objective": 30.282257229089737
+    },
+    {
+      "category": "small:kernel-linear:fused:fixed",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "fused",
+      "min_size": 1,
+      "jump": 2,
+      "K": 1,
+      "actual": [
+        6,
+        10
+      ],
+      "expected": [
+        4,
+        10
+      ],
+      "actual_objective": 11.434523165225983,
+      "expected_objective": 9.108209013938904
+    },
+    {
+      "category": "small:kernel-linear:full:fixed",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "full",
+      "min_size": 1,
+      "jump": 2,
+      "K": 1,
+      "actual": [
+        6,
+        10
+      ],
+      "expected": [
+        4,
+        10
+      ],
+      "actual_objective": 11.434523165225983,
+      "expected_objective": 9.108209013938904
+    },
+    {
+      "category": "small:kernel-linear:streaming:fixed",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "streaming",
+      "min_size": 1,
+      "jump": 2,
+      "K": 1,
+      "actual": [
+        6,
+        10
+      ],
+      "expected": [
+        4,
+        10
+      ],
+      "actual_objective": 11.434523165225983,
+      "expected_objective": 9.108209013938904
+    },
+    {
+      "category": "small:kernel-linear:fused:fixed",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "fused",
+      "min_size": 1,
+      "jump": 2,
+      "K": 2,
+      "actual": [
+        2,
+        8,
+        10
+      ],
+      "expected": [
+        4,
+        6,
+        10
+      ],
+      "actual_objective": 17.824434340000153,
+      "expected_objective": 6.003699898719788
+    },
+    {
+      "category": "small:kernel-linear:full:fixed",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "full",
+      "min_size": 1,
+      "jump": 2,
+      "K": 2,
+      "actual": [
+        6,
+        8,
+        10
+      ],
+      "expected": [
+        4,
+        6,
+        10
+      ],
+      "actual_objective": 11.390537440776825,
+      "expected_objective": 6.003699898719788
+    },
+    {
+      "category": "small:kernel-linear:streaming:fixed",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "streaming",
+      "min_size": 1,
+      "jump": 2,
+      "K": 2,
+      "actual": [
+        6,
+        8,
+        10
+      ],
+      "expected": [
+        4,
+        6,
+        10
+      ],
+      "actual_objective": 11.390537440776825,
+      "expected_objective": 6.003699898719788
+    },
+    {
+      "category": "small:kernel-linear:full:fixed",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "full",
+      "min_size": 1,
+      "jump": 2,
+      "K": 3,
+      "actual": [
+        2,
+        6,
+        8,
+        10
+      ],
+      "expected": [
+        2,
+        4,
+        6,
+        10
+      ],
+      "actual_objective": 10.142948180437088,
+      "expected_objective": 5.76586452126503
+    },
+    {
+      "category": "small:kernel-linear:fused:penalty",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "fused",
+      "min_size": 1,
+      "jump": 2,
+      "penalty": 0.9084677168726921,
+      "actual": [
+        10
+      ],
+      "expected": [
+        4,
+        6,
+        10
+      ],
+      "actual_objective": 30.282257229089737,
+      "expected_objective": 7.820635332465172
+    },
+    {
+      "category": "small:kernel-linear:full:penalty",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "full",
+      "min_size": 1,
+      "jump": 2,
+      "penalty": 0.9084677168726921,
+      "actual": [
+        6,
+        10
+      ],
+      "expected": [
+        4,
+        6,
+        10
+      ],
+      "actual_objective": 12.342990882098675,
+      "expected_objective": 7.820635332465172
+    },
+    {
+      "category": "small:kernel-linear:streaming:penalty",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "streaming",
+      "min_size": 1,
+      "jump": 2,
+      "penalty": 0.9084677168726921,
+      "actual": [
+        6,
+        10
+      ],
+      "expected": [
+        4,
+        6,
+        10
+      ],
+      "actual_objective": 12.342990882098675,
+      "expected_objective": 7.820635332465172
+    },
+    {
+      "category": "small:kernel-linear:fused:penalty",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "fused",
+      "min_size": 1,
+      "jump": 2,
+      "penalty": 9.084677168726921,
+      "actual": [
+        10
+      ],
+      "expected": [
+        4,
+        10
+      ],
+      "actual_objective": 30.282257229089737,
+      "expected_objective": 18.192886182665823
+    },
+    {
+      "category": "small:kernel-linear:full:penalty",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "full",
+      "min_size": 1,
+      "jump": 2,
+      "penalty": 9.084677168726921,
+      "actual": [
+        6,
+        10
+      ],
+      "expected": [
+        4,
+        10
+      ],
+      "actual_objective": 20.519200333952902,
+      "expected_objective": 18.192886182665823
+    },
+    {
+      "category": "small:kernel-linear:streaming:penalty",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "streaming",
+      "min_size": 1,
+      "jump": 2,
+      "penalty": 9.084677168726921,
+      "actual": [
+        6,
+        10
+      ],
+      "expected": [
+        4,
+        10
+      ],
+      "actual_objective": 20.519200333952902,
+      "expected_objective": 18.192886182665823
+    },
+    {
+      "category": "small:kernel-linear:full:penalty",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "full",
+      "min_size": 1,
+      "jump": 2,
+      "penalty": 60.564514458179474,
+      "actual": [
+        6,
+        10
+      ],
+      "expected": [
+        10
+      ],
+      "actual_objective": 71.99903762340546,
+      "expected_objective": 30.282257229089737
+    },
+    {
+      "category": "small:kernel-linear:streaming:penalty",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "streaming",
+      "min_size": 1,
+      "jump": 2,
+      "penalty": 60.564514458179474,
+      "actual": [
+        6,
+        10
+      ],
+      "expected": [
+        10
+      ],
+      "actual_objective": 71.99903762340546,
+      "expected_objective": 30.282257229089737
+    },
+    {
+      "category": "small:kernel-linear:fused:fixed",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "fused",
+      "min_size": 1,
+      "jump": 3,
+      "K": 0,
+      "exception_type": "RusturesError",
+      "exception": "numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "category": "small:kernel-linear:fused:fixed",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "fused",
+      "min_size": 1,
+      "jump": 3,
+      "K": 1,
+      "exception_type": "RusturesError",
+      "exception": "numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "category": "small:kernel-linear:streaming:fixed",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "streaming",
+      "min_size": 1,
+      "jump": 3,
+      "K": 1,
+      "actual": [
+        9,
+        10
+      ],
+      "expected": [
+        6,
+        10
+      ],
+      "actual_objective": 26.06309638917446,
+      "expected_objective": 11.434523165225983
+    },
+    {
+      "category": "small:kernel-linear:fused:fixed",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "fused",
+      "min_size": 1,
+      "jump": 3,
+      "K": 2,
+      "exception_type": "RusturesError",
+      "exception": "numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "category": "small:kernel-linear:full:fixed",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "full",
+      "min_size": 1,
+      "jump": 3,
+      "K": 2,
+      "actual": [
+        6,
+        9,
+        10
+      ],
+      "expected": [
+        3,
+        6,
+        10
+      ],
+      "actual_objective": 11.307004377245903,
+      "expected_objective": 9.27887786924839
+    },
+    {
+      "category": "small:kernel-linear:streaming:fixed",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "streaming",
+      "min_size": 1,
+      "jump": 3,
+      "K": 2,
+      "actual": [
+        3,
+        9,
+        10
+      ],
+      "expected": [
+        3,
+        6,
+        10
+      ],
+      "actual_objective": 15.98990547657013,
+      "expected_objective": 9.27887786924839
+    },
+    {
+      "category": "small:kernel-linear:fused:fixed",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "fused",
+      "min_size": 1,
+      "jump": 3,
+      "K": 3,
+      "exception_type": "RusturesError",
+      "exception": "numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "category": "small:kernel-linear:fused:penalty",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "fused",
+      "min_size": 1,
+      "jump": 3,
+      "penalty": 0.9084677168726921,
+      "exception_type": "RusturesError",
+      "exception": "numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "category": "small:kernel-linear:full:penalty",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "full",
+      "min_size": 1,
+      "jump": 3,
+      "penalty": 0.9084677168726921,
+      "actual": [
+        6,
+        10
+      ],
+      "expected": [
+        3,
+        6,
+        10
+      ],
+      "actual_objective": 12.342990882098675,
+      "expected_objective": 11.095813302993774
+    },
+    {
+      "category": "small:kernel-linear:streaming:penalty",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "streaming",
+      "min_size": 1,
+      "jump": 3,
+      "penalty": 0.9084677168726921,
+      "actual": [
+        9,
+        10
+      ],
+      "expected": [
+        3,
+        6,
+        10
+      ],
+      "actual_objective": 26.971564106047154,
+      "expected_objective": 11.095813302993774
+    },
+    {
+      "category": "small:kernel-linear:fused:penalty",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "fused",
+      "min_size": 1,
+      "jump": 3,
+      "penalty": 9.084677168726921,
+      "exception_type": "RusturesError",
+      "exception": "numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "category": "small:kernel-linear:streaming:penalty",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "streaming",
+      "min_size": 1,
+      "jump": 3,
+      "penalty": 9.084677168726921,
+      "actual": [
+        9,
+        10
+      ],
+      "expected": [
+        6,
+        10
+      ],
+      "actual_objective": 35.14777355790138,
+      "expected_objective": 20.519200333952902
+    },
+    {
+      "category": "small:kernel-linear:fused:penalty",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "fused",
+      "min_size": 1,
+      "jump": 3,
+      "penalty": 60.564514458179474,
+      "exception_type": "RusturesError",
+      "exception": "numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "category": "small:kernel-linear:full:penalty",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "full",
+      "min_size": 1,
+      "jump": 3,
+      "penalty": 60.564514458179474,
+      "actual": [
+        6,
+        10
+      ],
+      "expected": [
+        10
+      ],
+      "actual_objective": 71.99903762340546,
+      "expected_objective": 30.282257229089737
+    },
+    {
+      "category": "small:kernel-linear:streaming:penalty",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "streaming",
+      "min_size": 1,
+      "jump": 3,
+      "penalty": 60.564514458179474,
+      "actual": [
+        9,
+        10
+      ],
+      "expected": [
+        10
+      ],
+      "actual_objective": 86.62761084735394,
+      "expected_objective": 30.282257229089737
+    },
+    {
+      "category": "small:kernel-linear:fused:fixed",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "fused",
+      "min_size": 2,
+      "jump": 1,
+      "K": 0,
+      "exception_type": "RusturesError",
+      "exception": "numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "category": "small:kernel-linear:fused:fixed",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "fused",
+      "min_size": 2,
+      "jump": 1,
+      "K": 1,
+      "exception_type": "RusturesError",
+      "exception": "numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "category": "small:kernel-linear:full:fixed",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "full",
+      "min_size": 2,
+      "jump": 1,
+      "K": 1,
+      "actual": [
+        6,
+        10
+      ],
+      "expected": [
+        5,
+        10
+      ],
+      "actual_objective": 11.434523165225983,
+      "expected_objective": 1.2258097231388092
+    },
+    {
+      "category": "small:kernel-linear:fused:fixed",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "fused",
+      "min_size": 2,
+      "jump": 1,
+      "K": 2,
+      "exception_type": "RusturesError",
+      "exception": "numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "category": "small:kernel-linear:full:fixed",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "full",
+      "min_size": 2,
+      "jump": 1,
+      "K": 2,
+      "actual": [
+        6,
+        8,
+        10
+      ],
+      "expected": [
+        2,
+        5,
+        10
+      ],
+      "actual_objective": 11.390537440776825,
+      "expected_objective": 1.13502137362957
+    },
+    {
+      "category": "small:kernel-linear:streaming:fixed",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "streaming",
+      "min_size": 2,
+      "jump": 1,
+      "K": 2,
+      "actual": [
+        5,
+        7,
+        10
+      ],
+      "expected": [
+        2,
+        5,
+        10
+      ],
+      "actual_objective": 1.2169065475463867,
+      "expected_objective": 1.13502137362957
+    },
+    {
+      "category": "small:kernel-linear:fused:fixed",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "fused",
+      "min_size": 2,
+      "jump": 1,
+      "K": 3,
+      "exception_type": "RusturesError",
+      "exception": "numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "category": "small:kernel-linear:full:fixed",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "full",
+      "min_size": 2,
+      "jump": 1,
+      "K": 3,
+      "actual": [
+        2,
+        6,
+        8,
+        10
+      ],
+      "expected": [
+        2,
+        5,
+        8,
+        10
+      ],
+      "actual_objective": 10.142948180437088,
+      "expected_objective": 1.1003509759902954
+    },
+    {
+      "category": "small:kernel-linear:streaming:fixed",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "streaming",
+      "min_size": 2,
+      "jump": 1,
+      "K": 3,
+      "actual": [
+        3,
+        5,
+        7,
+        10
+      ],
+      "expected": [
+        2,
+        5,
+        8,
+        10
+      ],
+      "actual_objective": 1.1951254308223724,
+      "expected_objective": 1.1003509759902954
+    },
+    {
+      "category": "small:kernel-linear:fused:penalty",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "fused",
+      "min_size": 2,
+      "jump": 1,
+      "penalty": 0.9084677168726921,
+      "exception_type": "RusturesError",
+      "exception": "numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "category": "small:kernel-linear:full:penalty",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "full",
+      "min_size": 2,
+      "jump": 1,
+      "penalty": 0.9084677168726921,
+      "actual": [
+        6,
+        10
+      ],
+      "expected": [
+        5,
+        10
+      ],
+      "actual_objective": 12.342990882098675,
+      "expected_objective": 2.1342774400115014
+    },
+    {
+      "category": "small:kernel-linear:fused:penalty",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "fused",
+      "min_size": 2,
+      "jump": 1,
+      "penalty": 9.084677168726921,
+      "exception_type": "RusturesError",
+      "exception": "numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "category": "small:kernel-linear:full:penalty",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "full",
+      "min_size": 2,
+      "jump": 1,
+      "penalty": 9.084677168726921,
+      "actual": [
+        6,
+        10
+      ],
+      "expected": [
+        5,
+        10
+      ],
+      "actual_objective": 20.519200333952902,
+      "expected_objective": 10.31048689186573
+    },
+    {
+      "category": "small:kernel-linear:fused:penalty",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "fused",
+      "min_size": 2,
+      "jump": 1,
+      "penalty": 60.564514458179474,
+      "exception_type": "RusturesError",
+      "exception": "numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "category": "small:kernel-linear:full:penalty",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "full",
+      "min_size": 2,
+      "jump": 1,
+      "penalty": 60.564514458179474,
+      "actual": [
+        6,
+        10
+      ],
+      "expected": [
+        10
+      ],
+      "actual_objective": 71.99903762340546,
+      "expected_objective": 30.282257229089737
+    },
+    {
+      "category": "small:kernel-linear:streaming:penalty",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "streaming",
+      "min_size": 2,
+      "jump": 1,
+      "penalty": 60.564514458179474,
+      "actual": [
+        5,
+        10
+      ],
+      "expected": [
+        10
+      ],
+      "actual_objective": 61.79032418131828,
+      "expected_objective": 30.282257229089737
+    },
+    {
+      "category": "small:kernel-linear:fused:fixed",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "fused",
+      "min_size": 2,
+      "jump": 2,
+      "K": 1,
+      "actual": [
+        6,
+        10
+      ],
+      "expected": [
+        4,
+        10
+      ],
+      "actual_objective": 11.434523165225983,
+      "expected_objective": 9.108209013938904
+    },
+    {
+      "category": "small:kernel-linear:full:fixed",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "full",
+      "min_size": 2,
+      "jump": 2,
+      "K": 1,
+      "actual": [
+        6,
+        10
+      ],
+      "expected": [
+        4,
+        10
+      ],
+      "actual_objective": 11.434523165225983,
+      "expected_objective": 9.108209013938904
+    },
+    {
+      "category": "small:kernel-linear:streaming:fixed",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "streaming",
+      "min_size": 2,
+      "jump": 2,
+      "K": 1,
+      "actual": [
+        6,
+        10
+      ],
+      "expected": [
+        4,
+        10
+      ],
+      "actual_objective": 11.434523165225983,
+      "expected_objective": 9.108209013938904
+    },
+    {
+      "category": "small:kernel-linear:fused:fixed",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "fused",
+      "min_size": 2,
+      "jump": 2,
+      "K": 2,
+      "actual": [
+        2,
+        8,
+        10
+      ],
+      "expected": [
+        4,
+        6,
+        10
+      ],
+      "actual_objective": 17.824434340000153,
+      "expected_objective": 6.003699898719788
+    },
+    {
+      "category": "small:kernel-linear:full:fixed",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "full",
+      "min_size": 2,
+      "jump": 2,
+      "K": 2,
+      "actual": [
+        6,
+        8,
+        10
+      ],
+      "expected": [
+        4,
+        6,
+        10
+      ],
+      "actual_objective": 11.390537440776825,
+      "expected_objective": 6.003699898719788
+    },
+    {
+      "category": "small:kernel-linear:streaming:fixed",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "streaming",
+      "min_size": 2,
+      "jump": 2,
+      "K": 2,
+      "actual": [
+        6,
+        8,
+        10
+      ],
+      "expected": [
+        4,
+        6,
+        10
+      ],
+      "actual_objective": 11.390537440776825,
+      "expected_objective": 6.003699898719788
+    },
+    {
+      "category": "small:kernel-linear:full:fixed",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "full",
+      "min_size": 2,
+      "jump": 2,
+      "K": 3,
+      "actual": [
+        2,
+        6,
+        8,
+        10
+      ],
+      "expected": [
+        2,
+        4,
+        6,
+        10
+      ],
+      "actual_objective": 10.142948180437088,
+      "expected_objective": 5.76586452126503
+    },
+    {
+      "category": "small:kernel-linear:fused:penalty",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "fused",
+      "min_size": 2,
+      "jump": 2,
+      "penalty": 0.9084677168726921,
+      "actual": [
+        10
+      ],
+      "expected": [
+        4,
+        6,
+        10
+      ],
+      "actual_objective": 30.282257229089737,
+      "expected_objective": 7.820635332465172
+    },
+    {
+      "category": "small:kernel-linear:full:penalty",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "full",
+      "min_size": 2,
+      "jump": 2,
+      "penalty": 0.9084677168726921,
+      "actual": [
+        6,
+        10
+      ],
+      "expected": [
+        4,
+        6,
+        10
+      ],
+      "actual_objective": 12.342990882098675,
+      "expected_objective": 7.820635332465172
+    },
+    {
+      "category": "small:kernel-linear:streaming:penalty",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "streaming",
+      "min_size": 2,
+      "jump": 2,
+      "penalty": 0.9084677168726921,
+      "actual": [
+        6,
+        10
+      ],
+      "expected": [
+        4,
+        6,
+        10
+      ],
+      "actual_objective": 12.342990882098675,
+      "expected_objective": 7.820635332465172
+    },
+    {
+      "category": "small:kernel-linear:fused:penalty",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "fused",
+      "min_size": 2,
+      "jump": 2,
+      "penalty": 9.084677168726921,
+      "actual": [
+        10
+      ],
+      "expected": [
+        4,
+        10
+      ],
+      "actual_objective": 30.282257229089737,
+      "expected_objective": 18.192886182665823
+    },
+    {
+      "category": "small:kernel-linear:full:penalty",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "full",
+      "min_size": 2,
+      "jump": 2,
+      "penalty": 9.084677168726921,
+      "actual": [
+        6,
+        10
+      ],
+      "expected": [
+        4,
+        10
+      ],
+      "actual_objective": 20.519200333952902,
+      "expected_objective": 18.192886182665823
+    },
+    {
+      "category": "small:kernel-linear:streaming:penalty",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "streaming",
+      "min_size": 2,
+      "jump": 2,
+      "penalty": 9.084677168726921,
+      "actual": [
+        6,
+        10
+      ],
+      "expected": [
+        4,
+        10
+      ],
+      "actual_objective": 20.519200333952902,
+      "expected_objective": 18.192886182665823
+    },
+    {
+      "category": "small:kernel-linear:full:penalty",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "full",
+      "min_size": 2,
+      "jump": 2,
+      "penalty": 60.564514458179474,
+      "actual": [
+        6,
+        10
+      ],
+      "expected": [
+        10
+      ],
+      "actual_objective": 71.99903762340546,
+      "expected_objective": 30.282257229089737
+    },
+    {
+      "category": "small:kernel-linear:streaming:penalty",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "streaming",
+      "min_size": 2,
+      "jump": 2,
+      "penalty": 60.564514458179474,
+      "actual": [
+        6,
+        10
+      ],
+      "expected": [
+        10
+      ],
+      "actual_objective": 71.99903762340546,
+      "expected_objective": 30.282257229089737
+    },
+    {
+      "category": "small:kernel-linear:fused:fixed",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "fused",
+      "min_size": 2,
+      "jump": 3,
+      "K": 0,
+      "exception_type": "RusturesError",
+      "exception": "numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "category": "small:kernel-linear:fused:fixed",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "fused",
+      "min_size": 2,
+      "jump": 3,
+      "K": 1,
+      "exception_type": "RusturesError",
+      "exception": "numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "category": "small:kernel-linear:fused:fixed",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "fused",
+      "min_size": 2,
+      "jump": 3,
+      "K": 2,
+      "exception_type": "RusturesError",
+      "exception": "numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "category": "small:kernel-linear:fused:penalty",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "fused",
+      "min_size": 2,
+      "jump": 3,
+      "penalty": 0.9084677168726921,
+      "exception_type": "RusturesError",
+      "exception": "numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "category": "small:kernel-linear:full:penalty",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "full",
+      "min_size": 2,
+      "jump": 3,
+      "penalty": 0.9084677168726921,
+      "actual": [
+        6,
+        10
+      ],
+      "expected": [
+        3,
+        6,
+        10
+      ],
+      "actual_objective": 12.342990882098675,
+      "expected_objective": 11.095813302993774
+    },
+    {
+      "category": "small:kernel-linear:streaming:penalty",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "streaming",
+      "min_size": 2,
+      "jump": 3,
+      "penalty": 0.9084677168726921,
+      "actual": [
+        6,
+        10
+      ],
+      "expected": [
+        3,
+        6,
+        10
+      ],
+      "actual_objective": 12.342990882098675,
+      "expected_objective": 11.095813302993774
+    },
+    {
+      "category": "small:kernel-linear:fused:penalty",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "fused",
+      "min_size": 2,
+      "jump": 3,
+      "penalty": 9.084677168726921,
+      "exception_type": "RusturesError",
+      "exception": "numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "category": "small:kernel-linear:fused:penalty",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "fused",
+      "min_size": 2,
+      "jump": 3,
+      "penalty": 60.564514458179474,
+      "exception_type": "RusturesError",
+      "exception": "numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "category": "small:kernel-linear:full:penalty",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "full",
+      "min_size": 2,
+      "jump": 3,
+      "penalty": 60.564514458179474,
+      "actual": [
+        6,
+        10
+      ],
+      "expected": [
+        10
+      ],
+      "actual_objective": 71.99903762340546,
+      "expected_objective": 30.282257229089737
+    },
+    {
+      "category": "small:kernel-linear:streaming:penalty",
+      "case": 18,
+      "kind": "high_offset",
+      "n": 10,
+      "d": 3,
+      "kernel": "linear",
+      "backend": "streaming",
+      "min_size": 2,
+      "jump": 3,
+      "penalty": 60.564514458179474,
+      "actual": [
+        6,
+        10
+      ],
+      "expected": [
+        10
+      ],
+      "actual_objective": 71.99903762340546,
+      "expected_objective": 30.282257229089737
+    },
+    {
+      "category": "small:kernel-linear:fused:fixed",
+      "case": 28,
+      "kind": "high_offset",
+      "n": 6,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "fused",
+      "min_size": 1,
+      "jump": 1,
+      "K": 1,
+      "exception_type": "RusturesError",
+      "exception": "numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "category": "small:kernel-linear:full:fixed",
+      "case": 28,
+      "kind": "high_offset",
+      "n": 6,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "full",
+      "min_size": 1,
+      "jump": 1,
+      "K": 1,
+      "actual": [
+        4,
+        6
+      ],
+      "expected": [
+        3,
+        6
+      ],
+      "actual_objective": 7.644277572631836,
+      "expected_objective": 0.7066706866025925
+    },
+    {
+      "category": "small:kernel-linear:streaming:fixed",
+      "case": 28,
+      "kind": "high_offset",
+      "n": 6,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "streaming",
+      "min_size": 1,
+      "jump": 1,
+      "K": 1,
+      "actual": [
+        5,
+        6
+      ],
+      "expected": [
+        3,
+        6
+      ],
+      "actual_objective": 12.092616334557533,
+      "expected_objective": 0.7066706866025925
+    },
+    {
+      "category": "small:kernel-linear:fused:fixed",
+      "case": 28,
+      "kind": "high_offset",
+      "n": 6,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "fused",
+      "min_size": 1,
+      "jump": 1,
+      "K": 2,
+      "exception_type": "RusturesError",
+      "exception": "numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "category": "small:kernel-linear:full:fixed",
+      "case": 28,
+      "kind": "high_offset",
+      "n": 6,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "full",
+      "min_size": 1,
+      "jump": 1,
+      "K": 2,
+      "actual": [
+        4,
+        5,
+        6
+      ],
+      "expected": [
+        2,
+        3,
+        6
+      ],
+      "actual_objective": 7.542904958128929,
+      "expected_objective": 0.5595454275608063
+    },
+    {
+      "category": "small:kernel-linear:streaming:fixed",
+      "case": 28,
+      "kind": "high_offset",
+      "n": 6,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "streaming",
+      "min_size": 1,
+      "jump": 1,
+      "K": 2,
+      "actual": [
+        4,
+        5,
+        6
+      ],
+      "expected": [
+        2,
+        3,
+        6
+      ],
+      "actual_objective": 7.542904958128929,
+      "expected_objective": 0.5595454275608063
+    },
+    {
+      "category": "small:kernel-linear:fused:fixed",
+      "case": 28,
+      "kind": "high_offset",
+      "n": 6,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "fused",
+      "min_size": 1,
+      "jump": 1,
+      "K": 3,
+      "exception_type": "RusturesError",
+      "exception": "numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "category": "small:kernel-linear:full:fixed",
+      "case": 28,
+      "kind": "high_offset",
+      "n": 6,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "full",
+      "min_size": 1,
+      "jump": 1,
+      "K": 3,
+      "actual": [
+        1,
+        2,
+        4,
+        6
+      ],
+      "expected": [
+        1,
+        2,
+        3,
+        6
+      ],
+      "actual_objective": 5.758438631892204,
+      "expected_objective": 0.19254885613918304
+    },
+    {
+      "category": "small:kernel-linear:fused:penalty",
+      "case": 28,
+      "kind": "high_offset",
+      "n": 6,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "fused",
+      "min_size": 1,
+      "jump": 1,
+      "penalty": 0.4159039279818535,
+      "exception_type": "RusturesError",
+      "exception": "numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "category": "small:kernel-linear:full:penalty",
+      "case": 28,
+      "kind": "high_offset",
+      "n": 6,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "full",
+      "min_size": 1,
+      "jump": 1,
+      "penalty": 0.4159039279818535,
+      "actual": [
+        1,
+        4,
+        6
+      ],
+      "expected": [
+        3,
+        6
+      ],
+      "actual_objective": 7.025002006888389,
+      "expected_objective": 1.122574614584446
+    },
+    {
+      "category": "small:kernel-linear:streaming:penalty",
+      "case": 28,
+      "kind": "high_offset",
+      "n": 6,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "streaming",
+      "min_size": 1,
+      "jump": 1,
+      "penalty": 0.4159039279818535,
+      "actual": [
+        5,
+        6
+      ],
+      "expected": [
+        3,
+        6
+      ],
+      "actual_objective": 12.508520262539387,
+      "expected_objective": 1.122574614584446
+    },
+    {
+      "category": "small:kernel-linear:fused:penalty",
+      "case": 28,
+      "kind": "high_offset",
+      "n": 6,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "fused",
+      "min_size": 1,
+      "jump": 1,
+      "penalty": 4.1590392798185345,
+      "exception_type": "RusturesError",
+      "exception": "numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "category": "small:kernel-linear:full:penalty",
+      "case": 28,
+      "kind": "high_offset",
+      "n": 6,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "full",
+      "min_size": 1,
+      "jump": 1,
+      "penalty": 4.1590392798185345,
+      "actual": [
+        1,
+        4,
+        6
+      ],
+      "expected": [
+        3,
+        6
+      ],
+      "actual_objective": 14.511272710561752,
+      "expected_objective": 4.865709966421127
+    },
+    {
+      "category": "small:kernel-linear:streaming:penalty",
+      "case": 28,
+      "kind": "high_offset",
+      "n": 6,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "streaming",
+      "min_size": 1,
+      "jump": 1,
+      "penalty": 4.1590392798185345,
+      "actual": [
+        5,
+        6
+      ],
+      "expected": [
+        3,
+        6
+      ],
+      "actual_objective": 16.25165561437607,
+      "expected_objective": 4.865709966421127
+    },
+    {
+      "category": "small:kernel-linear:fused:penalty",
+      "case": 28,
+      "kind": "high_offset",
+      "n": 6,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "fused",
+      "min_size": 1,
+      "jump": 1,
+      "penalty": 27.726928532123566,
+      "exception_type": "RusturesError",
+      "exception": "numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "category": "small:kernel-linear:full:penalty",
+      "case": 28,
+      "kind": "high_offset",
+      "n": 6,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "full",
+      "min_size": 1,
+      "jump": 1,
+      "penalty": 27.726928532123566,
+      "actual": [
+        1,
+        4,
+        6
+      ],
+      "expected": [
+        6
+      ],
+      "actual_objective": 61.647051215171814,
+      "expected_objective": 13.863464266061783
+    },
+    {
+      "category": "small:kernel-linear:streaming:penalty",
+      "case": 28,
+      "kind": "high_offset",
+      "n": 6,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "streaming",
+      "min_size": 1,
+      "jump": 1,
+      "penalty": 27.726928532123566,
+      "actual": [
+        5,
+        6
+      ],
+      "expected": [
+        6
+      ],
+      "actual_objective": 39.8195448666811,
+      "expected_objective": 13.863464266061783
+    },
+    {
+      "category": "small:kernel-linear:fused:penalty",
+      "case": 28,
+      "kind": "high_offset",
+      "n": 6,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "fused",
+      "min_size": 1,
+      "jump": 2,
+      "penalty": 0.4159039279818535,
+      "actual": [
+        6
+      ],
+      "expected": [
+        2,
+        4,
+        6
+      ],
+      "actual_objective": 13.863464266061783,
+      "expected_objective": 6.957243059277534
+    },
+    {
+      "category": "small:kernel-linear:full:penalty",
+      "case": 28,
+      "kind": "high_offset",
+      "n": 6,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "full",
+      "min_size": 1,
+      "jump": 2,
+      "penalty": 0.4159039279818535,
+      "actual": [
+        4,
+        6
+      ],
+      "expected": [
+        2,
+        4,
+        6
+      ],
+      "actual_objective": 8.06018150061369,
+      "expected_objective": 6.957243059277534
+    },
+    {
+      "category": "small:kernel-linear:streaming:penalty",
+      "case": 28,
+      "kind": "high_offset",
+      "n": 6,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "streaming",
+      "min_size": 1,
+      "jump": 2,
+      "penalty": 0.4159039279818535,
+      "actual": [
+        4,
+        6
+      ],
+      "expected": [
+        2,
+        4,
+        6
+      ],
+      "actual_objective": 8.06018150061369,
+      "expected_objective": 6.957243059277534
+    },
+    {
+      "category": "small:kernel-linear:fused:penalty",
+      "case": 28,
+      "kind": "high_offset",
+      "n": 6,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "fused",
+      "min_size": 1,
+      "jump": 2,
+      "penalty": 4.1590392798185345,
+      "actual": [
+        6
+      ],
+      "expected": [
+        4,
+        6
+      ],
+      "actual_objective": 13.863464266061783,
+      "expected_objective": 11.80331685245037
+    },
+    {
+      "category": "small:kernel-linear:full:penalty",
+      "case": 28,
+      "kind": "high_offset",
+      "n": 6,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "full",
+      "min_size": 1,
+      "jump": 2,
+      "penalty": 27.726928532123566,
+      "actual": [
+        4,
+        6
+      ],
+      "expected": [
+        6
+      ],
+      "actual_objective": 35.3712061047554,
+      "expected_objective": 13.863464266061783
+    },
+    {
+      "category": "small:kernel-linear:streaming:penalty",
+      "case": 28,
+      "kind": "high_offset",
+      "n": 6,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "streaming",
+      "min_size": 1,
+      "jump": 2,
+      "penalty": 27.726928532123566,
+      "actual": [
+        4,
+        6
+      ],
+      "expected": [
+        6
+      ],
+      "actual_objective": 35.3712061047554,
+      "expected_objective": 13.863464266061783
+    },
+    {
+      "category": "small:kernel-linear:fused:penalty",
+      "case": 28,
+      "kind": "high_offset",
+      "n": 6,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "fused",
+      "min_size": 1,
+      "jump": 3,
+      "penalty": 0.4159039279818535,
+      "actual": [
+        6
+      ],
+      "expected": [
+        3,
+        6
+      ],
+      "actual_objective": 13.863464266061783,
+      "expected_objective": 1.122574614584446
+    },
+    {
+      "category": "small:kernel-linear:streaming:penalty",
+      "case": 28,
+      "kind": "high_offset",
+      "n": 6,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "streaming",
+      "min_size": 1,
+      "jump": 3,
+      "penalty": 0.4159039279818535,
+      "actual": [
+        6
+      ],
+      "expected": [
+        3,
+        6
+      ],
+      "actual_objective": 13.863464266061783,
+      "expected_objective": 1.122574614584446
+    },
+    {
+      "category": "small:kernel-linear:fused:penalty",
+      "case": 28,
+      "kind": "high_offset",
+      "n": 6,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "fused",
+      "min_size": 1,
+      "jump": 3,
+      "penalty": 4.1590392798185345,
+      "actual": [
+        6
+      ],
+      "expected": [
+        3,
+        6
+      ],
+      "actual_objective": 13.863464266061783,
+      "expected_objective": 4.865709966421127
+    },
+    {
+      "category": "small:kernel-linear:streaming:penalty",
+      "case": 28,
+      "kind": "high_offset",
+      "n": 6,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "streaming",
+      "min_size": 1,
+      "jump": 3,
+      "penalty": 4.1590392798185345,
+      "actual": [
+        6
+      ],
+      "expected": [
+        3,
+        6
+      ],
+      "actual_objective": 13.863464266061783,
+      "expected_objective": 4.865709966421127
+    },
+    {
+      "category": "small:kernel-linear:full:penalty",
+      "case": 28,
+      "kind": "high_offset",
+      "n": 6,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "full",
+      "min_size": 1,
+      "jump": 3,
+      "penalty": 27.726928532123566,
+      "actual": [
+        3,
+        6
+      ],
+      "expected": [
+        6
+      ],
+      "actual_objective": 28.433599218726158,
+      "expected_objective": 13.863464266061783
+    },
+    {
+      "category": "small:kernel-linear:fused:fixed",
+      "case": 28,
+      "kind": "high_offset",
+      "n": 6,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "fused",
+      "min_size": 2,
+      "jump": 1,
+      "K": 1,
+      "actual": [
+        4,
+        6
+      ],
+      "expected": [
+        3,
+        6
+      ],
+      "actual_objective": 7.644277572631836,
+      "expected_objective": 0.7066706866025925
+    },
+    {
+      "category": "small:kernel-linear:full:fixed",
+      "case": 28,
+      "kind": "high_offset",
+      "n": 6,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "full",
+      "min_size": 2,
+      "jump": 1,
+      "K": 1,
+      "actual": [
+        4,
+        6
+      ],
+      "expected": [
+        3,
+        6
+      ],
+      "actual_objective": 7.644277572631836,
+      "expected_objective": 0.7066706866025925
+    },
+    {
+      "category": "small:kernel-linear:streaming:fixed",
+      "case": 28,
+      "kind": "high_offset",
+      "n": 6,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "streaming",
+      "min_size": 2,
+      "jump": 1,
+      "K": 1,
+      "actual": [
+        4,
+        6
+      ],
+      "expected": [
+        3,
+        6
+      ],
+      "actual_objective": 7.644277572631836,
+      "expected_objective": 0.7066706866025925
+    },
+    {
+      "category": "small:kernel-linear:fused:penalty",
+      "case": 28,
+      "kind": "high_offset",
+      "n": 6,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "fused",
+      "min_size": 2,
+      "jump": 1,
+      "penalty": 0.4159039279818535,
+      "actual": [
+        6
+      ],
+      "expected": [
+        3,
+        6
+      ],
+      "actual_objective": 13.863464266061783,
+      "expected_objective": 1.122574614584446
+    },
+    {
+      "category": "small:kernel-linear:full:penalty",
+      "case": 28,
+      "kind": "high_offset",
+      "n": 6,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "full",
+      "min_size": 2,
+      "jump": 1,
+      "penalty": 0.4159039279818535,
+      "actual": [
+        4,
+        6
+      ],
+      "expected": [
+        3,
+        6
+      ],
+      "actual_objective": 8.06018150061369,
+      "expected_objective": 1.122574614584446
+    },
+    {
+      "category": "small:kernel-linear:streaming:penalty",
+      "case": 28,
+      "kind": "high_offset",
+      "n": 6,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "streaming",
+      "min_size": 2,
+      "jump": 1,
+      "penalty": 0.4159039279818535,
+      "actual": [
+        4,
+        6
+      ],
+      "expected": [
+        3,
+        6
+      ],
+      "actual_objective": 8.06018150061369,
+      "expected_objective": 1.122574614584446
+    },
+    {
+      "category": "small:kernel-linear:fused:penalty",
+      "case": 28,
+      "kind": "high_offset",
+      "n": 6,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "fused",
+      "min_size": 2,
+      "jump": 1,
+      "penalty": 4.1590392798185345,
+      "actual": [
+        6
+      ],
+      "expected": [
+        3,
+        6
+      ],
+      "actual_objective": 13.863464266061783,
+      "expected_objective": 4.865709966421127
+    },
+    {
+      "category": "small:kernel-linear:full:penalty",
+      "case": 28,
+      "kind": "high_offset",
+      "n": 6,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "full",
+      "min_size": 2,
+      "jump": 1,
+      "penalty": 4.1590392798185345,
+      "actual": [
+        4,
+        6
+      ],
+      "expected": [
+        3,
+        6
+      ],
+      "actual_objective": 11.80331685245037,
+      "expected_objective": 4.865709966421127
+    },
+    {
+      "category": "small:kernel-linear:streaming:penalty",
+      "case": 28,
+      "kind": "high_offset",
+      "n": 6,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "streaming",
+      "min_size": 2,
+      "jump": 1,
+      "penalty": 4.1590392798185345,
+      "actual": [
+        4,
+        6
+      ],
+      "expected": [
+        3,
+        6
+      ],
+      "actual_objective": 11.80331685245037,
+      "expected_objective": 4.865709966421127
+    },
+    {
+      "category": "small:kernel-linear:full:penalty",
+      "case": 28,
+      "kind": "high_offset",
+      "n": 6,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "full",
+      "min_size": 2,
+      "jump": 1,
+      "penalty": 27.726928532123566,
+      "actual": [
+        4,
+        6
+      ],
+      "expected": [
+        6
+      ],
+      "actual_objective": 35.3712061047554,
+      "expected_objective": 13.863464266061783
+    },
+    {
+      "category": "small:kernel-linear:streaming:penalty",
+      "case": 28,
+      "kind": "high_offset",
+      "n": 6,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "streaming",
+      "min_size": 2,
+      "jump": 1,
+      "penalty": 27.726928532123566,
+      "actual": [
+        4,
+        6
+      ],
+      "expected": [
+        6
+      ],
+      "actual_objective": 35.3712061047554,
+      "expected_objective": 13.863464266061783
+    },
+    {
+      "category": "small:kernel-linear:fused:penalty",
+      "case": 28,
+      "kind": "high_offset",
+      "n": 6,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "fused",
+      "min_size": 2,
+      "jump": 2,
+      "penalty": 0.4159039279818535,
+      "actual": [
+        6
+      ],
+      "expected": [
+        2,
+        4,
+        6
+      ],
+      "actual_objective": 13.863464266061783,
+      "expected_objective": 6.957243059277534
+    },
+    {
+      "category": "small:kernel-linear:full:penalty",
+      "case": 28,
+      "kind": "high_offset",
+      "n": 6,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "full",
+      "min_size": 2,
+      "jump": 2,
+      "penalty": 0.4159039279818535,
+      "actual": [
+        4,
+        6
+      ],
+      "expected": [
+        2,
+        4,
+        6
+      ],
+      "actual_objective": 8.06018150061369,
+      "expected_objective": 6.957243059277534
+    },
+    {
+      "category": "small:kernel-linear:streaming:penalty",
+      "case": 28,
+      "kind": "high_offset",
+      "n": 6,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "streaming",
+      "min_size": 2,
+      "jump": 2,
+      "penalty": 0.4159039279818535,
+      "actual": [
+        4,
+        6
+      ],
+      "expected": [
+        2,
+        4,
+        6
+      ],
+      "actual_objective": 8.06018150061369,
+      "expected_objective": 6.957243059277534
+    },
+    {
+      "category": "small:kernel-linear:fused:penalty",
+      "case": 28,
+      "kind": "high_offset",
+      "n": 6,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "fused",
+      "min_size": 2,
+      "jump": 2,
+      "penalty": 4.1590392798185345,
+      "actual": [
+        6
+      ],
+      "expected": [
+        4,
+        6
+      ],
+      "actual_objective": 13.863464266061783,
+      "expected_objective": 11.80331685245037
+    },
+    {
+      "category": "small:kernel-linear:full:penalty",
+      "case": 28,
+      "kind": "high_offset",
+      "n": 6,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "full",
+      "min_size": 2,
+      "jump": 2,
+      "penalty": 27.726928532123566,
+      "actual": [
+        4,
+        6
+      ],
+      "expected": [
+        6
+      ],
+      "actual_objective": 35.3712061047554,
+      "expected_objective": 13.863464266061783
+    },
+    {
+      "category": "small:kernel-linear:streaming:penalty",
+      "case": 28,
+      "kind": "high_offset",
+      "n": 6,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "streaming",
+      "min_size": 2,
+      "jump": 2,
+      "penalty": 27.726928532123566,
+      "actual": [
+        4,
+        6
+      ],
+      "expected": [
+        6
+      ],
+      "actual_objective": 35.3712061047554,
+      "expected_objective": 13.863464266061783
+    },
+    {
+      "category": "small:kernel-linear:fused:penalty",
+      "case": 28,
+      "kind": "high_offset",
+      "n": 6,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "fused",
+      "min_size": 2,
+      "jump": 3,
+      "penalty": 0.4159039279818535,
+      "actual": [
+        6
+      ],
+      "expected": [
+        3,
+        6
+      ],
+      "actual_objective": 13.863464266061783,
+      "expected_objective": 1.122574614584446
+    },
+    {
+      "category": "small:kernel-linear:streaming:penalty",
+      "case": 28,
+      "kind": "high_offset",
+      "n": 6,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "streaming",
+      "min_size": 2,
+      "jump": 3,
+      "penalty": 0.4159039279818535,
+      "actual": [
+        6
+      ],
+      "expected": [
+        3,
+        6
+      ],
+      "actual_objective": 13.863464266061783,
+      "expected_objective": 1.122574614584446
+    },
+    {
+      "category": "small:kernel-linear:fused:penalty",
+      "case": 28,
+      "kind": "high_offset",
+      "n": 6,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "fused",
+      "min_size": 2,
+      "jump": 3,
+      "penalty": 4.1590392798185345,
+      "actual": [
+        6
+      ],
+      "expected": [
+        3,
+        6
+      ],
+      "actual_objective": 13.863464266061783,
+      "expected_objective": 4.865709966421127
+    },
+    {
+      "category": "small:kernel-linear:streaming:penalty",
+      "case": 28,
+      "kind": "high_offset",
+      "n": 6,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "streaming",
+      "min_size": 2,
+      "jump": 3,
+      "penalty": 4.1590392798185345,
+      "actual": [
+        6
+      ],
+      "expected": [
+        3,
+        6
+      ],
+      "actual_objective": 13.863464266061783,
+      "expected_objective": 4.865709966421127
+    },
+    {
+      "category": "small:kernel-linear:full:penalty",
+      "case": 28,
+      "kind": "high_offset",
+      "n": 6,
+      "d": 2,
+      "kernel": "linear",
+      "backend": "full",
+      "min_size": 2,
+      "jump": 3,
+      "penalty": 27.726928532123566,
+      "actual": [
+        3,
+        6
+      ],
+      "expected": [
+        6
+      ],
+      "actual_objective": 28.433599218726158,
+      "expected_objective": 13.863464266061783
+    },
+    {
+      "category": "medium:ruptures-pelt:reference",
+      "case": 5,
+      "kind": "outliers",
+      "n": 31,
+      "d": 2,
+      "min_size": 4,
+      "jump": 1,
+      "penalty": 12.305393690280086,
+      "actual": [
+        8,
+        14,
+        18,
+        22,
+        27,
+        31
+      ],
+      "expected": [
+        8,
+        14,
+        22,
+        27,
+        31
+      ],
+      "actual_objective": 1161.8723448532892,
+      "expected_objective": 1149.6305443782444
+    },
+    {
+      "category": "medium:ruptures-pelt:reference",
+      "case": 5,
+      "kind": "outliers",
+      "n": 31,
+      "d": 2,
+      "min_size": 4,
+      "jump": 2,
+      "penalty": 12.305393690280086,
+      "actual": [
+        8,
+        14,
+        18,
+        22,
+        26,
+        31
+      ],
+      "expected": [
+        8,
+        14,
+        22,
+        26,
+        31
+      ],
+      "actual_objective": 1175.1822025028878,
+      "expected_objective": 1162.940402027843
+    },
+    {
+      "category": "medium:kernel-linear:fused:reference",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 20,
+      "d": 3,
+      "kernel": "linear",
+      "min_size": 1,
+      "K": 1,
+      "backend": "fused",
+      "exception_type": "RusturesError",
+      "exception": "numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "category": "medium:kernel-linear:full:reference",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 20,
+      "d": 3,
+      "kernel": "linear",
+      "min_size": 1,
+      "K": 1,
+      "backend": "full",
+      "actual": [
+        14,
+        20
+      ],
+      "expected": [
+        10,
+        20
+      ],
+      "actual_objective": 31.500262081623077,
+      "expected_objective": 3.3027523458004
+    },
+    {
+      "category": "medium:kernel-linear:streaming:reference",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 20,
+      "d": 3,
+      "kernel": "linear",
+      "min_size": 1,
+      "K": 1,
+      "backend": "streaming",
+      "actual": [
+        12,
+        20
+      ],
+      "expected": [
+        10,
+        20
+      ],
+      "actual_objective": 20.499663293361664,
+      "expected_objective": 3.3027523458004
+    },
+    {
+      "category": "medium:ruptures-kernel-linear:reference",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 20,
+      "d": 3,
+      "kernel": "linear",
+      "min_size": 1,
+      "K": 1,
+      "actual": [
+        7,
+        20
+      ],
+      "expected": [
+        10,
+        20
+      ],
+      "actual_objective": 25.149844646453857,
+      "expected_objective": 3.3027523458004
+    },
+    {
+      "category": "medium:kernel-linear:fused:reference",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 20,
+      "d": 3,
+      "kernel": "linear",
+      "min_size": 1,
+      "K": 2,
+      "backend": "fused",
+      "exception_type": "RusturesError",
+      "exception": "numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "category": "medium:kernel-linear:full:reference",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 20,
+      "d": 3,
+      "kernel": "linear",
+      "min_size": 1,
+      "K": 2,
+      "backend": "full",
+      "actual": [
+        13,
+        15,
+        20
+      ],
+      "expected": [
+        1,
+        10,
+        20
+      ],
+      "actual_objective": 26.136382326483727,
+      "expected_objective": 2.799013778567314
+    },
+    {
+      "category": "medium:kernel-linear:streaming:reference",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 20,
+      "d": 3,
+      "kernel": "linear",
+      "min_size": 1,
+      "K": 2,
+      "backend": "streaming",
+      "actual": [
+        12,
+        15,
+        20
+      ],
+      "expected": [
+        1,
+        10,
+        20
+      ],
+      "actual_objective": 20.300628289580345,
+      "expected_objective": 2.799013778567314
+    },
+    {
+      "category": "medium:ruptures-kernel-linear:reference",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 20,
+      "d": 3,
+      "kernel": "linear",
+      "min_size": 1,
+      "K": 2,
+      "actual": [
+        2,
+        18,
+        20
+      ],
+      "expected": [
+        1,
+        10,
+        20
+      ],
+      "actual_objective": 42.211497247219086,
+      "expected_objective": 2.799013778567314
+    },
+    {
+      "category": "medium:kernel-linear:fused:reference",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 20,
+      "d": 3,
+      "kernel": "linear",
+      "min_size": 1,
+      "K": 4,
+      "backend": "fused",
+      "exception_type": "RusturesError",
+      "exception": "numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "category": "medium:kernel-linear:full:reference",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 20,
+      "d": 3,
+      "kernel": "linear",
+      "min_size": 1,
+      "K": 4,
+      "backend": "full",
+      "actual": [
+        9,
+        10,
+        12,
+        15,
+        20
+      ],
+      "expected": [
+        1,
+        2,
+        6,
+        10,
+        20
+      ],
+      "actual_objective": 2.894779860973358,
+      "expected_objective": 2.086374208331108
+    },
+    {
+      "category": "medium:kernel-linear:streaming:reference",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 20,
+      "d": 3,
+      "kernel": "linear",
+      "min_size": 1,
+      "K": 4,
+      "backend": "streaming",
+      "actual": [
+        3,
+        5,
+        12,
+        15,
+        20
+      ],
+      "expected": [
+        1,
+        2,
+        6,
+        10,
+        20
+      ],
+      "actual_objective": 17.210752248764038,
+      "expected_objective": 2.086374208331108
+    },
+    {
+      "category": "medium:ruptures-kernel-linear:reference",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 20,
+      "d": 3,
+      "kernel": "linear",
+      "min_size": 1,
+      "K": 4,
+      "actual": [
+        1,
+        2,
+        18,
+        19,
+        20
+      ],
+      "expected": [
+        1,
+        2,
+        6,
+        10,
+        20
+      ],
+      "actual_objective": 41.403209671378136,
+      "expected_objective": 2.086374208331108
+    },
+    {
+      "category": "medium:kernel-linear:fused:reference",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 20,
+      "d": 3,
+      "kernel": "linear",
+      "min_size": 1,
+      "K": 8,
+      "backend": "fused",
+      "exception_type": "RusturesError",
+      "exception": "numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "category": "medium:kernel-linear:full:reference",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 20,
+      "d": 3,
+      "kernel": "linear",
+      "min_size": 1,
+      "K": 8,
+      "backend": "full",
+      "actual": [
+        1,
+        5,
+        6,
+        7,
+        9,
+        10,
+        12,
+        15,
+        20
+      ],
+      "expected": [
+        1,
+        2,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        20
+      ],
+      "actual_objective": 1.785182386636734,
+      "expected_objective": 1.1922756433486938
+    },
+    {
+      "category": "medium:kernel-linear:streaming:reference",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 20,
+      "d": 3,
+      "kernel": "linear",
+      "min_size": 1,
+      "K": 8,
+      "backend": "streaming",
+      "actual": [
+        1,
+        4,
+        5,
+        12,
+        13,
+        14,
+        15,
+        16,
+        20
+      ],
+      "expected": [
+        1,
+        2,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        20
+      ],
+      "actual_objective": 16.746248066425323,
+      "expected_objective": 1.1922756433486938
+    },
+    {
+      "category": "medium:ruptures-kernel-linear:reference",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 20,
+      "d": 3,
+      "kernel": "linear",
+      "min_size": 1,
+      "K": 8,
+      "actual": [
+        1,
+        2,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20
+      ],
+      "expected": [
+        1,
+        2,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        20
+      ],
+      "actual_objective": 27.887430906295776,
+      "expected_objective": 1.1922756433486938
+    },
+    {
+      "category": "medium:kernel-linear:fused:reference",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 20,
+      "d": 3,
+      "kernel": "linear",
+      "min_size": 2,
+      "K": 1,
+      "backend": "fused",
+      "exception_type": "RusturesError",
+      "exception": "numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "category": "medium:kernel-linear:full:reference",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 20,
+      "d": 3,
+      "kernel": "linear",
+      "min_size": 2,
+      "K": 1,
+      "backend": "full",
+      "actual": [
+        14,
+        20
+      ],
+      "expected": [
+        10,
+        20
+      ],
+      "actual_objective": 31.500262081623077,
+      "expected_objective": 3.3027523458004
+    },
+    {
+      "category": "medium:kernel-linear:streaming:reference",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 20,
+      "d": 3,
+      "kernel": "linear",
+      "min_size": 2,
+      "K": 1,
+      "backend": "streaming",
+      "actual": [
+        12,
+        20
+      ],
+      "expected": [
+        10,
+        20
+      ],
+      "actual_objective": 20.499663293361664,
+      "expected_objective": 3.3027523458004
+    },
+    {
+      "category": "medium:ruptures-kernel-linear:reference",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 20,
+      "d": 3,
+      "kernel": "linear",
+      "min_size": 2,
+      "K": 1,
+      "actual": [
+        7,
+        20
+      ],
+      "expected": [
+        10,
+        20
+      ],
+      "actual_objective": 25.149844646453857,
+      "expected_objective": 3.3027523458004
+    },
+    {
+      "category": "medium:kernel-linear:fused:reference",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 20,
+      "d": 3,
+      "kernel": "linear",
+      "min_size": 2,
+      "K": 2,
+      "backend": "fused",
+      "exception_type": "RusturesError",
+      "exception": "numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "category": "medium:kernel-linear:full:reference",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 20,
+      "d": 3,
+      "kernel": "linear",
+      "min_size": 2,
+      "K": 2,
+      "backend": "full",
+      "actual": [
+        13,
+        15,
+        20
+      ],
+      "expected": [
+        8,
+        10,
+        20
+      ],
+      "actual_objective": 26.136382326483727,
+      "expected_objective": 2.8033676147460938
+    },
+    {
+      "category": "medium:kernel-linear:streaming:reference",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 20,
+      "d": 3,
+      "kernel": "linear",
+      "min_size": 2,
+      "K": 2,
+      "backend": "streaming",
+      "actual": [
+        12,
+        15,
+        20
+      ],
+      "expected": [
+        8,
+        10,
+        20
+      ],
+      "actual_objective": 20.300628289580345,
+      "expected_objective": 2.8033676147460938
+    },
+    {
+      "category": "medium:ruptures-kernel-linear:reference",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 20,
+      "d": 3,
+      "kernel": "linear",
+      "min_size": 2,
+      "K": 2,
+      "actual": [
+        2,
+        18,
+        20
+      ],
+      "expected": [
+        8,
+        10,
+        20
+      ],
+      "actual_objective": 42.211497247219086,
+      "expected_objective": 2.8033676147460938
+    },
+    {
+      "category": "medium:kernel-linear:fused:reference",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 20,
+      "d": 3,
+      "kernel": "linear",
+      "min_size": 2,
+      "K": 4,
+      "backend": "fused",
+      "exception_type": "RusturesError",
+      "exception": "numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "category": "medium:kernel-linear:full:reference",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 20,
+      "d": 3,
+      "kernel": "linear",
+      "min_size": 2,
+      "K": 4,
+      "backend": "full",
+      "actual": [
+        8,
+        10,
+        12,
+        15,
+        20
+      ],
+      "expected": [
+        6,
+        8,
+        10,
+        17,
+        20
+      ],
+      "actual_objective": 2.513649806380272,
+      "expected_objective": 2.4724631011486053
+    },
+    {
+      "category": "medium:kernel-linear:streaming:reference",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 20,
+      "d": 3,
+      "kernel": "linear",
+      "min_size": 2,
+      "K": 4,
+      "backend": "streaming",
+      "actual": [
+        3,
+        5,
+        12,
+        15,
+        20
+      ],
+      "expected": [
+        6,
+        8,
+        10,
+        17,
+        20
+      ],
+      "actual_objective": 17.210752248764038,
+      "expected_objective": 2.4724631011486053
+    },
+    {
+      "category": "medium:ruptures-kernel-linear:reference",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 20,
+      "d": 3,
+      "kernel": "linear",
+      "min_size": 2,
+      "K": 4,
+      "actual": [
+        2,
+        14,
+        16,
+        18,
+        20
+      ],
+      "expected": [
+        6,
+        8,
+        10,
+        17,
+        20
+      ],
+      "actual_objective": 29.012800723314285,
+      "expected_objective": 2.4724631011486053
+    },
+    {
+      "category": "medium:kernel-linear:fused:reference",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 20,
+      "d": 3,
+      "kernel": "linear",
+      "min_size": 2,
+      "K": 8,
+      "backend": "fused",
+      "exception_type": "RusturesError",
+      "exception": "numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "category": "medium:kernel-linear:full:reference",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 20,
+      "d": 3,
+      "kernel": "linear",
+      "min_size": 2,
+      "K": 8,
+      "backend": "full",
+      "actual": [
+        2,
+        4,
+        6,
+        8,
+        10,
+        12,
+        14,
+        16,
+        20
+      ],
+      "expected": [
+        2,
+        4,
+        6,
+        8,
+        10,
+        12,
+        15,
+        17,
+        20
+      ],
+      "actual_objective": 2.1930412352085114,
+      "expected_objective": 2.0169334709644318
+    },
+    {
+      "category": "medium:kernel-linear:streaming:reference",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 20,
+      "d": 3,
+      "kernel": "linear",
+      "min_size": 2,
+      "K": 8,
+      "backend": "streaming",
+      "actual": [
+        2,
+        4,
+        6,
+        8,
+        10,
+        12,
+        14,
+        16,
+        20
+      ],
+      "expected": [
+        2,
+        4,
+        6,
+        8,
+        10,
+        12,
+        15,
+        17,
+        20
+      ],
+      "actual_objective": 2.1930412352085114,
+      "expected_objective": 2.0169334709644318
+    },
+    {
+      "category": "medium:ruptures-kernel-linear:reference",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 20,
+      "d": 3,
+      "kernel": "linear",
+      "min_size": 2,
+      "K": 8,
+      "actual": [
+        2,
+        5,
+        7,
+        10,
+        12,
+        14,
+        16,
+        18,
+        20
+      ],
+      "expected": [
+        2,
+        4,
+        6,
+        8,
+        10,
+        12,
+        15,
+        17,
+        20
+      ],
+      "actual_objective": 2.4492260217666626,
+      "expected_objective": 2.0169334709644318
+    },
+    {
+      "category": "medium:ruptures-pelt:reference",
+      "case": 10,
+      "kind": "gaussian",
+      "n": 48,
+      "d": 3,
+      "min_size": 2,
+      "jump": 1,
+      "penalty": 1.3618468656324394,
+      "actual": [
+        3,
+        5,
+        7,
+        10,
+        12,
+        14,
+        17,
+        21,
+        23,
+        26,
+        28,
+        31,
+        35,
+        37,
+        39,
+        41,
+        44,
+        46,
+        48
+      ],
+      "expected": [
+        3,
+        5,
+        7,
+        12,
+        14,
+        17,
+        21,
+        23,
+        26,
+        28,
+        31,
+        35,
+        37,
+        39,
+        41,
+        44,
+        46,
+        48
+      ],
+      "actual_objective": 87.63108160196754,
+      "expected_objective": 87.10299508957402
+    },
+    {
+      "category": "medium:ruptures-pelt:reference",
+      "case": 20,
+      "kind": "gaussian",
+      "n": 20,
+      "d": 2,
+      "min_size": 2,
+      "jump": 1,
+      "penalty": 0.3294773528086411,
+      "actual": [
+        3,
+        5,
+        7,
+        9,
+        12,
+        14,
+        16,
+        20
+      ],
+      "expected": [
+        3,
+        5,
+        7,
+        9,
+        12,
+        16,
+        20
+      ],
+      "actual_objective": 11.80348908084007,
+      "expected_objective": 11.646825144727098
+    },
+    {
+      "category": "medium:ruptures-pelt:reference",
+      "case": 25,
+      "kind": "outliers",
+      "n": 31,
+      "d": 3,
+      "min_size": 4,
+      "jump": 1,
+      "penalty": 51.326423028288964,
+      "actual": [
+        8,
+        14,
+        18,
+        22,
+        27,
+        31
+      ],
+      "expected": [
+        8,
+        14,
+        22,
+        27,
+        31
+      ],
+      "actual_objective": 4843.035832147109,
+      "expected_objective": 4791.7990247964835
+    },
+    {
+      "category": "medium:ruptures-pelt:reference",
+      "case": 30,
+      "kind": "gaussian",
+      "n": 48,
+      "d": 4,
+      "min_size": 2,
+      "jump": 1,
+      "penalty": 1.5462750092293103,
+      "actual": [
+        4,
+        7,
+        9,
+        11,
+        13,
+        16,
+        19,
+        21,
+        23,
+        25,
+        27,
+        29,
+        31,
+        33,
+        35,
+        38,
+        40,
+        42,
+        44,
+        46,
+        48
+      ],
+      "expected": [
+        4,
+        7,
+        9,
+        11,
+        13,
+        16,
+        21,
+        23,
+        25,
+        27,
+        29,
+        31,
+        33,
+        35,
+        38,
+        40,
+        42,
+        44,
+        46,
+        48
+      ],
+      "actual_objective": 96.65950212971288,
+      "expected_objective": 96.5172181228894
+    }
+  ]
+}

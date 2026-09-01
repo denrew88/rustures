@@ -16,13 +16,16 @@ pub use core::segmentation::{
     Detector, DetectorCapabilities, SearchGrid, Segmentation, Stop,
 };
 pub use core::signal::{validate_finite, validate_signal_shape, SignalShape, SignalView};
-pub use cost::{CostL2, SegmentCost};
+pub use cost::{
+    ARBoundary, CostAR, CostCLinear, CostL1, CostL2, CostLinear, CostMahalanobis, CostModel,
+    CostNormal, CostRank, CostSpec, SegmentCost,
+};
 pub use kernel::{
     resolve_gamma, CosineKernel, FullGramPrefix, FusedKernel, GammaPolicy, Kernel, KernelBackend,
     KernelCPD, KernelCost, KernelKind, LinearKernel, RbfKernel, StreamingKernelCost,
 };
 pub use metrics::{hausdorff, precision_recall, rand_index};
-pub use search::{Binseg, BottomUp, Dynp, FusedKernelCPD, Pelt, Window};
+pub use search::{Binseg, BottomUp, Dynp, FusedKernelCPD, L1Potts, Pelt, Window};
 
 #[cfg(test)]
 pub(crate) use testing::oracle;

@@ -1,0 +1,400 @@
+{
+  "seed": 20260830,
+  "small_cases": 60,
+  "medium_cases": 32,
+  "checks": {
+    "medium:dynp:reference": 1072,
+    "medium:kernel-cosine:full:reference": 128,
+    "medium:kernel-cosine:fused:reference": 128,
+    "medium:kernel-cosine:streaming:reference": 128,
+    "medium:kernel-linear:full:reference": 128,
+    "medium:kernel-linear:fused:reference": 128,
+    "medium:kernel-linear:streaming:reference": 128,
+    "medium:kernel-rbf:full:reference": 128,
+    "medium:kernel-rbf:fused:reference": 128,
+    "medium:kernel-rbf:streaming:reference": 128,
+    "medium:pelt:reference": 1440,
+    "medium:ruptures-dynp:reference": 1072,
+    "medium:ruptures-kernel-cosine:reference": 128,
+    "medium:ruptures-kernel-linear:reference": 128,
+    "medium:ruptures-kernel-rbf:reference": 128,
+    "medium:ruptures-pelt:reference": 1440,
+    "small:dynp:exhaustive": 1737,
+    "small:kernel-cosine:full:fixed": 640,
+    "small:kernel-cosine:full:penalty": 540,
+    "small:kernel-cosine:fused:fixed": 640,
+    "small:kernel-cosine:fused:penalty": 540,
+    "small:kernel-cosine:streaming:fixed": 640,
+    "small:kernel-cosine:streaming:penalty": 540,
+    "small:kernel-linear:full:fixed": 640,
+    "small:kernel-linear:full:penalty": 540,
+    "small:kernel-linear:fused:fixed": 640,
+    "small:kernel-linear:fused:penalty": 540,
+    "small:kernel-linear:streaming:fixed": 640,
+    "small:kernel-linear:streaming:penalty": 540,
+    "small:kernel-rbf:full:fixed": 640,
+    "small:kernel-rbf:full:penalty": 540,
+    "small:kernel-rbf:fused:fixed": 640,
+    "small:kernel-rbf:fused:penalty": 540,
+    "small:kernel-rbf:streaming:fixed": 640,
+    "small:kernel-rbf:streaming:penalty": 540,
+    "small:pelt:exhaustive": 2700
+  },
+  "total_checks": 21617,
+  "expected_or_tied_divergences": {
+    "medium:kernel-cosine:rust-vs-ruptures-path": 12,
+    "medium:kernel-linear:rust-vs-ruptures-path": 8,
+    "medium:kernel-rbf:rust-vs-ruptures-path": 15,
+    "medium:pelt:rust-vs-ruptures-path": 6,
+    "medium:ruptures-kernel-cosine:reference:alternate_optimum": 12,
+    "medium:ruptures-kernel-rbf:reference:alternate_optimum": 10,
+    "medium:ruptures-pelt:reference:alternate_optimum": 1,
+    "small:kernel-cosine:fused:penalty:alternate_optimum": 1
+  },
+  "failure_count": 13,
+  "failures": [
+    {
+      "category": "medium:ruptures-pelt:reference",
+      "case": 4,
+      "kind": "variance_shift",
+      "n": 20,
+      "d": 2,
+      "min_size": 4,
+      "jump": 2,
+      "penalty": 1.6596786881479886,
+      "actual": [
+        8,
+        12,
+        20
+      ],
+      "expected": [
+        10,
+        14,
+        20
+      ],
+      "actual_objective": 158.8405022963644,
+      "expected_objective": 158.74930435091753
+    },
+    {
+      "category": "medium:ruptures-pelt:reference",
+      "case": 5,
+      "kind": "outliers",
+      "n": 31,
+      "d": 2,
+      "min_size": 4,
+      "jump": 1,
+      "penalty": 7.121307269567711,
+      "actual": [
+        8,
+        14,
+        18,
+        22,
+        27,
+        31
+      ],
+      "expected": [
+        8,
+        14,
+        22,
+        27,
+        31
+      ],
+      "actual_objective": 669.691508047912,
+      "expected_objective": 662.6112837477463
+    },
+    {
+      "category": "medium:ruptures-pelt:reference",
+      "case": 6,
+      "kind": "integer_ties",
+      "n": 48,
+      "d": 2,
+      "min_size": 4,
+      "jump": 1,
+      "penalty": 1.9897916666666666,
+      "actual": [
+        4,
+        8,
+        12,
+        16,
+        20,
+        24,
+        31,
+        35,
+        41,
+        48
+      ],
+      "expected": [
+        4,
+        8,
+        12,
+        16,
+        20,
+        24,
+        31,
+        35,
+        40,
+        48
+      ],
+      "actual_objective": 156.1819345238095,
+      "expected_objective": 155.8759821428571
+    },
+    {
+      "category": "medium:ruptures-kernel-linear:reference",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 20,
+      "d": 3,
+      "kernel": "linear",
+      "min_size": 1,
+      "K": 1,
+      "actual": [
+        2,
+        20
+      ],
+      "expected": [
+        10,
+        20
+      ],
+      "actual_objective": 55.508108557098446,
+      "expected_objective": 3.3297794982790947
+    },
+    {
+      "category": "medium:ruptures-kernel-linear:reference",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 20,
+      "d": 3,
+      "kernel": "linear",
+      "min_size": 1,
+      "K": 2,
+      "actual": [
+        2,
+        19,
+        20
+      ],
+      "expected": [
+        10,
+        19,
+        20
+      ],
+      "actual_objective": 50.243983419940754,
+      "expected_objective": 2.575142791867256
+    },
+    {
+      "category": "medium:ruptures-kernel-linear:reference",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 20,
+      "d": 3,
+      "kernel": "linear",
+      "min_size": 1,
+      "K": 4,
+      "actual": [
+        1,
+        2,
+        17,
+        18,
+        20
+      ],
+      "expected": [
+        10,
+        12,
+        14,
+        19,
+        20
+      ],
+      "actual_objective": 43.98215981523197,
+      "expected_objective": 1.947370894253254
+    },
+    {
+      "category": "medium:ruptures-kernel-linear:reference",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 20,
+      "d": 3,
+      "kernel": "linear",
+      "min_size": 1,
+      "K": 8,
+      "actual": [
+        1,
+        2,
+        13,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20
+      ],
+      "expected": [
+        1,
+        8,
+        9,
+        10,
+        12,
+        14,
+        15,
+        19,
+        20
+      ],
+      "actual_objective": 24.72183622893962,
+      "expected_objective": 1.0703155653817316
+    },
+    {
+      "category": "medium:ruptures-kernel-linear:reference",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 20,
+      "d": 3,
+      "kernel": "linear",
+      "min_size": 2,
+      "K": 1,
+      "actual": [
+        2,
+        20
+      ],
+      "expected": [
+        10,
+        20
+      ],
+      "actual_objective": 55.508108557098446,
+      "expected_objective": 3.3297794982790947
+    },
+    {
+      "category": "medium:ruptures-kernel-linear:reference",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 20,
+      "d": 3,
+      "kernel": "linear",
+      "min_size": 2,
+      "K": 2,
+      "actual": [
+        2,
+        16,
+        20
+      ],
+      "expected": [
+        10,
+        12,
+        20
+      ],
+      "actual_objective": 41.531209369323086,
+      "expected_objective": 2.9356149327009913
+    },
+    {
+      "category": "medium:ruptures-kernel-linear:reference",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 20,
+      "d": 3,
+      "kernel": "linear",
+      "min_size": 2,
+      "K": 4,
+      "actual": [
+        2,
+        13,
+        15,
+        18,
+        20
+      ],
+      "expected": [
+        10,
+        12,
+        15,
+        17,
+        20
+      ],
+      "actual_objective": 25.706762996586885,
+      "expected_objective": 2.344722892840703
+    },
+    {
+      "category": "medium:ruptures-kernel-linear:reference",
+      "case": 8,
+      "kind": "high_offset",
+      "n": 20,
+      "d": 3,
+      "kernel": "linear",
+      "min_size": 2,
+      "K": 8,
+      "actual": [
+        2,
+        5,
+        7,
+        9,
+        11,
+        13,
+        15,
+        18,
+        20
+      ],
+      "expected": [
+        3,
+        5,
+        8,
+        10,
+        12,
+        14,
+        16,
+        18,
+        20
+      ],
+      "actual_objective": 6.98555558671554,
+      "expected_objective": 1.847021130224069
+    },
+    {
+      "category": "medium:ruptures-pelt:reference",
+      "case": 25,
+      "kind": "outliers",
+      "n": 31,
+      "d": 3,
+      "min_size": 4,
+      "jump": 1,
+      "penalty": 36.89078227500005,
+      "actual": [
+        8,
+        14,
+        18,
+        22,
+        27,
+        31
+      ],
+      "expected": [
+        8,
+        14,
+        22,
+        27,
+        31
+      ],
+      "actual_objective": 3484.1244482958523,
+      "expected_objective": 3447.355351480878
+    },
+    {
+      "category": "medium:ruptures-pelt:reference",
+      "case": 25,
+      "kind": "outliers",
+      "n": 31,
+      "d": 3,
+      "min_size": 4,
+      "jump": 2,
+      "penalty": 36.89078227500005,
+      "actual": [
+        8,
+        14,
+        18,
+        22,
+        26,
+        31
+      ],
+      "expected": [
+        8,
+        14,
+        22,
+        26,
+        31
+      ],
+      "actual_objective": 3529.3184282218435,
+      "expected_objective": 3492.5493314068694
+    }
+  ]
+}

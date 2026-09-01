@@ -30,83 +30,105 @@ impl Dynp {
     ) -> Result<Segmentation, Error> {
         let min_size = self.effective_min_size(cost)?;
         validate_feasible(cost.n_samples(), changes, min_size, self.grid.jump)?;
+        if changes == 0 {
+            let segment_cost = cost.cost(0..cost.n_samples())?;
+            return Segmentation::new(
+                vec![cost.n_samples()],
+                segment_cost,
+                segment_cost,
+                cost.n_samples(),
+                min_size,
+            );
+        }
 
         let positions = candidate_positions(cost.n_samples(), self.grid.jump);
         let n_positions = positions.len();
         let n_segments = changes
             .checked_add(1)
             .ok_or_else(|| self.infeasible(cost.n_samples(), changes, min_size))?;
-        let predecessor_len = n_segments
+        let state_len = n_segments
             .checked_add(1)
             .and_then(|rows| rows.checked_mul(n_positions))
             .ok_or(Error::NumericalFailure {
-                context: "allocating Dynp predecessor table",
+                context: "allocating Dynp state tables",
             })?;
 
-        let mut predecessors = vec![NO_PREDECESSOR; predecessor_len];
-        let mut previous_scores = vec![f64::INFINITY; n_positions];
-        let mut current_scores = vec![f64::INFINITY; n_positions];
-        let mut previous_ranks = vec![NO_PREDECESSOR; n_positions];
-        let mut current_ranks = vec![NO_PREDECESSOR; n_positions];
-        previous_scores[0] = 0.0;
-        previous_ranks[0] = 0;
+        let mut predecessors = vec![NO_PREDECESSOR; state_len];
+        let mut scores = vec![f64::INFINITY; state_len];
+        let mut segment_costs = Vec::new();
+        let mut candidate_path = Vec::new();
+        let mut best_path = Vec::new();
+        scores[0] = 0.0;
 
-        for segment_count in 1..=n_segments {
-            current_scores.fill(f64::INFINITY);
-            current_ranks.fill(NO_PREDECESSOR);
+        // Endpoint-major traversal evaluates every admissible segment cost once
+        // and reuses that batch for all fixed-K states ending at this position.
+        for end_index in 1..n_positions {
+            let end = positions[end_index];
+            let valid_start_count =
+                positions[..end_index].partition_point(|&start| end - start >= min_size);
+            if valid_start_count == 0 {
+                continue;
+            }
+            cost.costs_ending_at(&positions[..valid_start_count], end, &mut segment_costs)?;
+            if segment_costs.len() != valid_start_count {
+                return Err(Error::NumericalFailure {
+                    context: "evaluating a Dynp endpoint cost batch",
+                });
+            }
+            if let Some(value) = segment_costs.iter().find(|value| !value.is_finite()) {
+                return Err(Error::NonFiniteObjective { value: *value });
+            }
 
-            for end_index in 1..n_positions {
-                let end = positions[end_index];
+            for segment_count in 1..=n_segments.min(end_index) {
                 let mut best_predecessor = NO_PREDECESSOR;
                 let mut best_score = f64::INFINITY;
 
-                for start_index in 0..end_index {
-                    let start = positions[start_index];
-                    if previous_ranks[start_index] == NO_PREDECESSOR || end - start < min_size {
+                let previous_row = (segment_count - 1) * n_positions;
+                for (start_index, &segment_cost) in
+                    segment_costs[..valid_start_count].iter().enumerate()
+                {
+                    let previous_score = scores[previous_row + start_index];
+                    if !previous_score.is_finite() {
                         continue;
                     }
-                    let segment_cost = cost.cost(start..end)?;
-                    let candidate_score = previous_scores[start_index] + segment_cost;
+                    let candidate_score = previous_score + segment_cost;
                     if !candidate_score.is_finite() {
                         return Err(Error::NonFiniteObjective {
                             value: candidate_score,
                         });
                     }
 
-                    let best_rank = if best_predecessor == NO_PREDECESSOR {
-                        NO_PREDECESSOR
+                    let better = if !best_score.is_finite() {
+                        true
+                    } else if objective_values_tied(candidate_score, best_score) {
+                        state_path_is_smaller(
+                            segment_count - 1,
+                            start_index,
+                            best_predecessor,
+                            &positions,
+                            &predecessors,
+                            n_positions,
+                            &mut candidate_path,
+                            &mut best_path,
+                        )?
                     } else {
-                        previous_ranks[best_predecessor]
+                        candidate_score < best_score
                     };
-                    if score_is_better(
-                        candidate_score,
-                        previous_ranks[start_index],
-                        best_score,
-                        best_rank,
-                    ) {
+                    if better {
                         best_score = candidate_score;
                         best_predecessor = start_index;
                     }
                 }
 
                 if best_predecessor != NO_PREDECESSOR {
-                    current_scores[end_index] = best_score;
+                    scores[segment_count * n_positions + end_index] = best_score;
                     predecessors[segment_count * n_positions + end_index] = best_predecessor;
                 }
             }
-
-            assign_lexicographic_ranks(
-                &positions,
-                &predecessors[segment_count * n_positions..(segment_count + 1) * n_positions],
-                &previous_ranks,
-                &mut current_ranks,
-            );
-            std::mem::swap(&mut previous_scores, &mut current_scores);
-            std::mem::swap(&mut previous_ranks, &mut current_ranks);
         }
 
         let final_index = n_positions - 1;
-        let final_score = previous_scores[final_index];
+        let final_score = scores[n_segments * n_positions + final_index];
         if !final_score.is_finite() {
             return Err(self.infeasible(cost.n_samples(), changes, min_size));
         }
@@ -209,41 +231,65 @@ fn validate_feasible(
     Ok(())
 }
 
-fn score_is_better(
-    candidate_score: f64,
-    candidate_rank: usize,
-    best_score: f64,
-    best_rank: usize,
-) -> bool {
-    if !best_score.is_finite() {
-        return true;
-    }
-    if objective_values_tied(candidate_score, best_score) {
-        candidate_rank < best_rank
-    } else {
-        candidate_score < best_score
-    }
-}
-
-fn assign_lexicographic_ranks(
+#[allow(clippy::too_many_arguments)]
+fn state_path_is_smaller(
+    segment_count: usize,
+    candidate_end: usize,
+    best_end: usize,
     positions: &[usize],
     predecessors: &[usize],
-    previous_ranks: &[usize],
-    output: &mut [usize],
-) {
-    let mut reachable: Vec<_> = predecessors
-        .iter()
-        .copied()
-        .enumerate()
-        .filter(|(_, predecessor)| *predecessor != NO_PREDECESSOR)
-        .map(|(end_index, predecessor)| {
-            (previous_ranks[predecessor], positions[end_index], end_index)
-        })
-        .collect();
-    reachable.sort_unstable();
-    for (rank, (_, _, end_index)) in reachable.into_iter().enumerate() {
-        output[end_index] = rank;
+    n_positions: usize,
+    candidate_path: &mut Vec<usize>,
+    best_path: &mut Vec<usize>,
+) -> Result<bool, Error> {
+    if best_end == NO_PREDECESSOR {
+        return Ok(true);
     }
+    build_state_path(
+        segment_count,
+        candidate_end,
+        positions,
+        predecessors,
+        n_positions,
+        candidate_path,
+    )?;
+    build_state_path(
+        segment_count,
+        best_end,
+        positions,
+        predecessors,
+        n_positions,
+        best_path,
+    )?;
+    Ok(candidate_path < best_path)
+}
+
+fn build_state_path(
+    segment_count: usize,
+    end_index: usize,
+    positions: &[usize],
+    predecessors: &[usize],
+    n_positions: usize,
+    output: &mut Vec<usize>,
+) -> Result<(), Error> {
+    output.clear();
+    let mut cursor = end_index;
+    for count in (1..=segment_count).rev() {
+        output.push(positions[cursor]);
+        cursor = predecessors[count * n_positions + cursor];
+        if cursor == NO_PREDECESSOR {
+            return Err(Error::NumericalFailure {
+                context: "comparing Dynp segmentation paths",
+            });
+        }
+    }
+    if cursor != 0 {
+        return Err(Error::NumericalFailure {
+            context: "comparing Dynp segmentation paths",
+        });
+    }
+    output.reverse();
+    Ok(())
 }
 
 #[cfg(test)]
@@ -251,6 +297,8 @@ mod tests {
     use super::*;
     use crate::oracle::best_fixed_changes;
     use crate::{CostL2, SignalView};
+    use std::ops::Range;
+    use std::sync::atomic::{AtomicUsize, Ordering};
 
     fn l2(signal: &[f64]) -> CostL2 {
         CostL2::fit(SignalView::new(signal, signal.len(), 1).unwrap()).unwrap()
@@ -333,5 +381,57 @@ mod tests {
                 rule: "penalty",
             })
         );
+    }
+
+    struct CountingBatchCost {
+        values: Vec<f64>,
+        batch_calls: AtomicUsize,
+        scalar_calls: AtomicUsize,
+    }
+
+    impl SegmentCost for CountingBatchCost {
+        fn n_samples(&self) -> usize {
+            self.values.len()
+        }
+        fn n_features(&self) -> usize {
+            1
+        }
+        fn min_size(&self) -> usize {
+            1
+        }
+        fn cost(&self, segment: Range<usize>) -> Result<f64, Error> {
+            self.scalar_calls.fetch_add(1, Ordering::Relaxed);
+            let values = &self.values[segment];
+            let mean = values.iter().sum::<f64>() / values.len() as f64;
+            Ok(values.iter().map(|value| (value - mean).powi(2)).sum())
+        }
+        fn costs_ending_at(
+            &self,
+            starts: &[usize],
+            end: usize,
+            output: &mut Vec<f64>,
+        ) -> Result<(), Error> {
+            self.batch_calls.fetch_add(1, Ordering::Relaxed);
+            output.clear();
+            for &start in starts {
+                let values = &self.values[start..end];
+                let mean = values.iter().sum::<f64>() / values.len() as f64;
+                output.push(values.iter().map(|value| (value - mean).powi(2)).sum());
+            }
+            Ok(())
+        }
+    }
+
+    #[test]
+    fn endpoint_cost_batch_is_shared_across_all_k_states() {
+        let cost = CountingBatchCost {
+            values: vec![0.0, 0.0, 3.0, 3.0, -2.0, -2.0, 1.0, 1.0],
+            batch_calls: AtomicUsize::new(0),
+            scalar_calls: AtomicUsize::new(0),
+        };
+        let result = Dynp::new(1, 1).unwrap().predict_changes(&cost, 3).unwrap();
+        assert_eq!(result.breakpoints, [2, 4, 6, 8]);
+        assert_eq!(cost.batch_calls.load(Ordering::Relaxed), 8);
+        assert_eq!(cost.scalar_calls.load(Ordering::Relaxed), 0);
     }
 }

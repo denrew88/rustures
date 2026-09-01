@@ -14,6 +14,7 @@ default = []
 panic-test-hook = []
 
 [dependencies]
+nalgebra = "0.33.2"
 numpy = "0.29.0"
 pyo3 = { version = "0.29.2", features = ["abi3-py310", "extension-module"] }
 thiserror = "2.0.20"

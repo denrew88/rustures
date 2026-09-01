@@ -1,0 +1,3996 @@
+{
+  "seed": 20260830,
+  "summary": {
+    "0.0": {
+      "ok": 14,
+      "wrong": 0,
+      "error": 0
+    },
+    "10.0": {
+      "ok": 14,
+      "wrong": 0,
+      "error": 0
+    },
+    "100.0": {
+      "ok": 14,
+      "wrong": 0,
+      "error": 0
+    },
+    "1000.0": {
+      "ok": 14,
+      "wrong": 0,
+      "error": 0
+    },
+    "10000.0": {
+      "ok": 14,
+      "wrong": 0,
+      "error": 0
+    },
+    "100000.0": {
+      "ok": 14,
+      "wrong": 0,
+      "error": 0
+    },
+    "1000000.0": {
+      "ok": 14,
+      "wrong": 0,
+      "error": 0
+    },
+    "10000000.0": {
+      "ok": 7,
+      "wrong": 3,
+      "error": 4
+    },
+    "100000000.0": {
+      "ok": 2,
+      "wrong": 8,
+      "error": 4
+    },
+    "1000000000.0": {
+      "ok": 2,
+      "wrong": 8,
+      "error": 4
+    },
+    "10000000000.0": {
+      "ok": 2,
+      "wrong": 8,
+      "error": 4
+    },
+    "100000000000.0": {
+      "ok": 2,
+      "wrong": 8,
+      "error": 4
+    },
+    "1000000000000.0": {
+      "ok": 3,
+      "wrong": 7,
+      "error": 4
+    },
+    "10000000000000.0": {
+      "ok": 2,
+      "wrong": 8,
+      "error": 4
+    },
+    "100000000000000.0": {
+      "ok": 2,
+      "wrong": 8,
+      "error": 4
+    },
+    "1000000000000000.0": {
+      "ok": 2,
+      "wrong": 8,
+      "error": 4
+    }
+  },
+  "records": [
+    {
+      "offset": 0.0,
+      "algorithm": "dynp",
+      "status": "ok",
+      "actual": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "expected": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 0.0,
+      "algorithm": "pelt",
+      "status": "ok",
+      "actual": [
+        21,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 0.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "fused",
+      "K": 1,
+      "status": "ok",
+      "actual": [
+        21,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 0.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "fused",
+      "K": 3,
+      "status": "ok",
+      "actual": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "expected": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 0.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "fused",
+      "K": 6,
+      "status": "ok",
+      "actual": [
+        10,
+        13,
+        15,
+        21,
+        23,
+        26,
+        31
+      ],
+      "expected": [
+        10,
+        13,
+        15,
+        21,
+        23,
+        26,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 0.0,
+      "algorithm": "kernel-linear-penalty",
+      "backend": "fused",
+      "status": "ok",
+      "actual": [
+        21,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 0.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "full",
+      "K": 1,
+      "status": "ok",
+      "actual": [
+        21,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 0.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "full",
+      "K": 3,
+      "status": "ok",
+      "actual": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "expected": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 0.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "full",
+      "K": 6,
+      "status": "ok",
+      "actual": [
+        10,
+        13,
+        15,
+        21,
+        23,
+        26,
+        31
+      ],
+      "expected": [
+        10,
+        13,
+        15,
+        21,
+        23,
+        26,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 0.0,
+      "algorithm": "kernel-linear-penalty",
+      "backend": "full",
+      "status": "ok",
+      "actual": [
+        21,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 0.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "streaming",
+      "K": 1,
+      "status": "ok",
+      "actual": [
+        21,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 0.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "streaming",
+      "K": 3,
+      "status": "ok",
+      "actual": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "expected": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 0.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "streaming",
+      "K": 6,
+      "status": "ok",
+      "actual": [
+        10,
+        13,
+        15,
+        21,
+        23,
+        26,
+        31
+      ],
+      "expected": [
+        10,
+        13,
+        15,
+        21,
+        23,
+        26,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 0.0,
+      "algorithm": "kernel-linear-penalty",
+      "backend": "streaming",
+      "status": "ok",
+      "actual": [
+        21,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 10.0,
+      "algorithm": "dynp",
+      "status": "ok",
+      "actual": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "expected": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 10.0,
+      "algorithm": "pelt",
+      "status": "ok",
+      "actual": [
+        21,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 10.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "fused",
+      "K": 1,
+      "status": "ok",
+      "actual": [
+        21,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 10.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "fused",
+      "K": 3,
+      "status": "ok",
+      "actual": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "expected": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 10.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "fused",
+      "K": 6,
+      "status": "ok",
+      "actual": [
+        10,
+        13,
+        15,
+        21,
+        23,
+        26,
+        31
+      ],
+      "expected": [
+        10,
+        13,
+        15,
+        21,
+        23,
+        26,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 10.0,
+      "algorithm": "kernel-linear-penalty",
+      "backend": "fused",
+      "status": "ok",
+      "actual": [
+        21,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 10.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "full",
+      "K": 1,
+      "status": "ok",
+      "actual": [
+        21,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 10.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "full",
+      "K": 3,
+      "status": "ok",
+      "actual": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "expected": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 10.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "full",
+      "K": 6,
+      "status": "ok",
+      "actual": [
+        10,
+        13,
+        15,
+        21,
+        23,
+        26,
+        31
+      ],
+      "expected": [
+        10,
+        13,
+        15,
+        21,
+        23,
+        26,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 10.0,
+      "algorithm": "kernel-linear-penalty",
+      "backend": "full",
+      "status": "ok",
+      "actual": [
+        21,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 10.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "streaming",
+      "K": 1,
+      "status": "ok",
+      "actual": [
+        21,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 10.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "streaming",
+      "K": 3,
+      "status": "ok",
+      "actual": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "expected": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 10.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "streaming",
+      "K": 6,
+      "status": "ok",
+      "actual": [
+        10,
+        13,
+        15,
+        21,
+        23,
+        26,
+        31
+      ],
+      "expected": [
+        10,
+        13,
+        15,
+        21,
+        23,
+        26,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 10.0,
+      "algorithm": "kernel-linear-penalty",
+      "backend": "streaming",
+      "status": "ok",
+      "actual": [
+        21,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 100.0,
+      "algorithm": "dynp",
+      "status": "ok",
+      "actual": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "expected": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 100.0,
+      "algorithm": "pelt",
+      "status": "ok",
+      "actual": [
+        21,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 100.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "fused",
+      "K": 1,
+      "status": "ok",
+      "actual": [
+        21,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 100.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "fused",
+      "K": 3,
+      "status": "ok",
+      "actual": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "expected": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 100.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "fused",
+      "K": 6,
+      "status": "ok",
+      "actual": [
+        10,
+        13,
+        15,
+        21,
+        23,
+        26,
+        31
+      ],
+      "expected": [
+        10,
+        13,
+        15,
+        21,
+        23,
+        26,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 100.0,
+      "algorithm": "kernel-linear-penalty",
+      "backend": "fused",
+      "status": "ok",
+      "actual": [
+        21,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 100.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "full",
+      "K": 1,
+      "status": "ok",
+      "actual": [
+        21,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 100.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "full",
+      "K": 3,
+      "status": "ok",
+      "actual": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "expected": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 100.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "full",
+      "K": 6,
+      "status": "ok",
+      "actual": [
+        10,
+        13,
+        15,
+        21,
+        23,
+        26,
+        31
+      ],
+      "expected": [
+        10,
+        13,
+        15,
+        21,
+        23,
+        26,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 100.0,
+      "algorithm": "kernel-linear-penalty",
+      "backend": "full",
+      "status": "ok",
+      "actual": [
+        21,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 100.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "streaming",
+      "K": 1,
+      "status": "ok",
+      "actual": [
+        21,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 100.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "streaming",
+      "K": 3,
+      "status": "ok",
+      "actual": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "expected": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 100.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "streaming",
+      "K": 6,
+      "status": "ok",
+      "actual": [
+        10,
+        13,
+        15,
+        21,
+        23,
+        26,
+        31
+      ],
+      "expected": [
+        10,
+        13,
+        15,
+        21,
+        23,
+        26,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 100.0,
+      "algorithm": "kernel-linear-penalty",
+      "backend": "streaming",
+      "status": "ok",
+      "actual": [
+        21,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 1000.0,
+      "algorithm": "dynp",
+      "status": "ok",
+      "actual": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "expected": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 1000.0,
+      "algorithm": "pelt",
+      "status": "ok",
+      "actual": [
+        21,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 1000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "fused",
+      "K": 1,
+      "status": "ok",
+      "actual": [
+        21,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 1000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "fused",
+      "K": 3,
+      "status": "ok",
+      "actual": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "expected": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 1000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "fused",
+      "K": 6,
+      "status": "ok",
+      "actual": [
+        10,
+        13,
+        15,
+        21,
+        23,
+        26,
+        31
+      ],
+      "expected": [
+        10,
+        13,
+        15,
+        21,
+        23,
+        26,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 1000.0,
+      "algorithm": "kernel-linear-penalty",
+      "backend": "fused",
+      "status": "ok",
+      "actual": [
+        21,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 1000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "full",
+      "K": 1,
+      "status": "ok",
+      "actual": [
+        21,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 1000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "full",
+      "K": 3,
+      "status": "ok",
+      "actual": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "expected": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 1000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "full",
+      "K": 6,
+      "status": "ok",
+      "actual": [
+        10,
+        13,
+        15,
+        21,
+        23,
+        26,
+        31
+      ],
+      "expected": [
+        10,
+        13,
+        15,
+        21,
+        23,
+        26,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 1000.0,
+      "algorithm": "kernel-linear-penalty",
+      "backend": "full",
+      "status": "ok",
+      "actual": [
+        21,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 1000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "streaming",
+      "K": 1,
+      "status": "ok",
+      "actual": [
+        21,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 1000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "streaming",
+      "K": 3,
+      "status": "ok",
+      "actual": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "expected": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 1000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "streaming",
+      "K": 6,
+      "status": "ok",
+      "actual": [
+        10,
+        13,
+        15,
+        21,
+        23,
+        26,
+        31
+      ],
+      "expected": [
+        10,
+        13,
+        15,
+        21,
+        23,
+        26,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 1000.0,
+      "algorithm": "kernel-linear-penalty",
+      "backend": "streaming",
+      "status": "ok",
+      "actual": [
+        21,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 10000.0,
+      "algorithm": "dynp",
+      "status": "ok",
+      "actual": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "expected": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 10000.0,
+      "algorithm": "pelt",
+      "status": "ok",
+      "actual": [
+        21,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 10000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "fused",
+      "K": 1,
+      "status": "ok",
+      "actual": [
+        21,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 10000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "fused",
+      "K": 3,
+      "status": "ok",
+      "actual": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "expected": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 10000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "fused",
+      "K": 6,
+      "status": "ok",
+      "actual": [
+        10,
+        13,
+        15,
+        21,
+        23,
+        26,
+        31
+      ],
+      "expected": [
+        10,
+        13,
+        15,
+        21,
+        23,
+        26,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 10000.0,
+      "algorithm": "kernel-linear-penalty",
+      "backend": "fused",
+      "status": "ok",
+      "actual": [
+        21,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 10000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "full",
+      "K": 1,
+      "status": "ok",
+      "actual": [
+        21,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 10000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "full",
+      "K": 3,
+      "status": "ok",
+      "actual": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "expected": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 10000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "full",
+      "K": 6,
+      "status": "ok",
+      "actual": [
+        10,
+        13,
+        15,
+        21,
+        23,
+        26,
+        31
+      ],
+      "expected": [
+        10,
+        13,
+        15,
+        21,
+        23,
+        26,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 10000.0,
+      "algorithm": "kernel-linear-penalty",
+      "backend": "full",
+      "status": "ok",
+      "actual": [
+        21,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 10000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "streaming",
+      "K": 1,
+      "status": "ok",
+      "actual": [
+        21,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 10000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "streaming",
+      "K": 3,
+      "status": "ok",
+      "actual": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "expected": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 10000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "streaming",
+      "K": 6,
+      "status": "ok",
+      "actual": [
+        10,
+        13,
+        15,
+        21,
+        23,
+        26,
+        31
+      ],
+      "expected": [
+        10,
+        13,
+        15,
+        21,
+        23,
+        26,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 10000.0,
+      "algorithm": "kernel-linear-penalty",
+      "backend": "streaming",
+      "status": "ok",
+      "actual": [
+        21,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 100000.0,
+      "algorithm": "dynp",
+      "status": "ok",
+      "actual": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "expected": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 100000.0,
+      "algorithm": "pelt",
+      "status": "ok",
+      "actual": [
+        21,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 100000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "fused",
+      "K": 1,
+      "status": "ok",
+      "actual": [
+        21,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 100000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "fused",
+      "K": 3,
+      "status": "ok",
+      "actual": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "expected": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 100000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "fused",
+      "K": 6,
+      "status": "ok",
+      "actual": [
+        10,
+        13,
+        15,
+        21,
+        23,
+        26,
+        31
+      ],
+      "expected": [
+        10,
+        13,
+        15,
+        21,
+        23,
+        26,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 100000.0,
+      "algorithm": "kernel-linear-penalty",
+      "backend": "fused",
+      "status": "ok",
+      "actual": [
+        21,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 100000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "full",
+      "K": 1,
+      "status": "ok",
+      "actual": [
+        21,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 100000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "full",
+      "K": 3,
+      "status": "ok",
+      "actual": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "expected": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 100000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "full",
+      "K": 6,
+      "status": "ok",
+      "actual": [
+        10,
+        13,
+        15,
+        21,
+        23,
+        26,
+        31
+      ],
+      "expected": [
+        10,
+        13,
+        15,
+        21,
+        23,
+        26,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 100000.0,
+      "algorithm": "kernel-linear-penalty",
+      "backend": "full",
+      "status": "ok",
+      "actual": [
+        21,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 100000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "streaming",
+      "K": 1,
+      "status": "ok",
+      "actual": [
+        21,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 100000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "streaming",
+      "K": 3,
+      "status": "ok",
+      "actual": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "expected": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 100000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "streaming",
+      "K": 6,
+      "status": "ok",
+      "actual": [
+        10,
+        13,
+        15,
+        21,
+        23,
+        26,
+        31
+      ],
+      "expected": [
+        10,
+        13,
+        15,
+        21,
+        23,
+        26,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 100000.0,
+      "algorithm": "kernel-linear-penalty",
+      "backend": "streaming",
+      "status": "ok",
+      "actual": [
+        21,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 1000000.0,
+      "algorithm": "dynp",
+      "status": "ok",
+      "actual": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "expected": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 1000000.0,
+      "algorithm": "pelt",
+      "status": "ok",
+      "actual": [
+        21,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 2.842170943040401e-14
+    },
+    {
+      "offset": 1000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "fused",
+      "K": 1,
+      "status": "ok",
+      "actual": [
+        21,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 1000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "fused",
+      "K": 3,
+      "status": "ok",
+      "actual": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "expected": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 1000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "fused",
+      "K": 6,
+      "status": "ok",
+      "actual": [
+        10,
+        13,
+        15,
+        21,
+        23,
+        26,
+        31
+      ],
+      "expected": [
+        10,
+        13,
+        15,
+        21,
+        23,
+        26,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 1000000.0,
+      "algorithm": "kernel-linear-penalty",
+      "backend": "fused",
+      "status": "ok",
+      "actual": [
+        21,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 2.842170943040401e-14
+    },
+    {
+      "offset": 1000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "full",
+      "K": 1,
+      "status": "ok",
+      "actual": [
+        21,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 1000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "full",
+      "K": 3,
+      "status": "ok",
+      "actual": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "expected": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 1000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "full",
+      "K": 6,
+      "status": "ok",
+      "actual": [
+        10,
+        13,
+        15,
+        21,
+        23,
+        26,
+        31
+      ],
+      "expected": [
+        10,
+        13,
+        15,
+        21,
+        23,
+        26,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 1000000.0,
+      "algorithm": "kernel-linear-penalty",
+      "backend": "full",
+      "status": "ok",
+      "actual": [
+        21,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 2.842170943040401e-14
+    },
+    {
+      "offset": 1000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "streaming",
+      "K": 1,
+      "status": "ok",
+      "actual": [
+        21,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 1000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "streaming",
+      "K": 3,
+      "status": "ok",
+      "actual": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "expected": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 1000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "streaming",
+      "K": 6,
+      "status": "ok",
+      "actual": [
+        10,
+        13,
+        15,
+        21,
+        23,
+        26,
+        31
+      ],
+      "expected": [
+        10,
+        13,
+        15,
+        21,
+        23,
+        26,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 1000000.0,
+      "algorithm": "kernel-linear-penalty",
+      "backend": "streaming",
+      "status": "ok",
+      "actual": [
+        21,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 2.842170943040401e-14
+    },
+    {
+      "offset": 10000000.0,
+      "algorithm": "dynp",
+      "status": "ok",
+      "actual": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "expected": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 10000000.0,
+      "algorithm": "pelt",
+      "status": "ok",
+      "actual": [
+        21,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 2.842170943040401e-14
+    },
+    {
+      "offset": 10000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "fused",
+      "K": 1,
+      "status": "error",
+      "error": "RusturesError: numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "offset": 10000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "fused",
+      "K": 3,
+      "status": "error",
+      "error": "RusturesError: numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "offset": 10000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "fused",
+      "K": 6,
+      "status": "error",
+      "error": "RusturesError: numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "offset": 10000000.0,
+      "algorithm": "kernel-linear-penalty",
+      "backend": "fused",
+      "status": "error",
+      "error": "RusturesError: numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "offset": 10000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "full",
+      "K": 1,
+      "status": "ok",
+      "actual": [
+        21,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 10000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "full",
+      "K": 3,
+      "status": "wrong",
+      "actual": [
+        10,
+        21,
+        28,
+        31
+      ],
+      "expected": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "objective_gap": 2.235954464771492
+    },
+    {
+      "offset": 10000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "full",
+      "K": 6,
+      "status": "wrong",
+      "actual": [
+        8,
+        10,
+        14,
+        21,
+        25,
+        28,
+        31
+      ],
+      "expected": [
+        10,
+        13,
+        15,
+        21,
+        23,
+        26,
+        31
+      ],
+      "objective_gap": 4.770409533975794
+    },
+    {
+      "offset": 10000000.0,
+      "algorithm": "kernel-linear-penalty",
+      "backend": "full",
+      "status": "ok",
+      "actual": [
+        21,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 2.842170943040401e-14
+    },
+    {
+      "offset": 10000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "streaming",
+      "K": 1,
+      "status": "ok",
+      "actual": [
+        21,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 10000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "streaming",
+      "K": 3,
+      "status": "ok",
+      "actual": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "expected": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 10000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "streaming",
+      "K": 6,
+      "status": "wrong",
+      "actual": [
+        10,
+        13,
+        15,
+        21,
+        23,
+        29,
+        31
+      ],
+      "expected": [
+        10,
+        13,
+        15,
+        21,
+        23,
+        26,
+        31
+      ],
+      "objective_gap": 0.5974873988432208
+    },
+    {
+      "offset": 10000000.0,
+      "algorithm": "kernel-linear-penalty",
+      "backend": "streaming",
+      "status": "ok",
+      "actual": [
+        21,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 2.842170943040401e-14
+    },
+    {
+      "offset": 100000000.0,
+      "algorithm": "dynp",
+      "status": "ok",
+      "actual": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "expected": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 100000000.0,
+      "algorithm": "pelt",
+      "status": "ok",
+      "actual": [
+        21,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 2.842170943040401e-14
+    },
+    {
+      "offset": 100000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "fused",
+      "K": 1,
+      "status": "error",
+      "error": "RusturesError: numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "offset": 100000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "fused",
+      "K": 3,
+      "status": "error",
+      "error": "RusturesError: numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "offset": 100000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "fused",
+      "K": 6,
+      "status": "error",
+      "error": "RusturesError: numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "offset": 100000000.0,
+      "algorithm": "kernel-linear-penalty",
+      "backend": "fused",
+      "status": "error",
+      "error": "RusturesError: numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "offset": 100000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "full",
+      "K": 1,
+      "status": "wrong",
+      "actual": [
+        24,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 114.37055948099415
+    },
+    {
+      "offset": 100000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "full",
+      "K": 3,
+      "status": "wrong",
+      "actual": [
+        2,
+        24,
+        27,
+        31
+      ],
+      "expected": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "objective_gap": 185.1922966010481
+    },
+    {
+      "offset": 100000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "full",
+      "K": 6,
+      "status": "wrong",
+      "actual": [
+        8,
+        13,
+        16,
+        20,
+        22,
+        24,
+        31
+      ],
+      "expected": [
+        10,
+        13,
+        15,
+        21,
+        23,
+        26,
+        31
+      ],
+      "objective_gap": 51.17692134009661
+    },
+    {
+      "offset": 100000000.0,
+      "algorithm": "kernel-linear-penalty",
+      "backend": "full",
+      "status": "wrong",
+      "actual": [
+        6,
+        9,
+        11,
+        13,
+        15,
+        17,
+        20,
+        22,
+        24,
+        27,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 653.1425898160549
+    },
+    {
+      "offset": 100000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "streaming",
+      "K": 1,
+      "status": "wrong",
+      "actual": [
+        20,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 51.778170394365944
+    },
+    {
+      "offset": 100000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "streaming",
+      "K": 3,
+      "status": "wrong",
+      "actual": [
+        20,
+        22,
+        25,
+        31
+      ],
+      "expected": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "objective_gap": 104.05360543350719
+    },
+    {
+      "offset": 100000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "streaming",
+      "K": 6,
+      "status": "wrong",
+      "actual": [
+        18,
+        21,
+        23,
+        25,
+        27,
+        29,
+        31
+      ],
+      "expected": [
+        10,
+        13,
+        15,
+        21,
+        23,
+        26,
+        31
+      ],
+      "objective_gap": 62.29465308515812
+    },
+    {
+      "offset": 100000000.0,
+      "algorithm": "kernel-linear-penalty",
+      "backend": "streaming",
+      "status": "wrong",
+      "actual": [
+        20,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 51.77817039436596
+    },
+    {
+      "offset": 1000000000.0,
+      "algorithm": "dynp",
+      "status": "ok",
+      "actual": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "expected": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 1000000000.0,
+      "algorithm": "pelt",
+      "status": "ok",
+      "actual": [
+        21,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": -2.842170943040401e-14
+    },
+    {
+      "offset": 1000000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "fused",
+      "K": 1,
+      "status": "error",
+      "error": "RusturesError: numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "offset": 1000000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "fused",
+      "K": 3,
+      "status": "error",
+      "error": "RusturesError: numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "offset": 1000000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "fused",
+      "K": 6,
+      "status": "error",
+      "error": "RusturesError: numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "offset": 1000000000.0,
+      "algorithm": "kernel-linear-penalty",
+      "backend": "fused",
+      "status": "error",
+      "error": "RusturesError: numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "offset": 1000000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "full",
+      "K": 1,
+      "status": "wrong",
+      "actual": [
+        22,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 43.87196200878299
+    },
+    {
+      "offset": 1000000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "full",
+      "K": 3,
+      "status": "wrong",
+      "actual": [
+        19,
+        22,
+        27,
+        31
+      ],
+      "expected": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "objective_gap": 114.0107184744875
+    },
+    {
+      "offset": 1000000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "full",
+      "K": 6,
+      "status": "wrong",
+      "actual": [
+        9,
+        11,
+        17,
+        19,
+        22,
+        27,
+        31
+      ],
+      "expected": [
+        10,
+        13,
+        15,
+        21,
+        23,
+        26,
+        31
+      ],
+      "objective_gap": 59.02732078941726
+    },
+    {
+      "offset": 1000000000.0,
+      "algorithm": "kernel-linear-penalty",
+      "backend": "full",
+      "status": "wrong",
+      "actual": [
+        4,
+        7,
+        9,
+        11,
+        13,
+        17,
+        19,
+        22,
+        27,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 594.509981929082
+    },
+    {
+      "offset": 1000000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "streaming",
+      "K": 1,
+      "status": "wrong",
+      "actual": [
+        8,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 269.3447772138521
+    },
+    {
+      "offset": 1000000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "streaming",
+      "K": 3,
+      "status": "wrong",
+      "actual": [
+        2,
+        6,
+        28,
+        31
+      ],
+      "expected": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "objective_gap": 288.99414392346023
+    },
+    {
+      "offset": 1000000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "streaming",
+      "K": 6,
+      "status": "wrong",
+      "actual": [
+        2,
+        5,
+        7,
+        9,
+        26,
+        29,
+        31
+      ],
+      "expected": [
+        10,
+        13,
+        15,
+        21,
+        23,
+        26,
+        31
+      ],
+      "objective_gap": 226.1297992033712
+    },
+    {
+      "offset": 1000000000.0,
+      "algorithm": "kernel-linear-penalty",
+      "backend": "streaming",
+      "status": "wrong",
+      "actual": [
+        2,
+        8,
+        16,
+        18,
+        22,
+        29,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 387.6635950381175
+    },
+    {
+      "offset": 10000000000.0,
+      "algorithm": "dynp",
+      "status": "ok",
+      "actual": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "expected": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 10000000000.0,
+      "algorithm": "pelt",
+      "status": "ok",
+      "actual": [
+        21,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 10000000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "fused",
+      "K": 1,
+      "status": "error",
+      "error": "RusturesError: numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "offset": 10000000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "fused",
+      "K": 3,
+      "status": "error",
+      "error": "RusturesError: numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "offset": 10000000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "fused",
+      "K": 6,
+      "status": "error",
+      "error": "RusturesError: numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "offset": 10000000000.0,
+      "algorithm": "kernel-linear-penalty",
+      "backend": "fused",
+      "status": "error",
+      "error": "RusturesError: numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "offset": 10000000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "full",
+      "K": 1,
+      "status": "wrong",
+      "actual": [
+        25,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 144.40363976715525
+    },
+    {
+      "offset": 10000000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "full",
+      "K": 3,
+      "status": "wrong",
+      "actual": [
+        23,
+        25,
+        29,
+        31
+      ],
+      "expected": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "objective_gap": 158.30656832681416
+    },
+    {
+      "offset": 10000000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "full",
+      "K": 6,
+      "status": "wrong",
+      "actual": [
+        11,
+        13,
+        15,
+        23,
+        25,
+        29,
+        31
+      ],
+      "expected": [
+        10,
+        13,
+        15,
+        21,
+        23,
+        26,
+        31
+      ],
+      "objective_gap": 116.98359975807398
+    },
+    {
+      "offset": 10000000000.0,
+      "algorithm": "kernel-linear-penalty",
+      "backend": "full",
+      "status": "wrong",
+      "actual": [
+        4,
+        6,
+        8,
+        11,
+        13,
+        15,
+        18,
+        20,
+        23,
+        25,
+        27,
+        29,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 819.3786950713243
+    },
+    {
+      "offset": 10000000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "streaming",
+      "K": 1,
+      "status": "wrong",
+      "actual": [
+        13,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 247.61760272735773
+    },
+    {
+      "offset": 10000000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "streaming",
+      "K": 3,
+      "status": "wrong",
+      "actual": [
+        4,
+        6,
+        9,
+        31
+      ],
+      "expected": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "objective_gap": 341.98745936831983
+    },
+    {
+      "offset": 10000000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "streaming",
+      "K": 6,
+      "status": "wrong",
+      "actual": [
+        3,
+        5,
+        7,
+        9,
+        11,
+        13,
+        31
+      ],
+      "expected": [
+        10,
+        13,
+        15,
+        21,
+        23,
+        26,
+        31
+      ],
+      "objective_gap": 305.03412865725477
+    },
+    {
+      "offset": 10000000000.0,
+      "algorithm": "kernel-linear-penalty",
+      "backend": "streaming",
+      "status": "wrong",
+      "actual": [
+        4,
+        8,
+        13,
+        17,
+        19,
+        21,
+        23,
+        26,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 477.26971080244846
+    },
+    {
+      "offset": 100000000000.0,
+      "algorithm": "dynp",
+      "status": "ok",
+      "actual": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "expected": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 100000000000.0,
+      "algorithm": "pelt",
+      "status": "ok",
+      "actual": [
+        21,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 100000000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "fused",
+      "K": 1,
+      "status": "error",
+      "error": "RusturesError: numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "offset": 100000000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "fused",
+      "K": 3,
+      "status": "error",
+      "error": "RusturesError: numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "offset": 100000000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "fused",
+      "K": 6,
+      "status": "error",
+      "error": "RusturesError: numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "offset": 100000000000.0,
+      "algorithm": "kernel-linear-penalty",
+      "backend": "fused",
+      "status": "error",
+      "error": "RusturesError: numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "offset": 100000000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "full",
+      "K": 1,
+      "status": "wrong",
+      "actual": [
+        24,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 114.37059442629106
+    },
+    {
+      "offset": 100000000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "full",
+      "K": 3,
+      "status": "wrong",
+      "actual": [
+        18,
+        24,
+        26,
+        31
+      ],
+      "expected": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "objective_gap": 160.3754663488362
+    },
+    {
+      "offset": 100000000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "full",
+      "K": 6,
+      "status": "wrong",
+      "actual": [
+        11,
+        16,
+        18,
+        24,
+        26,
+        28,
+        31
+      ],
+      "expected": [
+        10,
+        13,
+        15,
+        21,
+        23,
+        26,
+        31
+      ],
+      "objective_gap": 115.80980017594993
+    },
+    {
+      "offset": 100000000000.0,
+      "algorithm": "kernel-linear-penalty",
+      "backend": "full",
+      "status": "wrong",
+      "actual": [
+        4,
+        6,
+        10,
+        12,
+        16,
+        18,
+        20,
+        23,
+        27,
+        29,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 655.7430127246305
+    },
+    {
+      "offset": 100000000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "streaming",
+      "K": 1,
+      "status": "wrong",
+      "actual": [
+        29,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 246.61190023017116
+    },
+    {
+      "offset": 100000000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "streaming",
+      "K": 3,
+      "status": "wrong",
+      "actual": [
+        12,
+        27,
+        29,
+        31
+      ],
+      "expected": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "objective_gap": 253.06603617151268
+    },
+    {
+      "offset": 100000000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "streaming",
+      "K": 6,
+      "status": "wrong",
+      "actual": [
+        2,
+        5,
+        7,
+        9,
+        12,
+        28,
+        31
+      ],
+      "expected": [
+        10,
+        13,
+        15,
+        21,
+        23,
+        26,
+        31
+      ],
+      "objective_gap": 267.88328929338604
+    },
+    {
+      "offset": 100000000000.0,
+      "algorithm": "kernel-linear-penalty",
+      "backend": "streaming",
+      "status": "wrong",
+      "actual": [
+        2,
+        8,
+        11,
+        17,
+        23,
+        29,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 410.0016615022906
+    },
+    {
+      "offset": 1000000000000.0,
+      "algorithm": "dynp",
+      "status": "ok",
+      "actual": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "expected": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 1000000000000.0,
+      "algorithm": "pelt",
+      "status": "ok",
+      "actual": [
+        21,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 1000000000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "fused",
+      "K": 1,
+      "status": "error",
+      "error": "RusturesError: numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "offset": 1000000000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "fused",
+      "K": 3,
+      "status": "error",
+      "error": "RusturesError: numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "offset": 1000000000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "fused",
+      "K": 6,
+      "status": "error",
+      "error": "RusturesError: numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "offset": 1000000000000.0,
+      "algorithm": "kernel-linear-penalty",
+      "backend": "fused",
+      "status": "error",
+      "error": "RusturesError: numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "offset": 1000000000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "full",
+      "K": 1,
+      "status": "wrong",
+      "actual": [
+        22,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 43.871848449110985
+    },
+    {
+      "offset": 1000000000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "full",
+      "K": 3,
+      "status": "ok",
+      "actual": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "expected": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 1000000000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "full",
+      "K": 6,
+      "status": "wrong",
+      "actual": [
+        7,
+        11,
+        14,
+        21,
+        23,
+        29,
+        31
+      ],
+      "expected": [
+        10,
+        13,
+        15,
+        21,
+        23,
+        26,
+        31
+      ],
+      "objective_gap": 14.278873294591904
+    },
+    {
+      "offset": 1000000000000.0,
+      "algorithm": "kernel-linear-penalty",
+      "backend": "full",
+      "status": "wrong",
+      "actual": [
+        3,
+        6,
+        9,
+        11,
+        14,
+        19,
+        21,
+        23,
+        29,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 547.4410171836615
+    },
+    {
+      "offset": 1000000000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "streaming",
+      "K": 1,
+      "status": "wrong",
+      "actual": [
+        8,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 269.3441776186228
+    },
+    {
+      "offset": 1000000000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "streaming",
+      "K": 3,
+      "status": "wrong",
+      "actual": [
+        2,
+        6,
+        26,
+        31
+      ],
+      "expected": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "objective_gap": 235.78022453188896
+    },
+    {
+      "offset": 1000000000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "streaming",
+      "K": 6,
+      "status": "wrong",
+      "actual": [
+        2,
+        4,
+        23,
+        25,
+        27,
+        29,
+        31
+      ],
+      "expected": [
+        10,
+        13,
+        15,
+        21,
+        23,
+        26,
+        31
+      ],
+      "objective_gap": 153.72896386682987
+    },
+    {
+      "offset": 1000000000000.0,
+      "algorithm": "kernel-linear-penalty",
+      "backend": "streaming",
+      "status": "wrong",
+      "actual": [
+        4,
+        7,
+        9,
+        17,
+        20,
+        24,
+        29,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 444.3159825116396
+    },
+    {
+      "offset": 10000000000000.0,
+      "algorithm": "dynp",
+      "status": "ok",
+      "actual": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "expected": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 10000000000000.0,
+      "algorithm": "pelt",
+      "status": "ok",
+      "actual": [
+        21,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 10000000000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "fused",
+      "K": 1,
+      "status": "error",
+      "error": "RusturesError: numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "offset": 10000000000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "fused",
+      "K": 3,
+      "status": "error",
+      "error": "RusturesError: numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "offset": 10000000000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "fused",
+      "K": 6,
+      "status": "error",
+      "error": "RusturesError: numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "offset": 10000000000000.0,
+      "algorithm": "kernel-linear-penalty",
+      "backend": "fused",
+      "status": "error",
+      "error": "RusturesError: numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "offset": 10000000000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "full",
+      "K": 1,
+      "status": "wrong",
+      "actual": [
+        12,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 254.31843185424805
+    },
+    {
+      "offset": 10000000000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "full",
+      "K": 3,
+      "status": "wrong",
+      "actual": [
+        19,
+        23,
+        26,
+        31
+      ],
+      "expected": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "objective_gap": 136.2787742614746
+    },
+    {
+      "offset": 10000000000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "full",
+      "K": 6,
+      "status": "wrong",
+      "actual": [
+        13,
+        16,
+        19,
+        22,
+        24,
+        26,
+        31
+      ],
+      "expected": [
+        10,
+        13,
+        15,
+        21,
+        23,
+        26,
+        31
+      ],
+      "objective_gap": 78.89419174194336
+    },
+    {
+      "offset": 10000000000000.0,
+      "algorithm": "kernel-linear-penalty",
+      "backend": "full",
+      "status": "wrong",
+      "actual": [
+        2,
+        9,
+        11,
+        13,
+        16,
+        19,
+        22,
+        24,
+        26,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 594.9712203979493
+    },
+    {
+      "offset": 10000000000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "streaming",
+      "K": 1,
+      "status": "wrong",
+      "actual": [
+        6,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 277.29090881347656
+    },
+    {
+      "offset": 10000000000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "streaming",
+      "K": 3,
+      "status": "wrong",
+      "actual": [
+        3,
+        5,
+        28,
+        31
+      ],
+      "expected": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "objective_gap": 291.53067779541016
+    },
+    {
+      "offset": 10000000000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "streaming",
+      "K": 6,
+      "status": "wrong",
+      "actual": [
+        2,
+        4,
+        21,
+        23,
+        25,
+        27,
+        31
+      ],
+      "expected": [
+        10,
+        13,
+        15,
+        21,
+        23,
+        26,
+        31
+      ],
+      "objective_gap": 61.0605583190918
+    },
+    {
+      "offset": 10000000000000.0,
+      "algorithm": "kernel-linear-penalty",
+      "backend": "streaming",
+      "status": "wrong",
+      "actual": [
+        5,
+        7,
+        10,
+        12,
+        14,
+        17,
+        19,
+        22,
+        27,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 586.7337364196778
+    },
+    {
+      "offset": 100000000000000.0,
+      "algorithm": "dynp",
+      "status": "ok",
+      "actual": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "expected": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 100000000000000.0,
+      "algorithm": "pelt",
+      "status": "ok",
+      "actual": [
+        21,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 100000000000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "fused",
+      "K": 1,
+      "status": "error",
+      "error": "RusturesError: numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "offset": 100000000000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "fused",
+      "K": 3,
+      "status": "error",
+      "error": "RusturesError: numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "offset": 100000000000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "fused",
+      "K": 6,
+      "status": "error",
+      "error": "RusturesError: numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "offset": 100000000000000.0,
+      "algorithm": "kernel-linear-penalty",
+      "backend": "fused",
+      "status": "error",
+      "error": "RusturesError: numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "offset": 100000000000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "full",
+      "K": 1,
+      "status": "wrong",
+      "actual": [
+        22,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 43.8818359375
+    },
+    {
+      "offset": 100000000000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "full",
+      "K": 3,
+      "status": "wrong",
+      "actual": [
+        18,
+        20,
+        22,
+        31
+      ],
+      "expected": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "objective_gap": 91.939453125
+    },
+    {
+      "offset": 100000000000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "full",
+      "K": 6,
+      "status": "wrong",
+      "actual": [
+        2,
+        17,
+        19,
+        21,
+        23,
+        25,
+        31
+      ],
+      "expected": [
+        10,
+        13,
+        15,
+        21,
+        23,
+        26,
+        31
+      ],
+      "objective_gap": 56.7568359375
+    },
+    {
+      "offset": 100000000000000.0,
+      "algorithm": "kernel-linear-penalty",
+      "backend": "full",
+      "status": "wrong",
+      "actual": [
+        2,
+        5,
+        7,
+        9,
+        11,
+        13,
+        15,
+        17,
+        19,
+        21,
+        23,
+        25,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 775.8416015625
+    },
+    {
+      "offset": 100000000000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "streaming",
+      "K": 1,
+      "status": "wrong",
+      "actual": [
+        29,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 246.8056640625
+    },
+    {
+      "offset": 100000000000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "streaming",
+      "K": 3,
+      "status": "wrong",
+      "actual": [
+        2,
+        4,
+        6,
+        31
+      ],
+      "expected": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "objective_gap": 353.6728515625
+    },
+    {
+      "offset": 100000000000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "streaming",
+      "K": 6,
+      "status": "wrong",
+      "actual": [
+        2,
+        4,
+        6,
+        8,
+        10,
+        12,
+        31
+      ],
+      "expected": [
+        10,
+        13,
+        15,
+        21,
+        23,
+        26,
+        31
+      ],
+      "objective_gap": 313.79443359375
+    },
+    {
+      "offset": 100000000000000.0,
+      "algorithm": "kernel-linear-penalty",
+      "backend": "streaming",
+      "status": "wrong",
+      "actual": [
+        6,
+        8,
+        13,
+        15,
+        22,
+        26,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 384.20507812500006
+    },
+    {
+      "offset": 1000000000000000.0,
+      "algorithm": "dynp",
+      "status": "ok",
+      "actual": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "expected": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 1000000000000000.0,
+      "algorithm": "pelt",
+      "status": "ok",
+      "actual": [
+        21,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 0.0
+    },
+    {
+      "offset": 1000000000000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "fused",
+      "K": 1,
+      "status": "error",
+      "error": "RusturesError: numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "offset": 1000000000000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "fused",
+      "K": 3,
+      "status": "error",
+      "error": "RusturesError: numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "offset": 1000000000000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "fused",
+      "K": 6,
+      "status": "error",
+      "error": "RusturesError: numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "offset": 1000000000000000.0,
+      "algorithm": "kernel-linear-penalty",
+      "backend": "fused",
+      "status": "error",
+      "error": "RusturesError: numerical failure while computing a non-negative kernel segment cost"
+    },
+    {
+      "offset": 1000000000000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "full",
+      "K": 1,
+      "status": "wrong",
+      "actual": [
+        14,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 230.8125
+    },
+    {
+      "offset": 1000000000000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "full",
+      "K": 3,
+      "status": "wrong",
+      "actual": [
+        14,
+        16,
+        18,
+        31
+      ],
+      "expected": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "objective_gap": 193.140625
+    },
+    {
+      "offset": 1000000000000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "full",
+      "K": 6,
+      "status": "wrong",
+      "actual": [
+        5,
+        12,
+        14,
+        16,
+        18,
+        20,
+        31
+      ],
+      "expected": [
+        5,
+        10,
+        13,
+        21,
+        23,
+        26,
+        31
+      ],
+      "objective_gap": 75.96875
+    },
+    {
+      "offset": 1000000000000000.0,
+      "algorithm": "kernel-linear-penalty",
+      "backend": "full",
+      "status": "wrong",
+      "actual": [
+        3,
+        5,
+        7,
+        9,
+        11,
+        14,
+        16,
+        18,
+        20,
+        27,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 683.6187500000001
+    },
+    {
+      "offset": 1000000000000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "streaming",
+      "K": 1,
+      "status": "wrong",
+      "actual": [
+        29,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 251.046875
+    },
+    {
+      "offset": 1000000000000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "streaming",
+      "K": 3,
+      "status": "wrong",
+      "actual": [
+        2,
+        4,
+        29,
+        31
+      ],
+      "expected": [
+        10,
+        21,
+        23,
+        31
+      ],
+      "objective_gap": 316.640625
+    },
+    {
+      "offset": 1000000000000000.0,
+      "algorithm": "kernel-linear-fixed",
+      "backend": "streaming",
+      "K": 6,
+      "status": "wrong",
+      "actual": [
+        2,
+        4,
+        6,
+        8,
+        10,
+        12,
+        31
+      ],
+      "expected": [
+        5,
+        10,
+        13,
+        21,
+        23,
+        26,
+        31
+      ],
+      "objective_gap": 313.640625
+    },
+    {
+      "offset": 1000000000000000.0,
+      "algorithm": "kernel-linear-penalty",
+      "backend": "streaming",
+      "status": "wrong",
+      "actual": [
+        8,
+        10,
+        16,
+        19,
+        21,
+        26,
+        29,
+        31
+      ],
+      "expected": [
+        21,
+        31
+      ],
+      "objective_gap": 394.0375
+    }
+  ]
+}

@@ -1,0 +1,167 @@
+{
+  "seed": 20260831,
+  "timing_scope": "fresh L1Potts.fit_predict, median of 7, alternating order",
+  "k_definition": "number of distinct observed values / DP states",
+  "rows": [
+    {
+      "n": 256,
+      "k": 4,
+      "rustures_seconds": 4.5999884605407715e-05,
+      "ruptures_seconds": 0.002711900044232607,
+      "speedup": 58.95449667962423,
+      "parent_bytes": 1024,
+      "score_row_bytes": 64,
+      "breakpoints_match": true
+    },
+    {
+      "n": 256,
+      "k": 16,
+      "rustures_seconds": 6.780005060136318e-05,
+      "ruptures_seconds": 0.0029313000850379467,
+      "speedup": 43.2344822612715,
+      "parent_bytes": 4096,
+      "score_row_bytes": 256,
+      "breakpoints_match": true
+    },
+    {
+      "n": 256,
+      "k": 64,
+      "rustures_seconds": 0.00011969986371695995,
+      "ruptures_seconds": 0.0027364999987185,
+      "speedup": 22.861345984396245,
+      "parent_bytes": 16384,
+      "score_row_bytes": 1024,
+      "breakpoints_match": true
+    },
+    {
+      "n": 256,
+      "k": 256,
+      "rustures_seconds": 0.00026480015367269516,
+      "ruptures_seconds": 0.0028397999703884125,
+      "speedup": 10.724313906171416,
+      "parent_bytes": 65536,
+      "score_row_bytes": 4096,
+      "breakpoints_match": true
+    },
+    {
+      "n": 512,
+      "k": 4,
+      "rustures_seconds": 6.790016777813435e-05,
+      "ruptures_seconds": 0.006607799790799618,
+      "speedup": 97.31639857490167,
+      "parent_bytes": 2048,
+      "score_row_bytes": 64,
+      "breakpoints_match": true
+    },
+    {
+      "n": 512,
+      "k": 16,
+      "rustures_seconds": 9.620003402233124e-05,
+      "ruptures_seconds": 0.005620599957183003,
+      "speedup": 58.42617431796619,
+      "parent_bytes": 8192,
+      "score_row_bytes": 256,
+      "breakpoints_match": true
+    },
+    {
+      "n": 512,
+      "k": 64,
+      "rustures_seconds": 0.00016990001313388348,
+      "ruptures_seconds": 0.004797699861228466,
+      "speedup": 28.23837251529707,
+      "parent_bytes": 32768,
+      "score_row_bytes": 1024,
+      "breakpoints_match": true
+    },
+    {
+      "n": 512,
+      "k": 256,
+      "rustures_seconds": 0.0004998999647796154,
+      "ruptures_seconds": 0.005851400084793568,
+      "speedup": 11.705142022510845,
+      "parent_bytes": 131072,
+      "score_row_bytes": 4096,
+      "breakpoints_match": true
+    },
+    {
+      "n": 1024,
+      "k": 4,
+      "rustures_seconds": 8.620019070804119e-05,
+      "ruptures_seconds": 0.013576700119301677,
+      "speedup": 157.50197311379236,
+      "parent_bytes": 4096,
+      "score_row_bytes": 64,
+      "breakpoints_match": true
+    },
+    {
+      "n": 1024,
+      "k": 16,
+      "rustures_seconds": 0.00026020011864602566,
+      "ruptures_seconds": 0.015873500145971775,
+      "speedup": 61.00496890074815,
+      "parent_bytes": 16384,
+      "score_row_bytes": 256,
+      "breakpoints_match": true
+    },
+    {
+      "n": 1024,
+      "k": 64,
+      "rustures_seconds": 0.000546600203961134,
+      "ruptures_seconds": 0.017803099937736988,
+      "speedup": 32.57060610062062,
+      "parent_bytes": 65536,
+      "score_row_bytes": 1024,
+      "breakpoints_match": true
+    },
+    {
+      "n": 1024,
+      "k": 256,
+      "rustures_seconds": 0.0013107999693602324,
+      "ruptures_seconds": 0.019862999906763434,
+      "speedup": 15.153341753935234,
+      "parent_bytes": 262144,
+      "score_row_bytes": 4096,
+      "breakpoints_match": true
+    },
+    {
+      "n": 2048,
+      "k": 4,
+      "rustures_seconds": 0.00019359984435141087,
+      "ruptures_seconds": 0.03071840014308691,
+      "speedup": 158.6695497922442,
+      "parent_bytes": 8192,
+      "score_row_bytes": 64,
+      "breakpoints_match": true
+    },
+    {
+      "n": 2048,
+      "k": 16,
+      "rustures_seconds": 0.00037540006451308727,
+      "ruptures_seconds": 0.024548899848014116,
+      "speedup": 65.39396811200677,
+      "parent_bytes": 32768,
+      "score_row_bytes": 256,
+      "breakpoints_match": true
+    },
+    {
+      "n": 2048,
+      "k": 64,
+      "rustures_seconds": 0.0009677000343799591,
+      "ruptures_seconds": 0.027858500136062503,
+      "speedup": 28.788363280272556,
+      "parent_bytes": 131072,
+      "score_row_bytes": 1024,
+      "breakpoints_match": true
+    },
+    {
+      "n": 2048,
+      "k": 256,
+      "rustures_seconds": 0.002684399951249361,
+      "ruptures_seconds": 0.0328186999540776,
+      "speedup": 12.225711723323222,
+      "parent_bytes": 524288,
+      "score_row_bytes": 4096,
+      "breakpoints_match": true
+    }
+  ]
+}

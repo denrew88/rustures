@@ -3,8 +3,8 @@ use std::ops::Range;
 
 use crate::{Error, SegmentCost};
 
-const SCORE_ABSOLUTE_TOLERANCE: f64 = 1.0e-12;
-const SCORE_RELATIVE_TOLERANCE: f64 = 1.0e-12;
+pub(crate) const SCORE_ABSOLUTE_TOLERANCE: f64 = 1.0e-12;
+pub(crate) const SCORE_RELATIVE_TOLERANCE: f64 = 1.0e-12;
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct SearchGrid {

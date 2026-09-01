@@ -49,9 +49,21 @@ def signal(n_samples: int, n_features: int) -> np.ndarray:
     return np.column_stack(columns)
 
 
+def fit_detector(package, backend: str, kernel: str, values: np.ndarray):
+    if backend == "rustures":
+        parameters = {"gamma": 0.5} if kernel == "rbf" else {}
+        return package.KernelCPD(
+            kernel=kernel, min_size=1, **parameters
+        ).fit(values)
+    parameters = {"params": {"gamma": 0.5}} if kernel == "rbf" else {}
+    return package.KernelCPD(
+        kernel=kernel, min_size=1, **parameters
+    ).fit(values)
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("backend", choices=["rustures", "ruptures"])
+    parser.add_argument("backend", choices=["rustures", "ruptures", "both"])
     parser.add_argument("--kernel", choices=["linear", "rbf", "cosine"], default="rbf")
     parser.add_argument("--n-samples", type=int, default=800)
     parser.add_argument("--n-features", type=int, default=1)
@@ -61,32 +73,107 @@ def main() -> None:
     parser.add_argument("--omit-breakpoints", action="store_true")
     args = parser.parse_args()
 
-    package = load(args.backend, args.reference_site)
     values = signal(args.n_samples, args.n_features)
+    if args.backend == "both":
+        packages = {
+            "rustures": load("rustures", args.reference_site),
+            "ruptures": load("ruptures", args.reference_site),
+        }
+        results = []
+        for changes in args.changes:
+            samples = {"rustures": [], "ruptures": []}
+            fit_samples = {"rustures": [], "ruptures": []}
+            total_samples = {"rustures": [], "ruptures": []}
+            breakpoints = {"rustures": None, "ruptures": None}
+            for repeat in range(args.repeats):
+                order = (
+                    ("rustures", "ruptures")
+                    if repeat % 2 == 0
+                    else ("ruptures", "rustures")
+                )
+                for backend in order:
+                    gc.collect()
+                    fit_started = time.perf_counter()
+                    detector = fit_detector(
+                        packages[backend], backend, args.kernel, values
+                    )
+                    fit_elapsed = time.perf_counter() - fit_started
+                    started = time.perf_counter()
+                    current = detector.predict(n_bkps=changes)
+                    predict_elapsed = time.perf_counter() - started
+                    fit_samples[backend].append(fit_elapsed)
+                    samples[backend].append(predict_elapsed)
+                    total_samples[backend].append(fit_elapsed + predict_elapsed)
+                    breakpoints[backend] = [int(value) for value in current]
+            rustures_median = statistics.median(samples["rustures"])
+            ruptures_median = statistics.median(samples["ruptures"])
+            result = {
+                "changes": changes,
+                "rustures_minimum_seconds": min(samples["rustures"]),
+                "rustures_median_seconds": rustures_median,
+                "rustures_fit_median_seconds": statistics.median(
+                    fit_samples["rustures"]
+                ),
+                "rustures_total_median_seconds": statistics.median(
+                    total_samples["rustures"]
+                ),
+                "ruptures_minimum_seconds": min(samples["ruptures"]),
+                "ruptures_median_seconds": ruptures_median,
+                "ruptures_fit_median_seconds": statistics.median(
+                    fit_samples["ruptures"]
+                ),
+                "ruptures_total_median_seconds": statistics.median(
+                    total_samples["ruptures"]
+                ),
+                "ruptures_over_rustures": ruptures_median / rustures_median,
+                "ruptures_total_over_rustures": statistics.median(
+                    total_samples["ruptures"]
+                )
+                / statistics.median(total_samples["rustures"]),
+            }
+            if not args.omit_breakpoints:
+                result["rustures_breakpoints"] = breakpoints["rustures"]
+                result["ruptures_breakpoints"] = breakpoints["ruptures"]
+            results.append(result)
+        print(
+            json.dumps(
+                {
+                    "backend": "both",
+                    "kernel": args.kernel,
+                    "n_samples": args.n_samples,
+                    "n_features": args.n_features,
+                    "results": results,
+                },
+                indent=2,
+            )
+        )
+        return
+
+    package = load(args.backend, args.reference_site)
     results = []
     for changes in args.changes:
         samples = []
+        fit_samples = []
+        total_samples = []
         breakpoints = None
         for _ in range(args.repeats):
             gc.collect()
-            if args.backend == "rustures":
-                parameters = {"gamma": 0.5} if args.kernel == "rbf" else {}
-                detector = package.KernelCPD(
-                    kernel=args.kernel, min_size=1, **parameters
-                ).fit(values)
-            else:
-                parameters = {"params": {"gamma": 0.5}} if args.kernel == "rbf" else {}
-                detector = package.KernelCPD(
-                    kernel=args.kernel, min_size=1, **parameters
-                ).fit(values)
+            fit_started = time.perf_counter()
+            detector = fit_detector(package, args.backend, args.kernel, values)
+            fit_elapsed = time.perf_counter() - fit_started
             started = time.perf_counter()
             current = detector.predict(n_bkps=changes)
-            samples.append(time.perf_counter() - started)
+            predict_elapsed = time.perf_counter() - started
+            fit_samples.append(fit_elapsed)
+            samples.append(predict_elapsed)
+            total_samples.append(fit_elapsed + predict_elapsed)
             breakpoints = [int(value) for value in current]
         result = {
             "changes": changes,
             "minimum_seconds": min(samples),
             "median_seconds": statistics.median(samples),
+            "fit_median_seconds": statistics.median(fit_samples),
+            "total_median_seconds": statistics.median(total_samples),
         }
         if not args.omit_breakpoints:
             result["breakpoints"] = breakpoints

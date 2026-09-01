@@ -134,6 +134,10 @@ impl SegmentCost for CostL2 {
         MIN_SIZE
     }
 
+    fn pelt_pruning_constant(&self) -> Option<f64> {
+        Some(0.0)
+    }
+
     fn cost(&self, segment: Range<usize>) -> Result<f64, Error> {
         validate_segment(segment.clone(), self.n_samples(), self.min_size())?;
         let length = (segment.end - segment.start) as f64;
