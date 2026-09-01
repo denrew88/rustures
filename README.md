@@ -13,7 +13,7 @@
 Exact dynamic programming, kernel methods, robust costs, custom Python costs,
 and familiar `fit` / `predict` APIs in one native extension.
 
-[Quick start](#quick-start) · [Algorithms](#choosing-an-algorithm) · [Custom costs](#custom-python-costs) · [Build](#installation) · [Tutorial](examples/rustures_tutorial_ko.ipynb)
+[Quick start](#quick-start) · [Algorithms](#choosing-an-algorithm) · [Custom costs](#custom-python-costs) · [Build](#installation) · [Tutorial](examples/rustures_tutorial_en.ipynb)
 
 </div>
 
@@ -343,8 +343,9 @@ python -m pytest tests/python/test_wheel.py -q
 cargo test --release --test regression_mass -- --ignored --nocapture
 ```
 
-The Korean tutorial notebook is available at
-[`examples/rustures_tutorial_ko.ipynb`](examples/rustures_tutorial_ko.ipynb).
+Tutorial notebooks are available in
+[English](examples/rustures_tutorial_en.ipynb) and
+[Korean](examples/rustures_tutorial_ko.ipynb).
 
 ## Project status
 
