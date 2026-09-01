@@ -4,7 +4,7 @@ build-backend = "maturin"
 
 [project]
 name = "rustures"
-version = "0.1.0"
+version = "0.1.1"
 description = "Offline change-point detection for Python, powered by Rust"
 license = "MIT OR Apache-2.0"
 license-files = ["LICENSE-MIT", "LICENSE-APACHE", "THIRD-PARTY-LICENSES"]
