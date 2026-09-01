@@ -1,0 +1,19 @@
+# License choices used when generating THIRD-PARTY-LICENSES.
+# MIT is preferred for dependencies that offer the usual MIT OR Apache-2.0 choice.
+accepted = [
+    "MIT",
+    "Apache-2.0",
+    "Apache-2.0 WITH LLVM-exception",
+    "BSD-2-Clause",
+    "Unicode-3.0",
+    "Zlib",
+]
+
+# This report follows the wheel that is currently built and verified by the project.
+targets = ["x86_64-pc-windows-msvc"]
+
+# Build and proc-macro dependencies are retained so the report is at least as broad
+# as maturin's generated CycloneDX wheel SBOM. Test-only dependencies are excluded.
+ignore-build-dependencies = false
+ignore-dev-dependencies = true
+ignore-transitive-dependencies = false

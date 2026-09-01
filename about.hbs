@@ -1,0 +1,36 @@
+rustures third-party software notices
+======================================
+
+This file is generated from Cargo.lock with cargo-about. It covers the Rust
+dependency graph for the x86_64-pc-windows-msvc target. The Python package
+"numpy" declared in Requires-Dist is installed separately and is not bundled
+inside the rustures wheel; the Rust crate named "numpy" is covered below.
+
+Regenerate with:
+
+    cargo about generate --locked --fail -c about.toml -o THIRD-PARTY-LICENSES about.hbs
+
+Dependency inventory
+--------------------
+{{#each crates}}
+{{#if package.source}}
+- {{package.name}} {{package.version}} — {{license}}
+  Source: {{#if package.repository}}{{package.repository}}{{else}}https://crates.io/crates/{{package.name}}{{/if}}
+{{/if}}
+{{/each}}
+
+Full license and copyright texts
+--------------------------------
+{{#each licenses}}
+{{#if used_by.[0].crate.source}}
+
+==============================================================================
+{{{name}}}
+Used by:
+{{#each used_by}}
+- {{crate.name}} {{crate.version}} ({{#if crate.repository}}{{crate.repository}}{{else}}https://crates.io/crates/{{crate.name}}{{/if}})
+{{/each}}
+------------------------------------------------------------------------------
+{{{text}}}
+{{/if}}
+{{/each}}
