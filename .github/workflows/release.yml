@@ -1,0 +1,218 @@
+name: Build and publish Python distributions
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+    inputs:
+      publish:
+        description: "Publish the verified artifacts to PyPI"
+        required: true
+        default: false
+        type: boolean
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+# Jobs receive no write access unless they opt in below.
+permissions:
+  contents: read
+
+env:
+  MATURIN_VERSION: "v1.14.1"
+  TEST_PYTHON: "3.10"
+
+jobs:
+  validate-source:
+    name: Validate source and Rust tests
+    runs-on: ubuntu-24.04
+
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7
+        with:
+          python-version: "3.11"
+
+      - name: Check package versions and release tag
+        env:
+          RELEASE_REF_TYPE: ${{ github.ref_type }}
+          RELEASE_REF_NAME: ${{ github.ref_name }}
+        run: |
+          python - <<'PY'
+          import os
+          import tomllib
+          from pathlib import Path
+
+          pyproject = tomllib.loads(Path("pyproject.toml").read_text(encoding="utf-8"))
+          cargo = tomllib.loads(Path("Cargo.toml").read_text(encoding="utf-8"))
+          python_version = pyproject["project"]["version"]
+          rust_version = cargo["package"]["version"]
+
+          if python_version != rust_version:
+              raise SystemExit(
+                  f"pyproject.toml ({python_version}) and Cargo.toml "
+                  f"({rust_version}) versions differ"
+              )
+
+          if os.environ["RELEASE_REF_TYPE"] == "tag":
+              tag_version = os.environ["RELEASE_REF_NAME"].removeprefix("v")
+              if tag_version != python_version:
+                  raise SystemExit(
+                      f"tag version ({tag_version}) does not match package "
+                      f"version ({python_version})"
+                  )
+
+          print(f"validated package version {python_version}")
+          PY
+
+      - name: Run Rust tests
+        run: cargo test --locked
+
+  build-wheels:
+    name: Wheel (${{ matrix.artifact }})
+    needs: validate-source
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: ubuntu-24.04
+            target: x86_64-unknown-linux-gnu
+            manylinux: "2014"
+            artifact: linux-x86_64
+          - runner: ubuntu-24.04-arm
+            target: aarch64-unknown-linux-gnu
+            manylinux: "2014"
+            artifact: linux-aarch64
+          - runner: windows-2025
+            target: x86_64-pc-windows-msvc
+            manylinux: "off"
+            artifact: windows-x86_64
+          - runner: macos-15-intel
+            target: x86_64-apple-darwin
+            manylinux: "off"
+            artifact: macos-x86_64
+          - runner: macos-15
+            target: aarch64-apple-darwin
+            manylinux: "off"
+            artifact: macos-aarch64
+
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7
+        with:
+          python-version: ${{ env.TEST_PYTHON }}
+
+      - name: Build wheel
+        uses: PyO3/maturin-action@423a6347767a8b16e65c2a7a7042e4a921528da8 # v1
+        with:
+          maturin-version: ${{ env.MATURIN_VERSION }}
+          command: build
+          target: ${{ matrix.target }}
+          manylinux: ${{ matrix.manylinux }}
+          args: >-
+            --release --locked --compatibility pypi --out dist
+
+      - name: Install wheel in a clean Python environment
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install "numpy>=1.23"
+          python -m pip install --no-index --no-deps --find-links dist rustures
+          python -m pip check
+
+      - name: Test installed wheel
+        run: |
+          python tests/python/test_wheel.py
+          python -c "from rustures import _rustures as native; assert not hasattr(native, '_panic_test_hook')"
+
+      - name: Check packaged metadata and licenses
+        run: >-
+          python -c "from importlib.metadata import files, metadata;
+          m=metadata('rustures'); p=[str(x) for x in files('rustures')];
+          assert m['Requires-Python'] == '>=3.10';
+          assert m['License-Expression'] == 'MIT OR Apache-2.0';
+          assert any(x.endswith('LICENSE-MIT') for x in p);
+          assert any(x.endswith('LICENSE-APACHE') for x in p);
+          assert any(x.endswith('THIRD-PARTY-LICENSES') for x in p);
+          assert any(x.endswith('rustures/py.typed') for x in p)"
+
+      - name: Upload verified wheel
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: release-wheel-${{ matrix.artifact }}
+          path: dist/*.whl
+          if-no-files-found: error
+          retention-days: 14
+
+  build-sdist:
+    name: Source distribution
+    needs: validate-source
+    runs-on: ubuntu-24.04
+
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7
+        with:
+          python-version: ${{ env.TEST_PYTHON }}
+
+      - name: Build source distribution
+        uses: PyO3/maturin-action@423a6347767a8b16e65c2a7a7042e4a921528da8 # v1
+        with:
+          maturin-version: ${{ env.MATURIN_VERSION }}
+          command: sdist
+          args: --out dist
+
+      - name: Build and install from source distribution
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install dist/*.tar.gz
+          python -m pip check
+          python tests/python/test_wheel.py
+
+      - name: Upload verified source distribution
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: release-sdist
+          path: dist/*.tar.gz
+          if-no-files-found: error
+          retention-days: 14
+
+  publish-pypi:
+    name: Publish to PyPI
+    needs: [build-wheels, build-sdist]
+    if: >-
+      startsWith(github.ref, 'refs/tags/v') ||
+      (github.event_name == 'workflow_dispatch' && inputs.publish)
+    runs-on: ubuntu-24.04
+
+    environment:
+      name: pypi
+      url: https://pypi.org/p/rustures
+
+    permissions:
+      id-token: write
+
+    steps:
+      - name: Download all verified distributions
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8
+        with:
+          pattern: release-*
+          path: dist
+          merge-multiple: true
+
+      - name: Show files selected for publication
+        run: ls -l dist
+
+      - name: Publish distributions with Trusted Publishing
+        uses: pypa/gh-action-pypi-publish@dc37677b2e1c63e2034f94d8a5b11f265b73ba33 # release/v1

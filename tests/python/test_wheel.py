@@ -1,4 +1,5 @@
 import json
+from importlib.metadata import version as distribution_version
 from pathlib import Path
 import unittest
 
@@ -92,7 +93,7 @@ class BatchBernoulliCustomCost:
 class WheelSmokeTests(unittest.TestCase):
     def test_version_is_exported(self) -> None:
         self.assertEqual(rustures.version(), rustures.__version__)
-        self.assertEqual(rustures.__version__, "0.1.0")
+        self.assertEqual(rustures.__version__, distribution_version("rustures"))
         self.assertTrue(issubclass(rustures.RusturesError, RuntimeError))
 
     def test_validates_scalar_and_multivariate_signals(self) -> None:
