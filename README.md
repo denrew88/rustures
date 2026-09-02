@@ -5,6 +5,7 @@
 **Fast, memory-aware offline change-point detection for Python — powered by Rust.**
 
 [![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/)
+[![PyPI](https://img.shields.io/pypi/v/rustures?logo=pypi&logoColor=white)](https://pypi.org/project/rustures/)
 [![Rust](https://img.shields.io/badge/Rust-1.83%2B-000000?logo=rust&logoColor=white)](https://www.rust-lang.org/)
 [![PyO3](https://img.shields.io/badge/bindings-PyO3-FFD43B)](https://pyo3.rs/)
 [![License](https://img.shields.io/badge/license-MIT%20OR%20Apache--2.0-blue)](#license)
@@ -30,7 +31,7 @@ independent implementation rather than a complete drop-in replacement.
 
 > [!IMPORTANT]
 > `rustures` is currently pre-alpha. The API is usable and heavily tested, but
-> packaging, CI platform coverage, and release metadata are still being hardened.
+> public APIs and compatibility guarantees may still change between releases.
 
 ## Why rustures?
 
@@ -283,13 +284,16 @@ scalar implementation instead of failing at import time.
 
 - Python 3.10 or newer is declared through `abi3-py310`.
 - NumPy 1.23 or newer is required.
-- The currently verified binary environment is 64-bit CPython 3.11 on Windows 11
-  x86-64.
-- The current wheel tag is `cp310-abi3-win_amd64`; it does not target 32-bit Python,
-  PyPy, or native Windows ARM64.
+- Binary wheels are published for Linux x86-64 and ARM64, Windows x86-64, and
+  macOS Intel and Apple Silicon.
+- The current wheels target GIL-enabled CPython. They do not target 32-bit Python,
+  PyPy, free-threaded CPython, or native Windows ARM64.
 
-Published PyPI wheels and a cross-platform CI matrix are not available yet. Build
-the extension from source for now.
+Install a published wheel from PyPI:
+
+```bash
+python -m pip install rustures
+```
 
 ### Build from source
 
@@ -360,11 +364,9 @@ Implemented today:
 
 Major work still planned:
 
-- automated Windows, Linux, and macOS wheel builds;
-- clean-environment tests across supported Python versions;
-- PyPI release automation and complete package metadata;
 - approximate low-rank kernel backends;
-- broader profiling across CPU architectures and feature dimensions.
+- broader profiling across CPU architectures and feature dimensions;
+- additional interpreter and architecture coverage as the API matures.
 
 ## License
 

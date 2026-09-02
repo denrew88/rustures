@@ -139,6 +139,8 @@ jobs:
           m=metadata('rustures'); p=[str(x) for x in files('rustures')];
           assert m['Requires-Python'] == '>=3.10';
           assert m['License-Expression'] == 'MIT OR Apache-2.0';
+          assert m['Description-Content-Type'].startswith('text/markdown');
+          assert '# rustures' in m.get_payload();
           assert any(x.endswith('LICENSE-MIT') for x in p);
           assert any(x.endswith('LICENSE-APACHE') for x in p);
           assert any(x.endswith('THIRD-PARTY-LICENSES') for x in p);
@@ -216,3 +218,46 @@ jobs:
 
       - name: Publish distributions with Trusted Publishing
         uses: pypa/gh-action-pypi-publish@dc37677b2e1c63e2034f94d8a5b11f265b73ba33 # release/v1
+
+  publish-github:
+    name: Publish GitHub Release
+    needs: [build-wheels, build-sdist]
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-24.04
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Download all verified distributions
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8
+        with:
+          pattern: release-*
+          path: dist
+          merge-multiple: true
+
+      - name: Generate SHA-256 checksums
+        run: sha256sum dist/* > dist/SHA256SUMS.txt
+
+      - name: Check whether the GitHub Release already exists
+        id: existing-release
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release view "${{ github.ref_name }}"
+
+      - name: Create GitHub Release
+        if: steps.existing-release.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: >-
+          gh release create "${{ github.ref_name }}" dist/*
+          --verify-tag
+          --generate-notes
+          --title "${{ github.ref_name }}"
+
+      - name: Update existing GitHub Release assets
+        if: steps.existing-release.outcome == 'success'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release upload "${{ github.ref_name }}" dist/* --clobber
