@@ -244,7 +244,9 @@ jobs:
         continue-on-error: true
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh release view "${{ github.ref_name }}"
+        run: >-
+          gh release view "${{ github.ref_name }}"
+          --repo "${{ github.repository }}"
 
       - name: Create GitHub Release
         if: steps.existing-release.outcome == 'failure'
@@ -255,9 +257,12 @@ jobs:
           --verify-tag
           --generate-notes
           --title "${{ github.ref_name }}"
+          --repo "${{ github.repository }}"
 
       - name: Update existing GitHub Release assets
         if: steps.existing-release.outcome == 'success'
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh release upload "${{ github.ref_name }}" dist/* --clobber
+        run: >-
+          gh release upload "${{ github.ref_name }}" dist/* --clobber
+          --repo "${{ github.repository }}"
