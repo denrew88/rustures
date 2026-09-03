@@ -11,7 +11,7 @@ stable release. Pin the package version and include representative regression te
 in production pipelines.
 
 ```text
-rustures==0.1.1
+rustures==0.2.0
 ```
 
 ## Relationship to ruptures
@@ -122,4 +122,3 @@ Please include:
 - whether the process survives the exception.
 
 [Open a GitHub issue](https://github.com/denrew88/rustures/issues)
-

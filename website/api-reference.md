@@ -1,6 +1,6 @@
 # Python API reference
 
-This page lists the public Python surface of Rustures 0.1.1. All detector outputs
+This page lists the public Python surface of Rustures 0.2.0. All detector outputs
 are `list[int]` breakpoint lists containing the terminal sample count.
 
 ```python
@@ -303,4 +303,3 @@ Common mappings:
 | Prediction or Gram workspace exceeds its configured limit | `MemoryError` |
 | Native numerical failure or caught Rust panic | `RusturesError` |
 | Exception raised by a custom callback | Original Python exception |
-
