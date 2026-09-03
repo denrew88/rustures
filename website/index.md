@@ -12,7 +12,7 @@ robust costs, and endpoint-batched custom Python costs.
 
 </div>
 
-!!! warning "Pre-alpha software"
+!!! warning "Alpha software"
 
     Rustures is usable and extensively tested, but its public API and compatibility
     guarantees may still change between releases. Pin the version in production and

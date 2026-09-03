@@ -10,7 +10,7 @@
 [![Rust](https://img.shields.io/badge/Rust-1.83%2B-000000?logo=rust&logoColor=white)](https://www.rust-lang.org/)
 [![PyO3](https://img.shields.io/badge/bindings-PyO3-FFD43B)](https://pyo3.rs/)
 [![License](https://img.shields.io/badge/license-MIT%20OR%20Apache--2.0-blue)](#license)
-[![Status](https://img.shields.io/badge/status-pre--alpha-orange)](#project-status)
+[![Status](https://img.shields.io/badge/status-alpha-orange)](#project-status)
 
 Exact dynamic programming, kernel methods, robust costs, custom Python costs,
 and familiar `fit` / `predict` APIs in one native extension.
@@ -31,7 +31,7 @@ The project is inspired by the excellent
 independent implementation rather than a complete drop-in replacement.
 
 > [!IMPORTANT]
-> `rustures` is currently pre-alpha. The API is usable and heavily tested, but
+> `rustures` is currently alpha software. The API is usable and heavily tested, but
 > public APIs and compatibility guarantees may still change between releases.
 
 ## Why rustures?

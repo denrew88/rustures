@@ -1,6 +1,6 @@
 # Limitations and compatibility
 
-Rustures is pre-alpha. This page states the current boundaries so that users can
+Rustures is alpha software. This page states the current boundaries so that users can
 decide whether the library fits their workload.
 
 ## API stability
