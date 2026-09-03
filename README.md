@@ -6,6 +6,7 @@
 
 [![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/)
 [![PyPI](https://img.shields.io/pypi/v/rustures?logo=pypi&logoColor=white)](https://pypi.org/project/rustures/)
+[![Documentation](https://img.shields.io/badge/docs-GitHub%20Pages-4051B5?logo=materialformkdocs&logoColor=white)](https://denrew88.github.io/rustures/)
 [![Rust](https://img.shields.io/badge/Rust-1.83%2B-000000?logo=rust&logoColor=white)](https://www.rust-lang.org/)
 [![PyO3](https://img.shields.io/badge/bindings-PyO3-FFD43B)](https://pyo3.rs/)
 [![License](https://img.shields.io/badge/license-MIT%20OR%20Apache--2.0-blue)](#license)
@@ -14,7 +15,7 @@
 Exact dynamic programming, kernel methods, robust costs, custom Python costs,
 and familiar `fit` / `predict` APIs in one native extension.
 
-[Quick start](#quick-start) · [Algorithms](#choosing-an-algorithm) · [Custom costs](#custom-python-costs) · [Build](#installation) · [Tutorial](examples/rustures_tutorial_en.ipynb)
+[Documentation](https://denrew88.github.io/rustures/) · [Quick start](#quick-start) · [Algorithms](#choosing-an-algorithm) · [Custom costs](#custom-python-costs) · [Tutorial](examples/rustures_tutorial_en.ipynb)
 
 </div>
 
@@ -37,6 +38,9 @@ independent implementation rather than a complete drop-in replacement.
 
 - **A native core without a Python loop in the hot path.** Built-in costs and
   detectors execute in optimized Rust.
+- **Real concurrency from ordinary Python threads.** Built-in predictions release
+  the GIL while the native search runs, so independent detections can overlap in a
+  `ThreadPoolExecutor` without process-level serialization overhead.
 - **Exact and approximate search strategies.** Use fixed-`K` dynamic programming,
   penalized optimal partitioning, kernel CPD, or faster greedy detectors.
 - **Memory is part of the API.** Dynp and full-Gram kernel backends reject oversized

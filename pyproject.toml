@@ -21,6 +21,8 @@ classifiers = [
 readme = "README.md"
 
 [project.urls]
+Homepage = "https://denrew88.github.io/rustures/"
+Documentation = "https://denrew88.github.io/rustures/"
 Repository = "https://github.com/denrew88/rustures"
 Issues = "https://github.com/denrew88/rustures/issues"
 
