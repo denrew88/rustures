@@ -1,0 +1,80 @@
+site_name: rustures
+site_description: Fast, memory-aware offline change-point detection for Python, powered by Rust.
+site_url: https://denrew88.github.io/rustures/
+repo_url: https://github.com/denrew88/rustures
+repo_name: denrew88/rustures
+edit_uri: edit/main/website/
+
+docs_dir: website
+site_dir: site
+
+theme:
+  name: material
+  language: en
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - navigation.footer
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.tabs.link
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: cyan
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: cyan
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+
+nav:
+  - Home: index.md
+  - Getting started: getting-started.md
+  - User guide:
+      - Choosing an algorithm: algorithms.md
+      - Cost functions: costs.md
+      - Custom Python costs: custom-costs.md
+      - Tutorials: tutorials.md
+  - Reference:
+      - Python API: api-reference.md
+      - Performance: performance.md
+      - Limitations and compatibility: limitations.md
+
+plugins:
+  - search
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.arithmatex:
+      generic: true
+
+extra_css:
+  - stylesheets/extra.css
+
+extra_javascript:
+  - javascripts/mathjax.js
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+
+copyright: Copyright &copy; 2026 rustures contributors · MIT OR Apache-2.0
+

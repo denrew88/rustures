@@ -9,13 +9,6 @@ use crate::{validate_segment, Error, SegmentCost};
 
 const CALLBACK_CONTEXT: &str = "executing a Python custom cost callback";
 
-#[derive(Default)]
-struct BatchCache {
-    end: Option<usize>,
-    starts: Vec<usize>,
-    values: Vec<f64>,
-}
-
 /// Binding-only adapter from the Python custom-cost protocol to `SegmentCost`.
 ///
 /// The Rust algorithms still see the ordinary `SegmentCost` contract. Python
@@ -27,9 +20,8 @@ pub(super) struct PythonSegmentCost {
     n_samples: usize,
     n_features: usize,
     min_size: usize,
-    jump: usize,
     has_error_many: bool,
-    batch_cache: Mutex<BatchCache>,
+    pelt_pruning_constant: Option<f64>,
     callback_error: Mutex<Option<PyErr>>,
 }
 
@@ -78,7 +70,6 @@ impl PythonSegmentCost {
         n_samples: usize,
         n_features: usize,
         min_size: usize,
-        jump: usize,
     ) -> PyResult<Self> {
         let has_error_many = if object.bind(py).hasattr("error_many")? {
             let method = object.bind(py).getattr("error_many")?;
@@ -91,21 +82,44 @@ impl PythonSegmentCost {
         } else {
             false
         };
+        let pelt_pruning_constant = if object.bind(py).hasattr("pelt_pruning_constant")? {
+            let value = object.bind(py).getattr("pelt_pruning_constant")?;
+            if value.is_none() {
+                None
+            } else {
+                let value = value.extract::<f64>().map_err(|_| {
+                    PyTypeError::new_err(
+                        "custom_cost.pelt_pruning_constant must be a finite float or None",
+                    )
+                })?;
+                if !value.is_finite() {
+                    return Err(PyValueError::new_err(format!(
+                        "custom_cost.pelt_pruning_constant must be finite, got {value}"
+                    )));
+                }
+                Some(value)
+            }
+        } else {
+            None
+        };
 
         Ok(Self {
             object,
             n_samples,
             n_features,
             min_size,
-            jump,
             has_error_many,
-            batch_cache: Mutex::new(BatchCache::default()),
+            pelt_pruning_constant,
             callback_error: Mutex::new(None),
         })
     }
 
     pub(super) fn uses_batch_callback(&self) -> bool {
         self.has_error_many
+    }
+
+    pub(super) fn uses_pelt_pruning(&self) -> bool {
+        self.pelt_pruning_constant.is_some()
     }
 
     pub(super) fn take_callback_error(&self) -> Option<PyErr> {
@@ -134,32 +148,12 @@ impl PythonSegmentCost {
         })
     }
 
-    fn admissible_starts(&self, requested_start: usize, end: usize) -> Vec<usize> {
-        let mut starts = Vec::new();
-        if end >= self.min_size {
-            starts.push(0);
-        }
-
-        let mut start = self.jump;
-        while start < end {
-            if end - start >= self.min_size {
-                starts.push(start);
-            }
-            match start.checked_add(self.jump) {
-                Some(next) => start = next,
-                None => break,
-            }
-        }
-
-        if starts.binary_search(&requested_start).is_err() {
-            starts.push(requested_start);
-            starts.sort_unstable();
-            starts.dedup();
-        }
-        starts
-    }
-
-    fn batch_costs(&self, starts: &[usize], end: usize) -> PyResult<Vec<f64>> {
+    fn batch_costs_into(
+        &self,
+        starts: &[usize],
+        end: usize,
+        output: &mut Vec<f64>,
+    ) -> PyResult<()> {
         Python::attach(|py| {
             let starts_array = PyArray1::from_vec(py, starts.to_vec());
             let ends_array = PyArray1::from_vec(py, vec![end; starts.len()]);
@@ -172,7 +166,7 @@ impl PythonSegmentCost {
                     "custom_cost.error_many must return a one-dimensional float64 NumPy array",
                 )
             })?;
-            let values: Vec<f64> = result.as_array().iter().copied().collect();
+            let values = result.as_array();
             if values.len() != starts.len() {
                 return Err(PyValueError::new_err(format!(
                     "custom_cost.error_many returned {} values for {} segments",
@@ -191,38 +185,23 @@ impl PythonSegmentCost {
                     starts[index]
                 )));
             }
-            Ok(values)
+            output.clear();
+            output.extend(values.iter().copied());
+            Ok(())
         })
     }
 
     fn batch_cost(&self, segment: Range<usize>) -> PyResult<f64> {
-        {
-            let cache = self
-                .batch_cache
-                .lock()
-                .unwrap_or_else(|poisoned| poisoned.into_inner());
-            if cache.end == Some(segment.end) {
-                if let Ok(index) = cache.starts.binary_search(&segment.start) {
-                    return Ok(cache.values[index]);
-                }
-            }
-        }
-
-        let starts = self.admissible_starts(segment.start, segment.end);
-        let values = self.batch_costs(&starts, segment.end)?;
-        let index = starts.binary_search(&segment.start).map_err(|_| {
-            PyValueError::new_err("internal custom-cost batch omitted the requested segment")
-        })?;
-        let value = values[index];
-
-        let mut cache = self
-            .batch_cache
-            .lock()
-            .unwrap_or_else(|poisoned| poisoned.into_inner());
-        cache.end = Some(segment.end);
-        cache.starts = starts;
-        cache.values = values;
-        Ok(value)
+        // `costs_ending_at` performs the useful endpoint-wide batching used by
+        // Dynp and Pelt. A standalone `cost` request needs exactly one segment;
+        // expanding it to every grid-aligned start wastes work during final
+        // objective reconstruction and in algorithms with irregular queries.
+        let starts = [segment.start];
+        let mut values = Vec::with_capacity(1);
+        self.batch_costs_into(&starts, segment.end, &mut values)?;
+        values.pop().ok_or_else(|| {
+            PyValueError::new_err("custom_cost.error_many omitted the requested segment")
+        })
     }
 }
 
@@ -256,9 +235,46 @@ impl SegmentCost for PythonSegmentCost {
         Ok(value)
     }
 
-    // An arbitrary Python cost has not proved the PELT pruning inequality.
-    // Returning None forces the exact unpruned optimal-partitioning path.
+    fn costs_ending_at(
+        &self,
+        starts: &[usize],
+        end: usize,
+        output: &mut Vec<f64>,
+    ) -> Result<(), Error> {
+        output.clear();
+        output
+            .try_reserve(starts.len())
+            .map_err(|_| Error::AllocationFailure {
+                context: "allocating a Python custom-cost endpoint batch",
+            })?;
+        for &start in starts {
+            validate_segment(start..end, self.n_samples, self.min_size)?;
+        }
+        if starts.is_empty() {
+            return Ok(());
+        }
+
+        if self.has_error_many {
+            return self
+                .batch_costs_into(starts, end, output)
+                .map_err(|error| self.record_callback_error(error));
+        }
+
+        for &start in starts {
+            let value = self
+                .scalar_cost(start..end)
+                .map_err(|error| self.record_callback_error(error))?;
+            if !value.is_finite() {
+                return Err(self.record_callback_error(PyValueError::new_err(format!(
+                    "custom cost for segment returned a non-finite value: {value}"
+                ))));
+            }
+            output.push(value);
+        }
+        Ok(())
+    }
+
     fn pelt_pruning_constant(&self) -> Option<f64> {
-        None
+        self.pelt_pruning_constant
     }
 }

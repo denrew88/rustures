@@ -1,0 +1,573 @@
+{
+  "schema_version": 1,
+  "complete": true,
+  "generated_at": "2026-09-03T07:03:51+0900",
+  "profile": "standard",
+  "repeats": 5,
+  "seed": 20260902,
+  "environment": {
+    "OS": "Windows-10-10.0.26200-SP0",
+    "CPU": "Intel64 Family 6 Model 140 Stepping 1, GenuineIntel",
+    "Python": "3.11.14 | packaged by Anaconda, Inc. | (main, Oct 21 2025, 18:30:03) [MSC v.1929 64 bit (AMD64)]",
+    "NumPy": "1.26.4",
+    "psutil": "7.1.3",
+    "logical CPUs": 8,
+    "rustures": "0.1.1",
+    "ruptures": "1.1.10",
+    "SciPy": "1.16.3"
+  },
+  "methodology": {
+    "timing_scope": "warmed fresh estimator fit+predict/operation, process import excluded",
+    "memory_scope": "incremental process RSS after import and input construction",
+    "sample_interval_ms": 1.0,
+    "thread_limits": 1
+  },
+  "cases": [
+    {
+      "case": {
+        "id": "dataset-pw_constant",
+        "category": "dataset",
+        "feature": "pw_constant",
+        "generator": "pw_constant",
+        "n": 80000,
+        "d": 3,
+        "n_bkps": 5,
+        "seed": 20261802,
+        "libraries": [
+          "rustures",
+          "ruptures"
+        ]
+      },
+      "measurements": {
+        "rustures": {
+          "status": "ok",
+          "version": "0.1.1",
+          "metadata": {
+            "n": 80000
+          },
+          "result": {
+            "shape": [
+              80000,
+              3
+            ],
+            "breakpoints": [
+              21410,
+              37925,
+              46895,
+              77167,
+              79626,
+              80000
+            ]
+          },
+          "memory_probe_result": {
+            "shape": [
+              80000,
+              3
+            ],
+            "breakpoints": [
+              21410,
+              37925,
+              46895,
+              77167,
+              79626,
+              80000
+            ]
+          },
+          "seconds": {
+            "median": 0.0072452,
+            "minimum": 0.0070394,
+            "maximum": 0.0090275,
+            "samples": [
+              0.0071572,
+              0.0090275,
+              0.0073031,
+              0.0072452,
+              0.0070394
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 41984000,
+            "peak_rss_bytes": 44011520,
+            "peak_delta_bytes": 2027520,
+            "final_rss_bytes": 42090496,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        },
+        "ruptures": {
+          "status": "ok",
+          "version": "1.1.10",
+          "metadata": {
+            "n": 80000
+          },
+          "result": {
+            "shape": [
+              80000,
+              3
+            ],
+            "breakpoints": [
+              12627,
+              26537,
+              41411,
+              54395,
+              66455,
+              80000
+            ]
+          },
+          "memory_probe_result": {
+            "shape": [
+              80000,
+              3
+            ],
+            "breakpoints": [
+              12627,
+              26537,
+              41411,
+              54395,
+              66455,
+              80000
+            ]
+          },
+          "seconds": {
+            "median": 0.0094433,
+            "minimum": 0.0086606,
+            "maximum": 0.0101264,
+            "samples": [
+              0.0101264,
+              0.0086606,
+              0.0094433,
+              0.0099469,
+              0.009321
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 93319168,
+            "peak_rss_bytes": 99487744,
+            "peak_delta_bytes": 6168576,
+            "final_rss_bytes": 93724672,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        }
+      },
+      "comparison": {
+        "rustures_valid": true,
+        "comparable": true,
+        "ruptures_valid": true,
+        "same_sample_count": true,
+        "same_element_count": true,
+        "time_speedup": 1.3033870700601777,
+        "memory_ratio": 3.0424242424242425
+      }
+    },
+    {
+      "case": {
+        "id": "dataset-pw_linear",
+        "category": "dataset",
+        "feature": "pw_linear",
+        "generator": "pw_linear",
+        "n": 80000,
+        "d": 3,
+        "n_bkps": 5,
+        "seed": 20261803,
+        "libraries": [
+          "rustures",
+          "ruptures"
+        ]
+      },
+      "measurements": {
+        "ruptures": {
+          "status": "ok",
+          "version": "1.1.10",
+          "metadata": {
+            "n": 80000
+          },
+          "result": {
+            "shape": [
+              80000,
+              3
+            ],
+            "breakpoints": [
+              13605,
+              27803,
+              41450,
+              53682,
+              66245,
+              80000
+            ]
+          },
+          "memory_probe_result": {
+            "shape": [
+              80000,
+              3
+            ],
+            "breakpoints": [
+              13605,
+              27803,
+              41450,
+              53682,
+              66245,
+              80000
+            ]
+          },
+          "seconds": {
+            "median": 0.013532,
+            "minimum": 0.0116408,
+            "maximum": 0.0157739,
+            "samples": [
+              0.0157739,
+              0.013532,
+              0.0136677,
+              0.0116408,
+              0.0121819
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 93433856,
+            "peak_rss_bytes": 99352576,
+            "peak_delta_bytes": 5918720,
+            "final_rss_bytes": 94867456,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        },
+        "rustures": {
+          "status": "ok",
+          "version": "0.1.1",
+          "metadata": {
+            "n": 80000
+          },
+          "result": {
+            "shape": [
+              80000,
+              3
+            ],
+            "breakpoints": [
+              1807,
+              12370,
+              25001,
+              58449,
+              60570,
+              80000
+            ]
+          },
+          "memory_probe_result": {
+            "shape": [
+              80000,
+              3
+            ],
+            "breakpoints": [
+              1807,
+              12370,
+              25001,
+              58449,
+              60570,
+              80000
+            ]
+          },
+          "seconds": {
+            "median": 0.0075255,
+            "minimum": 0.0073619,
+            "maximum": 0.0078377,
+            "samples": [
+              0.0073619,
+              0.0074678,
+              0.0075255,
+              0.0075625,
+              0.0078377
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 42082304,
+            "peak_rss_bytes": 44113920,
+            "peak_delta_bytes": 2031616,
+            "final_rss_bytes": 42192896,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        }
+      },
+      "comparison": {
+        "rustures_valid": true,
+        "comparable": true,
+        "ruptures_valid": true,
+        "same_sample_count": true,
+        "same_element_count": true,
+        "time_speedup": 1.7981529466480632,
+        "memory_ratio": 2.913306451612903
+      }
+    },
+    {
+      "case": {
+        "id": "dataset-pw_normal",
+        "category": "dataset",
+        "feature": "pw_normal",
+        "generator": "pw_normal",
+        "n": 80000,
+        "d": 2,
+        "n_bkps": 5,
+        "seed": 20261804,
+        "libraries": [
+          "rustures",
+          "ruptures"
+        ]
+      },
+      "measurements": {
+        "rustures": {
+          "status": "ok",
+          "version": "0.1.1",
+          "metadata": {
+            "n": 80000
+          },
+          "result": {
+            "shape": [
+              80000,
+              2
+            ],
+            "breakpoints": [
+              19156,
+              20075,
+              25430,
+              42595,
+              50189,
+              80000
+            ]
+          },
+          "memory_probe_result": {
+            "shape": [
+              80000,
+              2
+            ],
+            "breakpoints": [
+              19156,
+              20075,
+              25430,
+              42595,
+              50189,
+              80000
+            ]
+          },
+          "seconds": {
+            "median": 0.0093562,
+            "minimum": 0.0088156,
+            "maximum": 0.0111216,
+            "samples": [
+              0.0098004,
+              0.0088156,
+              0.009249,
+              0.0093562,
+              0.0111216
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 42020864,
+            "peak_rss_bytes": 43417600,
+            "peak_delta_bytes": 1396736,
+            "final_rss_bytes": 42135552,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        },
+        "ruptures": {
+          "status": "ok",
+          "version": "1.1.10",
+          "metadata": {
+            "n": 80000
+          },
+          "result": {
+            "shape": [
+              80000,
+              2
+            ],
+            "breakpoints": [
+              13457,
+              26531,
+              40323,
+              53873,
+              67181,
+              80000
+            ]
+          },
+          "memory_probe_result": {
+            "shape": [
+              80000,
+              2
+            ],
+            "breakpoints": [
+              13457,
+              26531,
+              40323,
+              53873,
+              67181,
+              80000
+            ]
+          },
+          "seconds": {
+            "median": 0.005072,
+            "minimum": 0.0047347,
+            "maximum": 0.0057696,
+            "samples": [
+              0.0055678,
+              0.0047347,
+              0.0048339,
+              0.005072,
+              0.0057696
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 93401088,
+            "peak_rss_bytes": 95711232,
+            "peak_delta_bytes": 2310144,
+            "final_rss_bytes": 94429184,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        }
+      },
+      "comparison": {
+        "rustures_valid": true,
+        "comparable": true,
+        "ruptures_valid": true,
+        "same_sample_count": true,
+        "same_element_count": true,
+        "time_speedup": 0.5421004253863748,
+        "memory_ratio": 1.653958944281525
+      }
+    },
+    {
+      "case": {
+        "id": "dataset-pw_wavy",
+        "category": "dataset",
+        "feature": "pw_wavy",
+        "generator": "pw_wavy",
+        "n": 80000,
+        "d": 1,
+        "n_bkps": 5,
+        "seed": 20261805,
+        "libraries": [
+          "rustures",
+          "ruptures"
+        ]
+      },
+      "measurements": {
+        "ruptures": {
+          "status": "ok",
+          "version": "1.1.10",
+          "metadata": {
+            "n": 80000
+          },
+          "result": {
+            "shape": [
+              80000
+            ],
+            "breakpoints": [
+              12175,
+              24966,
+              39415,
+              52536,
+              66449,
+              80000
+            ]
+          },
+          "memory_probe_result": {
+            "shape": [
+              80000
+            ],
+            "breakpoints": [
+              12175,
+              24966,
+              39415,
+              52536,
+              66449,
+              80000
+            ]
+          },
+          "seconds": {
+            "median": 0.0066078,
+            "minimum": 0.00645,
+            "maximum": 0.0068342,
+            "samples": [
+              0.00645,
+              0.0066742,
+              0.0065103,
+              0.0068342,
+              0.0066078
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 93290496,
+            "peak_rss_bytes": 98435072,
+            "peak_delta_bytes": 5144576,
+            "final_rss_bytes": 93945856,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        },
+        "rustures": {
+          "status": "ok",
+          "version": "0.1.1",
+          "metadata": {
+            "n": 80000
+          },
+          "result": {
+            "shape": [
+              80000,
+              1
+            ],
+            "breakpoints": [
+              8781,
+              16980,
+              54289,
+              63364,
+              79143,
+              80000
+            ]
+          },
+          "memory_probe_result": {
+            "shape": [
+              80000,
+              1
+            ],
+            "breakpoints": [
+              8781,
+              16980,
+              54289,
+              63364,
+              79143,
+              80000
+            ]
+          },
+          "seconds": {
+            "median": 0.0035803,
+            "minimum": 0.0032631,
+            "maximum": 0.0043005,
+            "samples": [
+              0.0043005,
+              0.003976,
+              0.0032631,
+              0.0032857,
+              0.0035803
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 41963520,
+            "peak_rss_bytes": 42618880,
+            "peak_delta_bytes": 655360,
+            "final_rss_bytes": 42618880,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        }
+      },
+      "comparison": {
+        "rustures_valid": true,
+        "comparable": true,
+        "ruptures_valid": true,
+        "same_sample_count": true,
+        "same_element_count": true,
+        "time_speedup": 1.8455995307655784,
+        "memory_ratio": 7.85
+      }
+    }
+  ]
+}

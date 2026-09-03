@@ -1,11 +1,14 @@
 mod boundary;
 mod custom_cost;
 mod error;
+#[cfg(feature = "panic-test-hook")]
+mod test_support;
 
 use std::sync::Arc;
 
 use numpy::{
-    PyArray2, PyReadonlyArray1, PyReadonlyArray2, PyReadonlyArrayDyn, PyUntypedArrayMethods,
+    PyArray1, PyArray2, PyArrayMethods, PyReadonlyArray1, PyReadonlyArray2, PyReadonlyArrayDyn,
+    PyUntypedArrayMethods,
 };
 use pyo3::exceptions::PyValueError;
 use pyo3::prelude::*;
@@ -74,12 +77,20 @@ fn dataset_array<'py>(
     n_samples: usize,
     n_features: usize,
 ) -> PyResult<Bound<'py, PyArray2<f64>>> {
-    let rows: Vec<Vec<f64>> = values
-        .chunks_exact(n_features)
-        .map(<[f64]>::to_vec)
-        .collect();
-    debug_assert_eq!(rows.len(), n_samples);
-    Ok(PyArray2::from_vec2(py, &rows)?)
+    let expected = n_samples
+        .checked_mul(n_features)
+        .ok_or_else(|| PyValueError::new_err("synthetic dataset dimensions overflow"))?;
+    if values.len() != expected {
+        return Err(PyValueError::new_err(format!(
+            "synthetic dataset produced {} values, expected {expected}",
+            values.len()
+        )));
+    }
+
+    // `from_vec` transfers the single contiguous Rust allocation to NumPy.
+    // Reshape only changes metadata, avoiding n_samples row allocations and a
+    // second full copy through `Vec<Vec<f64>>`.
+    PyArray1::from_vec(py, values).reshape([n_samples, n_features])
 }
 
 macro_rules! dataset_binding {
@@ -127,7 +138,6 @@ fn custom_cost_from_numpy(
     signal: &PyReadonlyArrayDyn<'_, f64>,
     source: &Py<PyAny>,
     effective_min_size: usize,
-    jump: usize,
     detector: &'static str,
 ) -> PyResult<Arc<PythonSegmentCost>> {
     let shape = validate_signal_shape(signal.ndim(), signal.shape())?;
@@ -145,7 +155,6 @@ fn custom_cost_from_numpy(
         shape.n_samples,
         shape.n_features,
         effective_min_size,
-        jump,
     )?))
 }
 
@@ -754,7 +763,6 @@ impl PyDynp {
                     &signal,
                     source,
                     slf.detector.grid().min_size,
-                    slf.detector.grid().jump,
                     "Dynp",
                 )?);
             } else {
@@ -791,7 +799,6 @@ impl PyDynp {
                     &signal,
                     source,
                     self.detector.grid().min_size,
-                    self.detector.grid().jump,
                     "Dynp",
                 )?);
             } else {
@@ -912,7 +919,6 @@ impl PyPelt {
                     &signal,
                     source,
                     slf.detector.grid().min_size,
-                    slf.detector.grid().jump,
                     "Pelt",
                 )?);
             } else {
@@ -941,7 +947,6 @@ impl PyPelt {
                     &signal,
                     source,
                     self.detector.grid().min_size,
-                    self.detector.grid().jump,
                     "Pelt",
                 )?);
             } else {
@@ -989,6 +994,20 @@ impl PyPelt {
                 .custom_cost
                 .as_ref()
                 .is_some_and(|cost| cost.uses_batch_callback()))
+        })
+    }
+
+    #[getter]
+    fn uses_pelt_pruning(&self) -> PyResult<bool> {
+        catch_panic("reading Pelt.uses_pelt_pruning", || {
+            if let Some(cost) = &self.custom_cost {
+                Ok(cost.uses_pelt_pruning())
+            } else {
+                Ok(self
+                    .cost
+                    .as_ref()
+                    .is_some_and(|cost| cost.pelt_pruning_constant().is_some()))
+            }
         })
     }
 
@@ -1622,14 +1641,6 @@ impl PyCostL2 {
     }
 }
 
-#[cfg(feature = "panic-test-hook")]
-#[pyfunction]
-fn _panic_test_hook() -> PyResult<()> {
-    catch_panic("running the panic test hook", || {
-        panic!("intentional panic-test-hook panic")
-    })
-}
-
 #[pymodule]
 fn _rustures(module: &Bound<'_, PyModule>) -> PyResult<()> {
     catch_panic("initializing the rustures extension", || {
@@ -1661,7 +1672,7 @@ fn _rustures(module: &Bound<'_, PyModule>) -> PyResult<()> {
         module.add_function(wrap_pyfunction!(py_pw_normal, module)?)?;
         module.add_function(wrap_pyfunction!(py_pw_wavy, module)?)?;
         #[cfg(feature = "panic-test-hook")]
-        module.add_function(wrap_pyfunction!(_panic_test_hook, module)?)?;
+        test_support::register(module)?;
         Ok(())
     })
 }

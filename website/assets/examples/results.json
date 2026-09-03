@@ -1,0 +1,121 @@
+{
+  "detector_comparison": {
+    "parameters": {
+      "Binseg": "n_bkps=3",
+      "BottomUp": "n_bkps=3",
+      "Dynp": "n_bkps=3",
+      "Pelt": "pen=18",
+      "Window": "width=70, n_bkps=3"
+    },
+    "predictions": {
+      "Binseg": [
+        120,
+        250,
+        360,
+        480
+      ],
+      "BottomUp": [
+        120,
+        240,
+        360,
+        480
+      ],
+      "Dynp": [
+        120,
+        250,
+        360,
+        480
+      ],
+      "Pelt": [
+        120,
+        250,
+        360,
+        480
+      ],
+      "Window": [
+        120,
+        250,
+        360,
+        480
+      ]
+    },
+    "truth": [
+      120,
+      250,
+      360,
+      480
+    ]
+  },
+  "kernel_comparison": {
+    "parameters": {
+      "backend": "fused",
+      "jump": 2,
+      "min_size": 20,
+      "n_bkps": 2,
+      "rbf_gamma": 0.35
+    },
+    "predictions": {
+      "cosine": [
+        140,
+        280,
+        420
+      ],
+      "linear": [
+        140,
+        280,
+        420
+      ],
+      "rbf": [
+        140,
+        280,
+        420
+      ]
+    },
+    "truth": [
+      140,
+      280,
+      420
+    ]
+  },
+  "robust_comparison": {
+    "outlier_indices": [
+      28,
+      57,
+      91,
+      151,
+      178,
+      211,
+      276,
+      307,
+      338
+    ],
+    "parameters": {
+      "Dynp with L1": "absolute loss, n_bkps=2",
+      "Dynp with L2": "quadratic loss, n_bkps=2",
+      "L1Potts": "specialized scalar solver, pen=20"
+    },
+    "predictions": {
+      "Dynp with L1": [
+        120,
+        240,
+        360
+      ],
+      "Dynp with L2": [
+        120,
+        240,
+        360
+      ],
+      "L1Potts": [
+        120,
+        240,
+        360
+      ]
+    },
+    "truth": [
+      120,
+      240,
+      360
+    ]
+  },
+  "rustures_version": "0.1.1"
+}

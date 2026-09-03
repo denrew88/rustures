@@ -1,0 +1,7515 @@
+{
+  "schema_version": 1,
+  "complete": true,
+  "generated_at": "2026-09-03T00:58:58+0900",
+  "profile": "standard",
+  "repeats": 5,
+  "seed": 20260902,
+  "environment": {
+    "OS": "Windows-10-10.0.26200-SP0",
+    "CPU": "Intel64 Family 6 Model 140 Stepping 1, GenuineIntel",
+    "Python": "3.11.14 | packaged by Anaconda, Inc. | (main, Oct 21 2025, 18:30:03) [MSC v.1929 64 bit (AMD64)]",
+    "NumPy": "1.26.4",
+    "psutil": "7.1.3",
+    "logical CPUs": 8,
+    "rustures": "0.1.1",
+    "ruptures": "1.1.10",
+    "SciPy": "1.16.3"
+  },
+  "methodology": {
+    "timing_scope": "warmed fresh estimator fit+predict/operation, process import excluded",
+    "memory_scope": "incremental process RSS after import and input construction",
+    "sample_interval_ms": 1.0,
+    "thread_limits": 1
+  },
+  "cases": [
+    {
+      "case": {
+        "id": "cost-l2",
+        "category": "cost",
+        "feature": "l2",
+        "signal": "piecewise_mean",
+        "n": 420,
+        "d": 3,
+        "seed": 20260902,
+        "queries": 320,
+        "libraries": [
+          "rustures",
+          "ruptures"
+        ]
+      },
+      "measurements": {
+        "rustures": {
+          "status": "ok",
+          "version": "0.1.1",
+          "metadata": {
+            "truth": [
+              140,
+              280,
+              420
+            ],
+            "n": 420
+          },
+          "result": {
+            "checksum": 632418.083384109,
+            "queries": 320
+          },
+          "memory_probe_result": {
+            "checksum": 632418.083384109,
+            "queries": 320
+          },
+          "seconds": {
+            "median": 5.71e-05,
+            "minimum": 5.35e-05,
+            "maximum": 0.0002008,
+            "samples": [
+              6.56e-05,
+              5.71e-05,
+              5.43e-05,
+              5.35e-05,
+              0.0002008
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 41840640,
+            "peak_rss_bytes": 41959424,
+            "peak_delta_bytes": 118784,
+            "final_rss_bytes": 41963520,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        },
+        "ruptures": {
+          "status": "ok",
+          "version": "1.1.10",
+          "metadata": {
+            "truth": [
+              140,
+              280,
+              420
+            ],
+            "n": 420
+          },
+          "result": {
+            "checksum": 632418.083384109,
+            "queries": 320
+          },
+          "memory_probe_result": {
+            "checksum": 632418.083384109,
+            "queries": 320
+          },
+          "seconds": {
+            "median": 0.005882,
+            "minimum": 0.0053347,
+            "maximum": 0.0078894,
+            "samples": [
+              0.0053347,
+              0.0054753,
+              0.0078894,
+              0.005882,
+              0.0062518
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 91877376,
+            "peak_rss_bytes": 91992064,
+            "peak_delta_bytes": 114688,
+            "final_rss_bytes": 91992064,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        }
+      },
+      "comparison": {
+        "rustures_valid": true,
+        "comparable": true,
+        "ruptures_valid": true,
+        "values_close": true,
+        "relative_difference": 0.0,
+        "time_speedup": 103.0122591943958,
+        "memory_ratio": 0.9655172413793104
+      }
+    },
+    {
+      "case": {
+        "id": "cost-l1",
+        "category": "cost",
+        "feature": "l1",
+        "signal": "outliers",
+        "n": 420,
+        "d": 2,
+        "seed": 20260903,
+        "queries": 320,
+        "libraries": [
+          "rustures",
+          "ruptures"
+        ]
+      },
+      "measurements": {
+        "ruptures": {
+          "status": "ok",
+          "version": "1.1.10",
+          "metadata": {
+            "truth": [
+              140,
+              280,
+              420
+            ],
+            "n": 420
+          },
+          "result": {
+            "checksum": 184945.68065255726,
+            "queries": 320
+          },
+          "memory_probe_result": {
+            "checksum": 184945.68065255726,
+            "queries": 320
+          },
+          "seconds": {
+            "median": 0.0085002,
+            "minimum": 0.0083185,
+            "maximum": 0.009012,
+            "samples": [
+              0.0085002,
+              0.009012,
+              0.0083257,
+              0.0083185,
+              0.0089602
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 92033024,
+            "peak_rss_bytes": 92270592,
+            "peak_delta_bytes": 237568,
+            "final_rss_bytes": 92270592,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        },
+        "rustures": {
+          "status": "ok",
+          "version": "0.1.1",
+          "metadata": {
+            "truth": [
+              140,
+              280,
+              420
+            ],
+            "n": 420
+          },
+          "result": {
+            "checksum": 184945.68065255726,
+            "queries": 320
+          },
+          "memory_probe_result": {
+            "checksum": 184945.68065255726,
+            "queries": 320
+          },
+          "seconds": {
+            "median": 0.0012333,
+            "minimum": 0.0012273,
+            "maximum": 0.0012924,
+            "samples": [
+              0.0012323,
+              0.0012407,
+              0.0012273,
+              0.0012924,
+              0.0012333
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 41897984,
+            "peak_rss_bytes": 42049536,
+            "peak_delta_bytes": 151552,
+            "final_rss_bytes": 42053632,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        }
+      },
+      "comparison": {
+        "rustures_valid": true,
+        "comparable": true,
+        "ruptures_valid": true,
+        "values_close": true,
+        "relative_difference": 0.0,
+        "time_speedup": 6.89224033081975,
+        "memory_ratio": 1.5675675675675675
+      }
+    },
+    {
+      "case": {
+        "id": "cost-rank",
+        "category": "cost",
+        "feature": "rank",
+        "signal": "integer_ties",
+        "n": 420,
+        "d": 2,
+        "seed": 20260904,
+        "queries": 320,
+        "libraries": [
+          "rustures",
+          "ruptures"
+        ]
+      },
+      "measurements": {
+        "rustures": {
+          "status": "ok",
+          "version": "0.1.1",
+          "metadata": {
+            "truth": [
+              140,
+              280,
+              420
+            ],
+            "n": 420
+          },
+          "result": {
+            "checksum": -10322.824358452326,
+            "queries": 320
+          },
+          "memory_probe_result": {
+            "checksum": -10322.824358452326,
+            "queries": 320
+          },
+          "seconds": {
+            "median": 0.0001029,
+            "minimum": 9.35e-05,
+            "maximum": 0.0001349,
+            "samples": [
+              0.0001029,
+              9.57e-05,
+              9.35e-05,
+              0.0001349,
+              0.0001043
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 41832448,
+            "peak_rss_bytes": 42004480,
+            "peak_delta_bytes": 172032,
+            "final_rss_bytes": 42008576,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        },
+        "ruptures": {
+          "status": "ok",
+          "version": "1.1.10",
+          "metadata": {
+            "truth": [
+              140,
+              280,
+              420
+            ],
+            "n": 420
+          },
+          "result": {
+            "checksum": -10322.824358452366,
+            "queries": 320
+          },
+          "memory_probe_result": {
+            "checksum": -10322.824358452366,
+            "queries": 320
+          },
+          "seconds": {
+            "median": 0.0052837,
+            "minimum": 0.0051955,
+            "maximum": 0.0053324,
+            "samples": [
+              0.0051955,
+              0.0052837,
+              0.0053302,
+              0.0053324,
+              0.0052665
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 91705344,
+            "peak_rss_bytes": 92307456,
+            "peak_delta_bytes": 602112,
+            "final_rss_bytes": 92307456,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": "C:\\Users\\denrew88\\Documents\\Study\\Codex\\rustures\\benchmarks\\integration_comparison.py:387: DeprecationWarning: Conversion of an array with ndim > 0 to a scalar is deprecated, and will error in future. Ensure you extract a single element from your array before performing this operation. (Deprecated NumPy 1.25.)\n  checksum = sum(float(cost.error(start, end)) for start, end in queries)"
+        }
+      },
+      "comparison": {
+        "rustures_valid": true,
+        "comparable": true,
+        "ruptures_valid": true,
+        "values_close": true,
+        "relative_difference": 3.876629640147093e-15,
+        "time_speedup": 51.34791059280855,
+        "memory_ratio": 3.5
+      }
+    },
+    {
+      "case": {
+        "id": "cost-normal",
+        "category": "cost",
+        "feature": "normal",
+        "signal": "variance_shift",
+        "n": 420,
+        "d": 2,
+        "seed": 20260905,
+        "queries": 320,
+        "libraries": [
+          "rustures",
+          "ruptures"
+        ]
+      },
+      "measurements": {
+        "ruptures": {
+          "status": "ok",
+          "version": "1.1.10",
+          "metadata": {
+            "truth": [
+              140,
+              280,
+              420
+            ],
+            "n": 420
+          },
+          "result": {
+            "checksum": 32827.863087647966,
+            "queries": 320
+          },
+          "memory_probe_result": {
+            "checksum": 32827.863087647966,
+            "queries": 320
+          },
+          "seconds": {
+            "median": 0.0127887,
+            "minimum": 0.0126258,
+            "maximum": 0.012817,
+            "samples": [
+              0.0128157,
+              0.0127864,
+              0.0127887,
+              0.0126258,
+              0.012817
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 91914240,
+            "peak_rss_bytes": 92254208,
+            "peak_delta_bytes": 339968,
+            "final_rss_bytes": 92254208,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": "C:\\Users\\denrew88\\Documents\\Study\\Codex\\rustures\\.integration-bench-env\\venv\\Lib\\site-packages\\ruptures\\costs\\costnormal.py:28: UserWarning: New behaviour in v1.1.5: a small bias is added to the covariance matrix to cope with truly constant segments (see PR#198).\n  warnings.warn("
+        },
+        "rustures": {
+          "status": "ok",
+          "version": "0.1.1",
+          "metadata": {
+            "truth": [
+              140,
+              280,
+              420
+            ],
+            "n": 420
+          },
+          "result": {
+            "checksum": 32827.86308764807,
+            "queries": 320
+          },
+          "memory_probe_result": {
+            "checksum": 32827.86308764807,
+            "queries": 320
+          },
+          "seconds": {
+            "median": 0.0001391,
+            "minimum": 0.0001278,
+            "maximum": 0.0002185,
+            "samples": [
+              0.0002185,
+              0.0001424,
+              0.0001278,
+              0.0001391,
+              0.0001288
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 42049536,
+            "peak_rss_bytes": 42188800,
+            "peak_delta_bytes": 139264,
+            "final_rss_bytes": 42192896,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        }
+      },
+      "comparison": {
+        "rustures_valid": true,
+        "comparable": true,
+        "ruptures_valid": true,
+        "values_close": true,
+        "relative_difference": 3.1029557521487126e-15,
+        "time_speedup": 91.93889288281812,
+        "memory_ratio": 2.4411764705882355
+      }
+    },
+    {
+      "case": {
+        "id": "cost-linear",
+        "category": "cost",
+        "feature": "linear",
+        "signal": "linear_regression",
+        "n": 420,
+        "d": 3,
+        "seed": 20260906,
+        "queries": 320,
+        "libraries": [
+          "rustures",
+          "ruptures"
+        ]
+      },
+      "measurements": {
+        "rustures": {
+          "status": "ok",
+          "version": "0.1.1",
+          "metadata": {
+            "truth": [
+              140,
+              280,
+              420
+            ],
+            "n": 420
+          },
+          "result": {
+            "checksum": 176809.5723602448,
+            "queries": 320
+          },
+          "memory_probe_result": {
+            "checksum": 176809.5723602448,
+            "queries": 320
+          },
+          "seconds": {
+            "median": 0.0011183,
+            "minimum": 0.0011048,
+            "maximum": 0.0011551,
+            "samples": [
+              0.0011219,
+              0.0011183,
+              0.0011048,
+              0.0011166,
+              0.0011551
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 41906176,
+            "peak_rss_bytes": 42209280,
+            "peak_delta_bytes": 303104,
+            "final_rss_bytes": 42213376,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        },
+        "ruptures": {
+          "status": "ok",
+          "version": "1.1.10",
+          "metadata": {
+            "truth": [
+              140,
+              280,
+              420
+            ],
+            "n": 420
+          },
+          "result": {
+            "checksum": 176809.57236024484,
+            "queries": 320
+          },
+          "memory_probe_result": {
+            "checksum": 176809.57236024484,
+            "queries": 320
+          },
+          "seconds": {
+            "median": 0.0041366,
+            "minimum": 0.0041083,
+            "maximum": 0.0055085,
+            "samples": [
+              0.0041366,
+              0.004131,
+              0.0055085,
+              0.0041083,
+              0.0046164
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 91971584,
+            "peak_rss_bytes": 92303360,
+            "peak_delta_bytes": 331776,
+            "final_rss_bytes": 92303360,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        }
+      },
+      "comparison": {
+        "rustures_valid": true,
+        "comparable": true,
+        "ruptures_valid": true,
+        "values_close": true,
+        "relative_difference": 1.6460551353766874e-16,
+        "time_speedup": 3.6990074219797906,
+        "memory_ratio": 1.0945945945945945
+      }
+    },
+    {
+      "case": {
+        "id": "cost-ar",
+        "category": "cost",
+        "feature": "ar",
+        "signal": "autoregressive",
+        "n": 420,
+        "d": 2,
+        "seed": 20260907,
+        "queries": 320,
+        "libraries": [
+          "rustures",
+          "ruptures"
+        ]
+      },
+      "measurements": {
+        "ruptures": {
+          "status": "ok",
+          "version": "1.1.10",
+          "metadata": {
+            "truth": [
+              140,
+              280,
+              420
+            ],
+            "n": 420
+          },
+          "result": {
+            "checksum": 9419.952868573124,
+            "queries": 320
+          },
+          "memory_probe_result": {
+            "checksum": 9419.952868573124,
+            "queries": 320
+          },
+          "seconds": {
+            "median": 0.0060767,
+            "minimum": 0.005946,
+            "maximum": 0.0062061,
+            "samples": [
+              0.005946,
+              0.0060767,
+              0.006186,
+              0.0060309,
+              0.0062061
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 91824128,
+            "peak_rss_bytes": 92200960,
+            "peak_delta_bytes": 376832,
+            "final_rss_bytes": 92200960,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        },
+        "rustures": {
+          "status": "ok",
+          "version": "0.1.1",
+          "metadata": {
+            "truth": [
+              140,
+              280,
+              420
+            ],
+            "n": 420
+          },
+          "result": {
+            "checksum": 4722.962986895975,
+            "queries": 320
+          },
+          "memory_probe_result": {
+            "checksum": 4722.962986895975,
+            "queries": 320
+          },
+          "seconds": {
+            "median": 0.0068817,
+            "minimum": 0.0066436,
+            "maximum": 0.0075916,
+            "samples": [
+              0.0075916,
+              0.0066436,
+              0.006716,
+              0.006883,
+              0.0068817
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 41881600,
+            "peak_rss_bytes": 42434560,
+            "peak_delta_bytes": 552960,
+            "final_rss_bytes": 42438656,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        }
+      },
+      "comparison": {
+        "rustures_valid": true,
+        "comparable": true,
+        "ruptures_valid": true,
+        "values_close": false,
+        "relative_difference": 0.4986213781756023,
+        "time_speedup": 0.8830230902247991,
+        "memory_ratio": 0.6814814814814815
+      }
+    },
+    {
+      "case": {
+        "id": "cost-clinear",
+        "category": "cost",
+        "feature": "clinear",
+        "signal": "trend",
+        "n": 420,
+        "d": 1,
+        "seed": 20260908,
+        "queries": 320,
+        "libraries": [
+          "rustures",
+          "ruptures"
+        ]
+      },
+      "measurements": {
+        "rustures": {
+          "status": "ok",
+          "version": "0.1.1",
+          "metadata": {
+            "truth": [
+              140,
+              280,
+              420
+            ],
+            "n": 420
+          },
+          "result": {
+            "checksum": 1885691.1488318185,
+            "queries": 320
+          },
+          "memory_probe_result": {
+            "checksum": 1885691.1488318185,
+            "queries": 320
+          },
+          "seconds": {
+            "median": 8.29e-05,
+            "minimum": 8.24e-05,
+            "maximum": 9.01e-05,
+            "samples": [
+              8.87e-05,
+              8.28e-05,
+              9.01e-05,
+              8.24e-05,
+              8.29e-05
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 41934848,
+            "peak_rss_bytes": 42053632,
+            "peak_delta_bytes": 118784,
+            "final_rss_bytes": 42057728,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        },
+        "ruptures": {
+          "status": "ok",
+          "version": "1.1.10",
+          "metadata": {
+            "truth": [
+              140,
+              280,
+              420
+            ],
+            "n": 420
+          },
+          "result": {
+            "checksum": 1885691.148831818,
+            "queries": 320
+          },
+          "memory_probe_result": {
+            "checksum": 1885691.148831818,
+            "queries": 320
+          },
+          "seconds": {
+            "median": 0.0037157,
+            "minimum": 0.003658,
+            "maximum": 0.0037956,
+            "samples": [
+              0.0037157,
+              0.0037956,
+              0.003658,
+              0.0037804,
+              0.0036618
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 91930624,
+            "peak_rss_bytes": 92057600,
+            "peak_delta_bytes": 126976,
+            "final_rss_bytes": 92057600,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        }
+      },
+      "comparison": {
+        "rustures_valid": true,
+        "comparable": true,
+        "ruptures_valid": true,
+        "values_close": true,
+        "relative_difference": 2.469446216556807e-16,
+        "time_speedup": 44.82147165259349,
+        "memory_ratio": 1.0689655172413792
+      }
+    },
+    {
+      "case": {
+        "id": "cost-mahalanobis",
+        "category": "cost",
+        "feature": "mahalanobis",
+        "signal": "correlated",
+        "n": 420,
+        "d": 3,
+        "seed": 20260909,
+        "queries": 320,
+        "libraries": [
+          "rustures",
+          "ruptures"
+        ]
+      },
+      "measurements": {
+        "ruptures": {
+          "status": "ok",
+          "version": "1.1.10",
+          "metadata": {
+            "truth": [
+              140,
+              280,
+              420
+            ],
+            "n": 420
+          },
+          "result": {
+            "checksum": 1427833.5474067468,
+            "queries": 320
+          },
+          "memory_probe_result": {
+            "checksum": 1427833.5474067468,
+            "queries": 320
+          },
+          "seconds": {
+            "median": 0.0043216,
+            "minimum": 0.0042437,
+            "maximum": 0.0044167,
+            "samples": [
+              0.0044167,
+              0.0043587,
+              0.0043216,
+              0.0042766,
+              0.0042437
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 91787264,
+            "peak_rss_bytes": 93466624,
+            "peak_delta_bytes": 1679360,
+            "final_rss_bytes": 92053504,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        },
+        "rustures": {
+          "status": "ok",
+          "version": "0.1.1",
+          "metadata": {
+            "truth": [
+              140,
+              280,
+              420
+            ],
+            "n": 420
+          },
+          "result": {
+            "checksum": 1427833.5474067484,
+            "queries": 320
+          },
+          "memory_probe_result": {
+            "checksum": 1427833.5474067484,
+            "queries": 320
+          },
+          "seconds": {
+            "median": 0.0001747,
+            "minimum": 0.0001693,
+            "maximum": 0.0002277,
+            "samples": [
+              0.000183,
+              0.0001695,
+              0.0001693,
+              0.0002277,
+              0.0001747
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 41967616,
+            "peak_rss_bytes": 42151936,
+            "peak_delta_bytes": 184320,
+            "final_rss_bytes": 42156032,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        }
+      },
+      "comparison": {
+        "rustures_valid": true,
+        "comparable": true,
+        "ruptures_valid": true,
+        "values_close": true,
+        "relative_difference": 1.1414597370521093e-15,
+        "time_speedup": 24.737263880938755,
+        "memory_ratio": 9.11111111111111
+      }
+    },
+    {
+      "case": {
+        "id": "dynp-l2-piecewise_mean",
+        "category": "detector",
+        "feature": "dynp",
+        "algorithm": "dynp",
+        "model": "l2",
+        "signal": "piecewise_mean",
+        "n": 720,
+        "d": 2,
+        "seed": 20261002,
+        "min_size": 8,
+        "jump": 4,
+        "n_bkps": 2,
+        "penalty": 12.0,
+        "width": 80,
+        "libraries": [
+          "rustures",
+          "ruptures"
+        ]
+      },
+      "measurements": {
+        "rustures": {
+          "status": "ok",
+          "version": "0.1.1",
+          "metadata": {
+            "truth": [
+              240,
+              480,
+              720
+            ],
+            "n": 720
+          },
+          "result": {
+            "breakpoints": [
+              240,
+              480,
+              720
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              240,
+              480,
+              720
+            ]
+          },
+          "seconds": {
+            "median": 0.0002671,
+            "minimum": 0.0002594,
+            "maximum": 0.0002787,
+            "samples": [
+              0.0002728,
+              0.0002787,
+              0.0002644,
+              0.0002671,
+              0.0002594
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 42000384,
+            "peak_rss_bytes": 42147840,
+            "peak_delta_bytes": 147456,
+            "final_rss_bytes": 42147840,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        },
+        "ruptures": {
+          "status": "ok",
+          "version": "1.1.10",
+          "metadata": {
+            "truth": [
+              240,
+              480,
+              720
+            ],
+            "n": 720
+          },
+          "result": {
+            "breakpoints": [
+              240,
+              480,
+              720
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              240,
+              480,
+              720
+            ]
+          },
+          "seconds": {
+            "median": 0.3836351,
+            "minimum": 0.3695318,
+            "maximum": 0.4112812,
+            "samples": [
+              0.3842216,
+              0.3836351,
+              0.3695318,
+              0.3756378,
+              0.4112812
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 91983872,
+            "peak_rss_bytes": 100556800,
+            "peak_delta_bytes": 8572928,
+            "final_rss_bytes": 100556800,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        }
+      },
+      "comparison": {
+        "rustures_valid": true,
+        "rustures_truth_hausdorff": 0.0,
+        "rustures_truth_precision_recall": [
+          1.0,
+          1.0
+        ],
+        "rustures_truth_rand_index": 1.0,
+        "comparable": true,
+        "ruptures_valid": true,
+        "breakpoints_match": true,
+        "cross_hausdorff": 0.0,
+        "cross_rand_index": 1.0,
+        "time_speedup": 1436.2976413328342,
+        "memory_ratio": 58.138888888888886
+      }
+    },
+    {
+      "case": {
+        "id": "dynp-l2-trend",
+        "category": "detector",
+        "feature": "dynp",
+        "algorithm": "dynp",
+        "model": "l2",
+        "signal": "trend",
+        "n": 720,
+        "d": 1,
+        "seed": 20261003,
+        "min_size": 8,
+        "jump": 4,
+        "n_bkps": 2,
+        "penalty": 12.0,
+        "width": 80,
+        "libraries": [
+          "rustures",
+          "ruptures"
+        ]
+      },
+      "measurements": {
+        "ruptures": {
+          "status": "ok",
+          "version": "1.1.10",
+          "metadata": {
+            "truth": [
+              240,
+              480,
+              720
+            ],
+            "n": 720
+          },
+          "result": {
+            "breakpoints": [
+              240,
+              480,
+              720
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              240,
+              480,
+              720
+            ]
+          },
+          "seconds": {
+            "median": 0.4518222,
+            "minimum": 0.4093751,
+            "maximum": 0.6379201,
+            "samples": [
+              0.4093751,
+              0.4143594,
+              0.4518222,
+              0.6379201,
+              0.562027
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 91803648,
+            "peak_rss_bytes": 100888576,
+            "peak_delta_bytes": 9084928,
+            "final_rss_bytes": 100888576,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        },
+        "rustures": {
+          "status": "ok",
+          "version": "0.1.1",
+          "metadata": {
+            "truth": [
+              240,
+              480,
+              720
+            ],
+            "n": 720
+          },
+          "result": {
+            "breakpoints": [
+              240,
+              480,
+              720
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              240,
+              480,
+              720
+            ]
+          },
+          "seconds": {
+            "median": 0.0003157,
+            "minimum": 0.0003045,
+            "maximum": 0.00032,
+            "samples": [
+              0.0003157,
+              0.0003045,
+              0.0003191,
+              0.0003112,
+              0.00032
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 41947136,
+            "peak_rss_bytes": 42094592,
+            "peak_delta_bytes": 147456,
+            "final_rss_bytes": 42094592,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        }
+      },
+      "comparison": {
+        "rustures_valid": true,
+        "rustures_truth_hausdorff": 0.0,
+        "rustures_truth_precision_recall": [
+          1.0,
+          1.0
+        ],
+        "rustures_truth_rand_index": 1.0,
+        "comparable": true,
+        "ruptures_valid": true,
+        "breakpoints_match": true,
+        "cross_hausdorff": 0.0,
+        "cross_rand_index": 1.0,
+        "time_speedup": 1431.1757998099463,
+        "memory_ratio": 61.611111111111114
+      }
+    },
+    {
+      "case": {
+        "id": "dynp-l2-variance_shift",
+        "category": "detector",
+        "feature": "dynp",
+        "algorithm": "dynp",
+        "model": "l2",
+        "signal": "variance_shift",
+        "n": 720,
+        "d": 2,
+        "seed": 20261004,
+        "min_size": 8,
+        "jump": 4,
+        "n_bkps": 2,
+        "penalty": 12.0,
+        "width": 80,
+        "libraries": [
+          "rustures",
+          "ruptures"
+        ]
+      },
+      "measurements": {
+        "rustures": {
+          "status": "ok",
+          "version": "0.1.1",
+          "metadata": {
+            "truth": [
+              240,
+              480,
+              720
+            ],
+            "n": 720
+          },
+          "result": {
+            "breakpoints": [
+              260,
+              296,
+              720
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              260,
+              296,
+              720
+            ]
+          },
+          "seconds": {
+            "median": 0.0003955,
+            "minimum": 0.0003785,
+            "maximum": 0.0004177,
+            "samples": [
+              0.0003955,
+              0.0003785,
+              0.0004177,
+              0.0004017,
+              0.0003807
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 41938944,
+            "peak_rss_bytes": 42086400,
+            "peak_delta_bytes": 147456,
+            "final_rss_bytes": 42086400,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        },
+        "ruptures": {
+          "status": "ok",
+          "version": "1.1.10",
+          "metadata": {
+            "truth": [
+              240,
+              480,
+              720
+            ],
+            "n": 720
+          },
+          "result": {
+            "breakpoints": [
+              260,
+              296,
+              720
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              260,
+              296,
+              720
+            ]
+          },
+          "seconds": {
+            "median": 0.5322875,
+            "minimum": 0.4906927,
+            "maximum": 0.6047843,
+            "samples": [
+              0.5082536,
+              0.4906927,
+              0.5322875,
+              0.6047843,
+              0.5990496
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 91668480,
+            "peak_rss_bytes": 100593664,
+            "peak_delta_bytes": 8925184,
+            "final_rss_bytes": 100593664,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        }
+      },
+      "comparison": {
+        "rustures_valid": true,
+        "rustures_truth_hausdorff": 184.0,
+        "rustures_truth_precision_recall": [
+          0.0,
+          0.0
+        ],
+        "rustures_truth_rand_index": 0.7682583835574099,
+        "comparable": true,
+        "ruptures_valid": true,
+        "breakpoints_match": true,
+        "cross_hausdorff": 0.0,
+        "cross_rand_index": 1.0,
+        "time_speedup": 1345.859671302149,
+        "memory_ratio": 60.52777777777778
+      }
+    },
+    {
+      "case": {
+        "id": "dynp-l2-outliers",
+        "category": "detector",
+        "feature": "dynp",
+        "algorithm": "dynp",
+        "model": "l2",
+        "signal": "outliers",
+        "n": 720,
+        "d": 2,
+        "seed": 20261005,
+        "min_size": 8,
+        "jump": 4,
+        "n_bkps": 2,
+        "penalty": 12.0,
+        "width": 80,
+        "libraries": [
+          "rustures",
+          "ruptures"
+        ]
+      },
+      "measurements": {
+        "ruptures": {
+          "status": "ok",
+          "version": "1.1.10",
+          "metadata": {
+            "truth": [
+              240,
+              480,
+              720
+            ],
+            "n": 720
+          },
+          "result": {
+            "breakpoints": [
+              240,
+              480,
+              720
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              240,
+              480,
+              720
+            ]
+          },
+          "seconds": {
+            "median": 0.491689,
+            "minimum": 0.4706976,
+            "maximum": 0.631635,
+            "samples": [
+              0.4706976,
+              0.4775236,
+              0.491689,
+              0.631635,
+              0.5523011
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 91762688,
+            "peak_rss_bytes": 100319232,
+            "peak_delta_bytes": 8556544,
+            "final_rss_bytes": 100319232,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        },
+        "rustures": {
+          "status": "ok",
+          "version": "0.1.1",
+          "metadata": {
+            "truth": [
+              240,
+              480,
+              720
+            ],
+            "n": 720
+          },
+          "result": {
+            "breakpoints": [
+              240,
+              480,
+              720
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              240,
+              480,
+              720
+            ]
+          },
+          "seconds": {
+            "median": 0.0003236,
+            "minimum": 0.0003208,
+            "maximum": 0.0003774,
+            "samples": [
+              0.0003637,
+              0.0003235,
+              0.0003236,
+              0.0003208,
+              0.0003774
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 41795584,
+            "peak_rss_bytes": 41943040,
+            "peak_delta_bytes": 147456,
+            "final_rss_bytes": 41943040,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        }
+      },
+      "comparison": {
+        "rustures_valid": true,
+        "rustures_truth_hausdorff": 0.0,
+        "rustures_truth_precision_recall": [
+          1.0,
+          1.0
+        ],
+        "rustures_truth_rand_index": 1.0,
+        "comparable": true,
+        "ruptures_valid": true,
+        "breakpoints_match": true,
+        "cross_hausdorff": 0.0,
+        "cross_rand_index": 1.0,
+        "time_speedup": 1519.4344870210136,
+        "memory_ratio": 58.02777777777778
+      }
+    },
+    {
+      "case": {
+        "id": "pelt-l2-piecewise_mean",
+        "category": "detector",
+        "feature": "pelt",
+        "algorithm": "pelt",
+        "model": "l2",
+        "signal": "piecewise_mean",
+        "n": 1200,
+        "d": 2,
+        "seed": 20261012,
+        "min_size": 8,
+        "jump": 4,
+        "n_bkps": 2,
+        "penalty": 12.0,
+        "width": 80,
+        "libraries": [
+          "rustures",
+          "ruptures"
+        ]
+      },
+      "measurements": {
+        "rustures": {
+          "status": "ok",
+          "version": "0.1.1",
+          "metadata": {
+            "truth": [
+              400,
+              800,
+              1200
+            ],
+            "n": 1200
+          },
+          "result": {
+            "breakpoints": [
+              400,
+              800,
+              1200
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              400,
+              800,
+              1200
+            ]
+          },
+          "seconds": {
+            "median": 0.0003731,
+            "minimum": 0.0003709,
+            "maximum": 0.0005717,
+            "samples": [
+              0.0003709,
+              0.000373,
+              0.0005717,
+              0.0003826,
+              0.0003731
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 42094592,
+            "peak_rss_bytes": 42266624,
+            "peak_delta_bytes": 172032,
+            "final_rss_bytes": 42266624,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        },
+        "ruptures": {
+          "status": "ok",
+          "version": "1.1.10",
+          "metadata": {
+            "truth": [
+              400,
+              800,
+              1200
+            ],
+            "n": 1200
+          },
+          "result": {
+            "breakpoints": [
+              400,
+              800,
+              1200
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              400,
+              800,
+              1200
+            ]
+          },
+          "seconds": {
+            "median": 0.3902048,
+            "minimum": 0.3854688,
+            "maximum": 0.5227239,
+            "samples": [
+              0.3980186,
+              0.3902048,
+              0.3854688,
+              0.3867959,
+              0.5227239
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 91758592,
+            "peak_rss_bytes": 92176384,
+            "peak_delta_bytes": 417792,
+            "final_rss_bytes": 92176384,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        }
+      },
+      "comparison": {
+        "rustures_valid": true,
+        "rustures_truth_hausdorff": 0.0,
+        "rustures_truth_precision_recall": [
+          1.0,
+          1.0
+        ],
+        "rustures_truth_rand_index": 1.0,
+        "comparable": true,
+        "ruptures_valid": true,
+        "breakpoints_match": true,
+        "cross_hausdorff": 0.0,
+        "cross_rand_index": 1.0,
+        "time_speedup": 1045.8450817475207,
+        "memory_ratio": 2.4285714285714284
+      }
+    },
+    {
+      "case": {
+        "id": "pelt-l2-trend",
+        "category": "detector",
+        "feature": "pelt",
+        "algorithm": "pelt",
+        "model": "l2",
+        "signal": "trend",
+        "n": 1200,
+        "d": 1,
+        "seed": 20261013,
+        "min_size": 8,
+        "jump": 4,
+        "n_bkps": 2,
+        "penalty": 12.0,
+        "width": 80,
+        "libraries": [
+          "rustures",
+          "ruptures"
+        ]
+      },
+      "measurements": {
+        "ruptures": {
+          "status": "ok",
+          "version": "1.1.10",
+          "metadata": {
+            "truth": [
+              400,
+              800,
+              1200
+            ],
+            "n": 1200
+          },
+          "result": {
+            "breakpoints": [
+              44,
+              76,
+              116,
+              152,
+              192,
+              236,
+              280,
+              324,
+              368,
+              400,
+              436,
+              468,
+              500,
+              536,
+              564,
+              592,
+              624,
+              652,
+              676,
+              708,
+              736,
+              764,
+              800,
+              840,
+              888,
+              944,
+              996,
+              1064,
+              1128,
+              1200
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              44,
+              76,
+              116,
+              152,
+              192,
+              236,
+              280,
+              324,
+              368,
+              400,
+              436,
+              468,
+              500,
+              536,
+              564,
+              592,
+              624,
+              652,
+              676,
+              708,
+              736,
+              764,
+              800,
+              840,
+              888,
+              944,
+              996,
+              1064,
+              1128,
+              1200
+            ]
+          },
+          "seconds": {
+            "median": 0.1105655,
+            "minimum": 0.1097135,
+            "maximum": 0.1183812,
+            "samples": [
+              0.1183812,
+              0.1105655,
+              0.1097135,
+              0.1100725,
+              0.1111251
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 92184576,
+            "peak_rss_bytes": 92336128,
+            "peak_delta_bytes": 151552,
+            "final_rss_bytes": 92336128,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        },
+        "rustures": {
+          "status": "ok",
+          "version": "0.1.1",
+          "metadata": {
+            "truth": [
+              400,
+              800,
+              1200
+            ],
+            "n": 1200
+          },
+          "result": {
+            "breakpoints": [
+              44,
+              76,
+              116,
+              152,
+              192,
+              236,
+              280,
+              324,
+              368,
+              400,
+              436,
+              468,
+              500,
+              536,
+              564,
+              592,
+              624,
+              652,
+              676,
+              708,
+              736,
+              764,
+              800,
+              840,
+              888,
+              944,
+              996,
+              1064,
+              1128,
+              1200
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              44,
+              76,
+              116,
+              152,
+              192,
+              236,
+              280,
+              324,
+              368,
+              400,
+              436,
+              468,
+              500,
+              536,
+              564,
+              592,
+              624,
+              652,
+              676,
+              708,
+              736,
+              764,
+              800,
+              840,
+              888,
+              944,
+              996,
+              1064,
+              1128,
+              1200
+            ]
+          },
+          "seconds": {
+            "median": 0.0001811,
+            "minimum": 0.0001725,
+            "maximum": 0.0001858,
+            "samples": [
+              0.0001858,
+              0.0001811,
+              0.0001725,
+              0.0001856,
+              0.0001797
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 41672704,
+            "peak_rss_bytes": 41844736,
+            "peak_delta_bytes": 172032,
+            "final_rss_bytes": 41844736,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        }
+      },
+      "comparison": {
+        "rustures_valid": true,
+        "rustures_truth_hausdorff": 356.0,
+        "rustures_truth_precision_recall": [
+          0.06896551724137931,
+          1.0
+        ],
+        "rustures_truth_rand_index": 0.7027745343341674,
+        "comparable": true,
+        "ruptures_valid": true,
+        "breakpoints_match": true,
+        "cross_hausdorff": 0.0,
+        "cross_rand_index": 1.0,
+        "time_speedup": 610.5218111540585,
+        "memory_ratio": 0.8809523809523809
+      }
+    },
+    {
+      "case": {
+        "id": "pelt-l2-variance_shift",
+        "category": "detector",
+        "feature": "pelt",
+        "algorithm": "pelt",
+        "model": "l2",
+        "signal": "variance_shift",
+        "n": 1200,
+        "d": 2,
+        "seed": 20261014,
+        "min_size": 8,
+        "jump": 4,
+        "n_bkps": 2,
+        "penalty": 12.0,
+        "width": 80,
+        "libraries": [
+          "rustures",
+          "ruptures"
+        ]
+      },
+      "measurements": {
+        "rustures": {
+          "status": "ok",
+          "version": "0.1.1",
+          "metadata": {
+            "truth": [
+              400,
+              800,
+              1200
+            ],
+            "n": 1200
+          },
+          "result": {
+            "breakpoints": [
+              412,
+              420,
+              440,
+              456,
+              472,
+              480,
+              492,
+              520,
+              544,
+              552,
+              564,
+              584,
+              604,
+              636,
+              644,
+              652,
+              704,
+              712,
+              736,
+              744,
+              752,
+              776,
+              792,
+              800,
+              1200
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              412,
+              420,
+              440,
+              456,
+              472,
+              480,
+              492,
+              520,
+              544,
+              552,
+              564,
+              584,
+              604,
+              636,
+              644,
+              652,
+              704,
+              712,
+              736,
+              744,
+              752,
+              776,
+              792,
+              800,
+              1200
+            ]
+          },
+          "seconds": {
+            "median": 0.0003481,
+            "minimum": 0.0003424,
+            "maximum": 0.0003559,
+            "samples": [
+              0.0003559,
+              0.0003481,
+              0.0003425,
+              0.0003518,
+              0.0003424
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 41943040,
+            "peak_rss_bytes": 42119168,
+            "peak_delta_bytes": 176128,
+            "final_rss_bytes": 42119168,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        },
+        "ruptures": {
+          "status": "ok",
+          "version": "1.1.10",
+          "metadata": {
+            "truth": [
+              400,
+              800,
+              1200
+            ],
+            "n": 1200
+          },
+          "result": {
+            "breakpoints": [
+              412,
+              420,
+              440,
+              456,
+              472,
+              480,
+              492,
+              520,
+              544,
+              552,
+              564,
+              584,
+              604,
+              636,
+              644,
+              652,
+              704,
+              712,
+              736,
+              744,
+              752,
+              776,
+              792,
+              800,
+              1200
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              412,
+              420,
+              440,
+              456,
+              472,
+              480,
+              492,
+              520,
+              544,
+              552,
+              564,
+              584,
+              604,
+              636,
+              644,
+              652,
+              704,
+              712,
+              736,
+              744,
+              752,
+              776,
+              792,
+              800,
+              1200
+            ]
+          },
+          "seconds": {
+            "median": 0.3077455,
+            "minimum": 0.3012447,
+            "maximum": 0.3139481,
+            "samples": [
+              0.3139481,
+              0.3077455,
+              0.3084562,
+              0.3064821,
+              0.3012447
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 92024832,
+            "peak_rss_bytes": 92729344,
+            "peak_delta_bytes": 704512,
+            "final_rss_bytes": 92729344,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        }
+      },
+      "comparison": {
+        "rustures_valid": true,
+        "rustures_truth_hausdorff": 196.0,
+        "rustures_truth_precision_recall": [
+          0.08333333333333333,
+          1.0
+        ],
+        "rustures_truth_rand_index": 0.8885293299972199,
+        "comparable": true,
+        "ruptures_valid": true,
+        "breakpoints_match": true,
+        "cross_hausdorff": 0.0,
+        "cross_rand_index": 1.0,
+        "time_speedup": 884.0721057167481,
+        "memory_ratio": 4.0
+      }
+    },
+    {
+      "case": {
+        "id": "pelt-l2-outliers",
+        "category": "detector",
+        "feature": "pelt",
+        "algorithm": "pelt",
+        "model": "l2",
+        "signal": "outliers",
+        "n": 1200,
+        "d": 2,
+        "seed": 20261015,
+        "min_size": 8,
+        "jump": 4,
+        "n_bkps": 2,
+        "penalty": 12.0,
+        "width": 80,
+        "libraries": [
+          "rustures",
+          "ruptures"
+        ]
+      },
+      "measurements": {
+        "ruptures": {
+          "status": "ok",
+          "version": "1.1.10",
+          "metadata": {
+            "truth": [
+              400,
+              800,
+              1200
+            ],
+            "n": 1200
+          },
+          "result": {
+            "breakpoints": [
+              8,
+              32,
+              40,
+              72,
+              80,
+              112,
+              120,
+              152,
+              160,
+              188,
+              196,
+              224,
+              232,
+              260,
+              268,
+              304,
+              312,
+              336,
+              344,
+              380,
+              388,
+              400,
+              416,
+              424,
+              456,
+              464,
+              488,
+              496,
+              532,
+              540,
+              564,
+              572,
+              608,
+              616,
+              640,
+              648,
+              680,
+              688,
+              720,
+              728,
+              760,
+              768,
+              792,
+              800,
+              836,
+              844,
+              868,
+              876,
+              908,
+              916,
+              948,
+              956,
+              984,
+              992,
+              1020,
+              1028,
+              1060,
+              1068,
+              1096,
+              1104,
+              1136,
+              1144,
+              1172,
+              1180,
+              1200
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              8,
+              32,
+              40,
+              72,
+              80,
+              112,
+              120,
+              152,
+              160,
+              188,
+              196,
+              224,
+              232,
+              260,
+              268,
+              304,
+              312,
+              336,
+              344,
+              380,
+              388,
+              400,
+              416,
+              424,
+              456,
+              464,
+              488,
+              496,
+              532,
+              540,
+              564,
+              572,
+              608,
+              616,
+              640,
+              648,
+              680,
+              688,
+              720,
+              728,
+              760,
+              768,
+              792,
+              800,
+              836,
+              844,
+              868,
+              876,
+              908,
+              916,
+              948,
+              956,
+              984,
+              992,
+              1020,
+              1028,
+              1060,
+              1068,
+              1096,
+              1104,
+              1136,
+              1144,
+              1172,
+              1180,
+              1200
+            ]
+          },
+          "seconds": {
+            "median": 0.0337023,
+            "minimum": 0.0330743,
+            "maximum": 0.0343464,
+            "samples": [
+              0.0330743,
+              0.0339552,
+              0.0332935,
+              0.0343464,
+              0.0337023
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 91734016,
+            "peak_rss_bytes": 92205056,
+            "peak_delta_bytes": 471040,
+            "final_rss_bytes": 92205056,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        },
+        "rustures": {
+          "status": "ok",
+          "version": "0.1.1",
+          "metadata": {
+            "truth": [
+              400,
+              800,
+              1200
+            ],
+            "n": 1200
+          },
+          "result": {
+            "breakpoints": [
+              8,
+              32,
+              40,
+              72,
+              80,
+              112,
+              120,
+              152,
+              160,
+              188,
+              196,
+              224,
+              232,
+              260,
+              268,
+              304,
+              312,
+              336,
+              344,
+              380,
+              388,
+              400,
+              416,
+              424,
+              456,
+              464,
+              488,
+              496,
+              532,
+              540,
+              564,
+              572,
+              608,
+              616,
+              640,
+              648,
+              680,
+              688,
+              720,
+              728,
+              760,
+              768,
+              792,
+              800,
+              836,
+              844,
+              868,
+              876,
+              908,
+              916,
+              948,
+              956,
+              984,
+              992,
+              1020,
+              1028,
+              1060,
+              1068,
+              1096,
+              1104,
+              1136,
+              1144,
+              1172,
+              1180,
+              1200
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              8,
+              32,
+              40,
+              72,
+              80,
+              112,
+              120,
+              152,
+              160,
+              188,
+              196,
+              224,
+              232,
+              260,
+              268,
+              304,
+              312,
+              336,
+              344,
+              380,
+              388,
+              400,
+              416,
+              424,
+              456,
+              464,
+              488,
+              496,
+              532,
+              540,
+              564,
+              572,
+              608,
+              616,
+              640,
+              648,
+              680,
+              688,
+              720,
+              728,
+              760,
+              768,
+              792,
+              800,
+              836,
+              844,
+              868,
+              876,
+              908,
+              916,
+              948,
+              956,
+              984,
+              992,
+              1020,
+              1028,
+              1060,
+              1068,
+              1096,
+              1104,
+              1136,
+              1144,
+              1172,
+              1180,
+              1200
+            ]
+          },
+          "seconds": {
+            "median": 0.0001104,
+            "minimum": 0.0001027,
+            "maximum": 0.0001278,
+            "samples": [
+              0.0001198,
+              0.0001278,
+              0.0001104,
+              0.0001037,
+              0.0001027
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 42217472,
+            "peak_rss_bytes": 42393600,
+            "peak_delta_bytes": 176128,
+            "final_rss_bytes": 42393600,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        }
+      },
+      "comparison": {
+        "rustures_valid": true,
+        "rustures_truth_hausdorff": 392.0,
+        "rustures_truth_precision_recall": [
+          0.03125,
+          1.0
+        ],
+        "rustures_truth_rand_index": 0.6873172087850987,
+        "comparable": true,
+        "ruptures_valid": true,
+        "breakpoints_match": true,
+        "cross_hausdorff": 0.0,
+        "cross_rand_index": 1.0,
+        "time_speedup": 305.2744565217391,
+        "memory_ratio": 2.6744186046511627
+      }
+    },
+    {
+      "case": {
+        "id": "binseg-l2-piecewise_mean",
+        "category": "detector",
+        "feature": "binseg",
+        "algorithm": "binseg",
+        "model": "l2",
+        "signal": "piecewise_mean",
+        "n": 720,
+        "d": 2,
+        "seed": 20261022,
+        "min_size": 8,
+        "jump": 4,
+        "n_bkps": 2,
+        "penalty": 12.0,
+        "width": 80,
+        "libraries": [
+          "rustures",
+          "ruptures"
+        ]
+      },
+      "measurements": {
+        "rustures": {
+          "status": "ok",
+          "version": "0.1.1",
+          "metadata": {
+            "truth": [
+              240,
+              480,
+              720
+            ],
+            "n": 720
+          },
+          "result": {
+            "breakpoints": [
+              240,
+              480,
+              720
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              240,
+              480,
+              720
+            ]
+          },
+          "seconds": {
+            "median": 5.55e-05,
+            "minimum": 4.97e-05,
+            "maximum": 6.63e-05,
+            "samples": [
+              6.63e-05,
+              5.46e-05,
+              4.97e-05,
+              5.55e-05,
+              6.44e-05
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 41787392,
+            "peak_rss_bytes": 41959424,
+            "peak_delta_bytes": 172032,
+            "final_rss_bytes": 41959424,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        },
+        "ruptures": {
+          "status": "ok",
+          "version": "1.1.10",
+          "metadata": {
+            "truth": [
+              240,
+              480,
+              720
+            ],
+            "n": 720
+          },
+          "result": {
+            "breakpoints": [
+              240,
+              480,
+              720
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              240,
+              480,
+              720
+            ]
+          },
+          "seconds": {
+            "median": 0.0260834,
+            "minimum": 0.0256152,
+            "maximum": 0.0278057,
+            "samples": [
+              0.0256152,
+              0.0260834,
+              0.0256275,
+              0.0278057,
+              0.0262143
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 91799552,
+            "peak_rss_bytes": 91930624,
+            "peak_delta_bytes": 131072,
+            "final_rss_bytes": 91930624,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        }
+      },
+      "comparison": {
+        "rustures_valid": true,
+        "rustures_truth_hausdorff": 0.0,
+        "rustures_truth_precision_recall": [
+          1.0,
+          1.0
+        ],
+        "rustures_truth_rand_index": 1.0,
+        "comparable": true,
+        "ruptures_valid": true,
+        "breakpoints_match": true,
+        "cross_hausdorff": 0.0,
+        "cross_rand_index": 1.0,
+        "time_speedup": 469.97117117117114,
+        "memory_ratio": 0.7619047619047619
+      }
+    },
+    {
+      "case": {
+        "id": "binseg-l2-trend",
+        "category": "detector",
+        "feature": "binseg",
+        "algorithm": "binseg",
+        "model": "l2",
+        "signal": "trend",
+        "n": 720,
+        "d": 1,
+        "seed": 20261023,
+        "min_size": 8,
+        "jump": 4,
+        "n_bkps": 2,
+        "penalty": 12.0,
+        "width": 80,
+        "libraries": [
+          "rustures",
+          "ruptures"
+        ]
+      },
+      "measurements": {
+        "ruptures": {
+          "status": "ok",
+          "version": "1.1.10",
+          "metadata": {
+            "truth": [
+              240,
+              480,
+              720
+            ],
+            "n": 720
+          },
+          "result": {
+            "breakpoints": [
+              240,
+              480,
+              720
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              240,
+              480,
+              720
+            ]
+          },
+          "seconds": {
+            "median": 0.0197545,
+            "minimum": 0.0196879,
+            "maximum": 0.0204439,
+            "samples": [
+              0.0196879,
+              0.0197545,
+              0.0197206,
+              0.0201361,
+              0.0204439
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 91770880,
+            "peak_rss_bytes": 91893760,
+            "peak_delta_bytes": 122880,
+            "final_rss_bytes": 91893760,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        },
+        "rustures": {
+          "status": "ok",
+          "version": "0.1.1",
+          "metadata": {
+            "truth": [
+              240,
+              480,
+              720
+            ],
+            "n": 720
+          },
+          "result": {
+            "breakpoints": [
+              240,
+              480,
+              720
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              240,
+              480,
+              720
+            ]
+          },
+          "seconds": {
+            "median": 4.2e-05,
+            "minimum": 3.86e-05,
+            "maximum": 6.07e-05,
+            "samples": [
+              5.23e-05,
+              4.2e-05,
+              3.86e-05,
+              3.86e-05,
+              6.07e-05
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 41705472,
+            "peak_rss_bytes": 41877504,
+            "peak_delta_bytes": 172032,
+            "final_rss_bytes": 41877504,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        }
+      },
+      "comparison": {
+        "rustures_valid": true,
+        "rustures_truth_hausdorff": 0.0,
+        "rustures_truth_precision_recall": [
+          1.0,
+          1.0
+        ],
+        "rustures_truth_rand_index": 1.0,
+        "comparable": true,
+        "ruptures_valid": true,
+        "breakpoints_match": true,
+        "cross_hausdorff": 0.0,
+        "cross_rand_index": 1.0,
+        "time_speedup": 470.34523809523813,
+        "memory_ratio": 0.7142857142857143
+      }
+    },
+    {
+      "case": {
+        "id": "binseg-l2-variance_shift",
+        "category": "detector",
+        "feature": "binseg",
+        "algorithm": "binseg",
+        "model": "l2",
+        "signal": "variance_shift",
+        "n": 720,
+        "d": 2,
+        "seed": 20261024,
+        "min_size": 8,
+        "jump": 4,
+        "n_bkps": 2,
+        "penalty": 12.0,
+        "width": 80,
+        "libraries": [
+          "rustures",
+          "ruptures"
+        ]
+      },
+      "measurements": {
+        "rustures": {
+          "status": "ok",
+          "version": "0.1.1",
+          "metadata": {
+            "truth": [
+              240,
+              480,
+              720
+            ],
+            "n": 720
+          },
+          "result": {
+            "breakpoints": [
+              296,
+              336,
+              720
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              296,
+              336,
+              720
+            ]
+          },
+          "seconds": {
+            "median": 5.08e-05,
+            "minimum": 4.8e-05,
+            "maximum": 6.53e-05,
+            "samples": [
+              6.53e-05,
+              5.09e-05,
+              4.82e-05,
+              4.8e-05,
+              5.08e-05
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 41996288,
+            "peak_rss_bytes": 42168320,
+            "peak_delta_bytes": 172032,
+            "final_rss_bytes": 42168320,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        },
+        "ruptures": {
+          "status": "ok",
+          "version": "1.1.10",
+          "metadata": {
+            "truth": [
+              240,
+              480,
+              720
+            ],
+            "n": 720
+          },
+          "result": {
+            "breakpoints": [
+              296,
+              336,
+              720
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              296,
+              336,
+              720
+            ]
+          },
+          "seconds": {
+            "median": 0.0223757,
+            "minimum": 0.022352,
+            "maximum": 0.0247156,
+            "samples": [
+              0.022352,
+              0.0223757,
+              0.022358,
+              0.0247156,
+              0.023044
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 91889664,
+            "peak_rss_bytes": 92110848,
+            "peak_delta_bytes": 221184,
+            "final_rss_bytes": 92110848,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        }
+      },
+      "comparison": {
+        "rustures_valid": true,
+        "rustures_truth_hausdorff": 144.0,
+        "rustures_truth_precision_recall": [
+          0.0,
+          0.0
+        ],
+        "rustures_truth_rand_index": 0.7524957502704374,
+        "comparable": true,
+        "ruptures_valid": true,
+        "breakpoints_match": true,
+        "cross_hausdorff": 0.0,
+        "cross_rand_index": 1.0,
+        "time_speedup": 440.4665354330708,
+        "memory_ratio": 1.2857142857142858
+      }
+    },
+    {
+      "case": {
+        "id": "binseg-l2-outliers",
+        "category": "detector",
+        "feature": "binseg",
+        "algorithm": "binseg",
+        "model": "l2",
+        "signal": "outliers",
+        "n": 720,
+        "d": 2,
+        "seed": 20261025,
+        "min_size": 8,
+        "jump": 4,
+        "n_bkps": 2,
+        "penalty": 12.0,
+        "width": 80,
+        "libraries": [
+          "rustures",
+          "ruptures"
+        ]
+      },
+      "measurements": {
+        "ruptures": {
+          "status": "ok",
+          "version": "1.1.10",
+          "metadata": {
+            "truth": [
+              240,
+              480,
+              720
+            ],
+            "n": 720
+          },
+          "result": {
+            "breakpoints": [
+              240,
+              480,
+              720
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              240,
+              480,
+              720
+            ]
+          },
+          "seconds": {
+            "median": 0.0254496,
+            "minimum": 0.0237533,
+            "maximum": 0.0275163,
+            "samples": [
+              0.0255074,
+              0.0275163,
+              0.0254496,
+              0.0239942,
+              0.0237533
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 91697152,
+            "peak_rss_bytes": 92205056,
+            "peak_delta_bytes": 507904,
+            "final_rss_bytes": 92205056,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        },
+        "rustures": {
+          "status": "ok",
+          "version": "0.1.1",
+          "metadata": {
+            "truth": [
+              240,
+              480,
+              720
+            ],
+            "n": 720
+          },
+          "result": {
+            "breakpoints": [
+              240,
+              480,
+              720
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              240,
+              480,
+              720
+            ]
+          },
+          "seconds": {
+            "median": 6.26e-05,
+            "minimum": 5.27e-05,
+            "maximum": 6.95e-05,
+            "samples": [
+              6.26e-05,
+              5.27e-05,
+              6.95e-05,
+              6.7e-05,
+              5.44e-05
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 42078208,
+            "peak_rss_bytes": 42258432,
+            "peak_delta_bytes": 180224,
+            "final_rss_bytes": 42258432,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        }
+      },
+      "comparison": {
+        "rustures_valid": true,
+        "rustures_truth_hausdorff": 0.0,
+        "rustures_truth_precision_recall": [
+          1.0,
+          1.0
+        ],
+        "rustures_truth_rand_index": 1.0,
+        "comparable": true,
+        "ruptures_valid": true,
+        "breakpoints_match": true,
+        "cross_hausdorff": 0.0,
+        "cross_rand_index": 1.0,
+        "time_speedup": 406.5431309904153,
+        "memory_ratio": 2.8181818181818183
+      }
+    },
+    {
+      "case": {
+        "id": "bottomup-l2-piecewise_mean",
+        "category": "detector",
+        "feature": "bottomup",
+        "algorithm": "bottomup",
+        "model": "l2",
+        "signal": "piecewise_mean",
+        "n": 720,
+        "d": 2,
+        "seed": 20261032,
+        "min_size": 8,
+        "jump": 4,
+        "n_bkps": 2,
+        "penalty": 12.0,
+        "width": 80,
+        "libraries": [
+          "rustures",
+          "ruptures"
+        ]
+      },
+      "measurements": {
+        "rustures": {
+          "status": "ok",
+          "version": "0.1.1",
+          "metadata": {
+            "truth": [
+              240,
+              480,
+              720
+            ],
+            "n": 720
+          },
+          "result": {
+            "breakpoints": [
+              244,
+              480,
+              720
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              244,
+              480,
+              720
+            ]
+          },
+          "seconds": {
+            "median": 7.57e-05,
+            "minimum": 6.32e-05,
+            "maximum": 9.34e-05,
+            "samples": [
+              7.57e-05,
+              7.03e-05,
+              6.32e-05,
+              9.34e-05,
+              7.66e-05
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 42057728,
+            "peak_rss_bytes": 42258432,
+            "peak_delta_bytes": 200704,
+            "final_rss_bytes": 42258432,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        },
+        "ruptures": {
+          "status": "ok",
+          "version": "1.1.10",
+          "metadata": {
+            "truth": [
+              240,
+              480,
+              720
+            ],
+            "n": 720
+          },
+          "result": {
+            "breakpoints": [
+              244,
+              480,
+              720
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              244,
+              480,
+              720
+            ]
+          },
+          "seconds": {
+            "median": 0.0066807,
+            "minimum": 0.0066753,
+            "maximum": 0.0067031,
+            "samples": [
+              0.0067031,
+              0.0066807,
+              0.0066753,
+              0.0066799,
+              0.0066916
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 91926528,
+            "peak_rss_bytes": 92078080,
+            "peak_delta_bytes": 151552,
+            "final_rss_bytes": 92078080,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        }
+      },
+      "comparison": {
+        "rustures_valid": true,
+        "rustures_truth_hausdorff": 4.0,
+        "rustures_truth_precision_recall": [
+          1.0,
+          1.0
+        ],
+        "rustures_truth_rand_index": 0.9926441044660794,
+        "comparable": true,
+        "ruptures_valid": true,
+        "breakpoints_match": true,
+        "cross_hausdorff": 0.0,
+        "cross_rand_index": 1.0,
+        "time_speedup": 88.25231175693528,
+        "memory_ratio": 0.7551020408163265
+      }
+    },
+    {
+      "case": {
+        "id": "bottomup-l2-trend",
+        "category": "detector",
+        "feature": "bottomup",
+        "algorithm": "bottomup",
+        "model": "l2",
+        "signal": "trend",
+        "n": 720,
+        "d": 1,
+        "seed": 20261033,
+        "min_size": 8,
+        "jump": 4,
+        "n_bkps": 2,
+        "penalty": 12.0,
+        "width": 80,
+        "libraries": [
+          "rustures",
+          "ruptures"
+        ]
+      },
+      "measurements": {
+        "ruptures": {
+          "status": "ok",
+          "version": "1.1.10",
+          "metadata": {
+            "truth": [
+              240,
+              480,
+              720
+            ],
+            "n": 720
+          },
+          "result": {
+            "breakpoints": [
+              244,
+              480,
+              720
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              244,
+              480,
+              720
+            ]
+          },
+          "seconds": {
+            "median": 0.006531,
+            "minimum": 0.00647,
+            "maximum": 0.0088834,
+            "samples": [
+              0.0065635,
+              0.0088834,
+              0.0064849,
+              0.006531,
+              0.00647
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 91877376,
+            "peak_rss_bytes": 92004352,
+            "peak_delta_bytes": 126976,
+            "final_rss_bytes": 92004352,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        },
+        "rustures": {
+          "status": "ok",
+          "version": "0.1.1",
+          "metadata": {
+            "truth": [
+              240,
+              480,
+              720
+            ],
+            "n": 720
+          },
+          "result": {
+            "breakpoints": [
+              244,
+              480,
+              720
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              244,
+              480,
+              720
+            ]
+          },
+          "seconds": {
+            "median": 5.75e-05,
+            "minimum": 5.51e-05,
+            "maximum": 6.36e-05,
+            "samples": [
+              6.36e-05,
+              5.75e-05,
+              5.51e-05,
+              6.28e-05,
+              5.55e-05
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 41963520,
+            "peak_rss_bytes": 42131456,
+            "peak_delta_bytes": 167936,
+            "final_rss_bytes": 42131456,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        }
+      },
+      "comparison": {
+        "rustures_valid": true,
+        "rustures_truth_hausdorff": 4.0,
+        "rustures_truth_precision_recall": [
+          1.0,
+          1.0
+        ],
+        "rustures_truth_rand_index": 0.9926441044660794,
+        "comparable": true,
+        "ruptures_valid": true,
+        "breakpoints_match": true,
+        "cross_hausdorff": 0.0,
+        "cross_rand_index": 1.0,
+        "time_speedup": 113.58260869565218,
+        "memory_ratio": 0.7560975609756098
+      }
+    },
+    {
+      "case": {
+        "id": "bottomup-l2-variance_shift",
+        "category": "detector",
+        "feature": "bottomup",
+        "algorithm": "bottomup",
+        "model": "l2",
+        "signal": "variance_shift",
+        "n": 720,
+        "d": 2,
+        "seed": 20261034,
+        "min_size": 8,
+        "jump": 4,
+        "n_bkps": 2,
+        "penalty": 12.0,
+        "width": 80,
+        "libraries": [
+          "rustures",
+          "ruptures"
+        ]
+      },
+      "measurements": {
+        "rustures": {
+          "status": "ok",
+          "version": "0.1.1",
+          "metadata": {
+            "truth": [
+              240,
+              480,
+              720
+            ],
+            "n": 720
+          },
+          "result": {
+            "breakpoints": [
+              456,
+              480,
+              720
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              456,
+              480,
+              720
+            ]
+          },
+          "seconds": {
+            "median": 7.07e-05,
+            "minimum": 6.36e-05,
+            "maximum": 7.86e-05,
+            "samples": [
+              7.07e-05,
+              6.36e-05,
+              7.21e-05,
+              7.86e-05,
+              6.48e-05
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 41795584,
+            "peak_rss_bytes": 41963520,
+            "peak_delta_bytes": 167936,
+            "final_rss_bytes": 41963520,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        },
+        "ruptures": {
+          "status": "ok",
+          "version": "1.1.10",
+          "metadata": {
+            "truth": [
+              240,
+              480,
+              720
+            ],
+            "n": 720
+          },
+          "result": {
+            "breakpoints": [
+              456,
+              480,
+              720
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              456,
+              480,
+              720
+            ]
+          },
+          "seconds": {
+            "median": 0.0066586,
+            "minimum": 0.0064134,
+            "maximum": 0.0069771,
+            "samples": [
+              0.0067106,
+              0.0065074,
+              0.0064134,
+              0.0066586,
+              0.0069771
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 91914240,
+            "peak_rss_bytes": 92033024,
+            "peak_delta_bytes": 118784,
+            "final_rss_bytes": 92033024,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        }
+      },
+      "comparison": {
+        "rustures_valid": true,
+        "rustures_truth_hausdorff": 216.0,
+        "rustures_truth_precision_recall": [
+          0.5,
+          0.5
+        ],
+        "rustures_truth_rand_index": 0.7796940194714882,
+        "comparable": true,
+        "ruptures_valid": true,
+        "breakpoints_match": true,
+        "cross_hausdorff": 0.0,
+        "cross_rand_index": 1.0,
+        "time_speedup": 94.18104667609619,
+        "memory_ratio": 0.7073170731707317
+      }
+    },
+    {
+      "case": {
+        "id": "bottomup-l2-outliers",
+        "category": "detector",
+        "feature": "bottomup",
+        "algorithm": "bottomup",
+        "model": "l2",
+        "signal": "outliers",
+        "n": 720,
+        "d": 2,
+        "seed": 20261035,
+        "min_size": 8,
+        "jump": 4,
+        "n_bkps": 2,
+        "penalty": 12.0,
+        "width": 80,
+        "libraries": [
+          "rustures",
+          "ruptures"
+        ]
+      },
+      "measurements": {
+        "ruptures": {
+          "status": "ok",
+          "version": "1.1.10",
+          "metadata": {
+            "truth": [
+              240,
+              480,
+              720
+            ],
+            "n": 720
+          },
+          "result": {
+            "breakpoints": [
+              244,
+              480,
+              720
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              244,
+              480,
+              720
+            ]
+          },
+          "seconds": {
+            "median": 0.0066486,
+            "minimum": 0.0064692,
+            "maximum": 0.0079105,
+            "samples": [
+              0.0067035,
+              0.0064907,
+              0.0079105,
+              0.0066486,
+              0.0064692
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 91967488,
+            "peak_rss_bytes": 92094464,
+            "peak_delta_bytes": 126976,
+            "final_rss_bytes": 92094464,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        },
+        "rustures": {
+          "status": "ok",
+          "version": "0.1.1",
+          "metadata": {
+            "truth": [
+              240,
+              480,
+              720
+            ],
+            "n": 720
+          },
+          "result": {
+            "breakpoints": [
+              244,
+              480,
+              720
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              244,
+              480,
+              720
+            ]
+          },
+          "seconds": {
+            "median": 7.06e-05,
+            "minimum": 6.07e-05,
+            "maximum": 0.000116,
+            "samples": [
+              7.06e-05,
+              6.24e-05,
+              6.07e-05,
+              0.000116,
+              7.48e-05
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 41906176,
+            "peak_rss_bytes": 42074112,
+            "peak_delta_bytes": 167936,
+            "final_rss_bytes": 42074112,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        }
+      },
+      "comparison": {
+        "rustures_valid": true,
+        "rustures_truth_hausdorff": 4.0,
+        "rustures_truth_precision_recall": [
+          1.0,
+          1.0
+        ],
+        "rustures_truth_rand_index": 0.9926441044660794,
+        "comparable": true,
+        "ruptures_valid": true,
+        "breakpoints_match": true,
+        "cross_hausdorff": 0.0,
+        "cross_rand_index": 1.0,
+        "time_speedup": 94.17280453257791,
+        "memory_ratio": 0.7560975609756098
+      }
+    },
+    {
+      "case": {
+        "id": "window-l2-piecewise_mean",
+        "category": "detector",
+        "feature": "window",
+        "algorithm": "window",
+        "model": "l2",
+        "signal": "piecewise_mean",
+        "n": 720,
+        "d": 2,
+        "seed": 20261042,
+        "min_size": 8,
+        "jump": 4,
+        "n_bkps": 1,
+        "penalty": 12.0,
+        "width": 80,
+        "libraries": [
+          "rustures",
+          "ruptures"
+        ]
+      },
+      "measurements": {
+        "rustures": {
+          "status": "ok",
+          "version": "0.1.1",
+          "metadata": {
+            "truth": [
+              240,
+              480,
+              720
+            ],
+            "n": 720
+          },
+          "result": {
+            "breakpoints": [
+              480,
+              720
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              480,
+              720
+            ]
+          },
+          "seconds": {
+            "median": 5.31e-05,
+            "minimum": 4.85e-05,
+            "maximum": 6.44e-05,
+            "samples": [
+              5.97e-05,
+              4.98e-05,
+              4.85e-05,
+              6.44e-05,
+              5.31e-05
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 41836544,
+            "peak_rss_bytes": 42000384,
+            "peak_delta_bytes": 163840,
+            "final_rss_bytes": 42000384,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        },
+        "ruptures": {
+          "status": "ok",
+          "version": "1.1.10",
+          "metadata": {
+            "truth": [
+              240,
+              480,
+              720
+            ],
+            "n": 720
+          },
+          "result": {
+            "breakpoints": [
+              480,
+              720
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              480,
+              720
+            ]
+          },
+          "seconds": {
+            "median": 0.0113537,
+            "minimum": 0.0111167,
+            "maximum": 0.0115266,
+            "samples": [
+              0.0113559,
+              0.0111363,
+              0.0111167,
+              0.0113537,
+              0.0115266
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 91848704,
+            "peak_rss_bytes": 91901952,
+            "peak_delta_bytes": 53248,
+            "final_rss_bytes": 91901952,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        }
+      },
+      "comparison": {
+        "rustures_valid": true,
+        "rustures_truth_hausdorff": 240.0,
+        "rustures_truth_precision_recall": [
+          1.0,
+          0.5
+        ],
+        "rustures_truth_rand_index": 0.7774687065368567,
+        "comparable": true,
+        "ruptures_valid": true,
+        "breakpoints_match": true,
+        "cross_hausdorff": 0.0,
+        "cross_rand_index": 1.0,
+        "time_speedup": 213.81732580037664,
+        "memory_ratio": 0.325
+      }
+    },
+    {
+      "case": {
+        "id": "window-l2-trend",
+        "category": "detector",
+        "feature": "window",
+        "algorithm": "window",
+        "model": "l2",
+        "signal": "trend",
+        "n": 720,
+        "d": 1,
+        "seed": 20261043,
+        "min_size": 8,
+        "jump": 4,
+        "n_bkps": 1,
+        "penalty": 12.0,
+        "width": 80,
+        "libraries": [
+          "rustures",
+          "ruptures"
+        ]
+      },
+      "measurements": {
+        "ruptures": {
+          "status": "ok",
+          "version": "1.1.10",
+          "metadata": {
+            "truth": [
+              240,
+              480,
+              720
+            ],
+            "n": 720
+          },
+          "result": {
+            "breakpoints": [
+              480,
+              720
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              480,
+              720
+            ]
+          },
+          "seconds": {
+            "median": 0.0100448,
+            "minimum": 0.0099385,
+            "maximum": 0.0101666,
+            "samples": [
+              0.0101666,
+              0.0099385,
+              0.0100448,
+              0.0101664,
+              0.0100253
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 91779072,
+            "peak_rss_bytes": 91836416,
+            "peak_delta_bytes": 57344,
+            "final_rss_bytes": 91836416,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        },
+        "rustures": {
+          "status": "ok",
+          "version": "0.1.1",
+          "metadata": {
+            "truth": [
+              240,
+              480,
+              720
+            ],
+            "n": 720
+          },
+          "result": {
+            "breakpoints": [
+              480,
+              720
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              480,
+              720
+            ]
+          },
+          "seconds": {
+            "median": 4.49e-05,
+            "minimum": 4.27e-05,
+            "maximum": 5.59e-05,
+            "samples": [
+              5.46e-05,
+              4.48e-05,
+              5.59e-05,
+              4.49e-05,
+              4.27e-05
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 41828352,
+            "peak_rss_bytes": 41992192,
+            "peak_delta_bytes": 163840,
+            "final_rss_bytes": 41992192,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        }
+      },
+      "comparison": {
+        "rustures_valid": true,
+        "rustures_truth_hausdorff": 240.0,
+        "rustures_truth_precision_recall": [
+          1.0,
+          0.5
+        ],
+        "rustures_truth_rand_index": 0.7774687065368567,
+        "comparable": true,
+        "ruptures_valid": true,
+        "breakpoints_match": true,
+        "cross_hausdorff": 0.0,
+        "cross_rand_index": 1.0,
+        "time_speedup": 223.71492204899775,
+        "memory_ratio": 0.35
+      }
+    },
+    {
+      "case": {
+        "id": "window-l2-variance_shift",
+        "category": "detector",
+        "feature": "window",
+        "algorithm": "window",
+        "model": "l2",
+        "signal": "variance_shift",
+        "n": 720,
+        "d": 2,
+        "seed": 20261044,
+        "min_size": 8,
+        "jump": 4,
+        "n_bkps": 1,
+        "penalty": 12.0,
+        "width": 80,
+        "libraries": [
+          "rustures",
+          "ruptures"
+        ]
+      },
+      "measurements": {
+        "rustures": {
+          "status": "ok",
+          "version": "0.1.1",
+          "metadata": {
+            "truth": [
+              240,
+              480,
+              720
+            ],
+            "n": 720
+          },
+          "result": {
+            "breakpoints": [
+              280,
+              720
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              280,
+              720
+            ]
+          },
+          "seconds": {
+            "median": 5.2e-05,
+            "minimum": 4.91e-05,
+            "maximum": 8.97e-05,
+            "samples": [
+              6.39e-05,
+              5.2e-05,
+              4.98e-05,
+              4.91e-05,
+              8.97e-05
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 41811968,
+            "peak_rss_bytes": 41975808,
+            "peak_delta_bytes": 163840,
+            "final_rss_bytes": 41975808,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        },
+        "ruptures": {
+          "status": "ok",
+          "version": "1.1.10",
+          "metadata": {
+            "truth": [
+              240,
+              480,
+              720
+            ],
+            "n": 720
+          },
+          "result": {
+            "breakpoints": [
+              280,
+              720
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              280,
+              720
+            ]
+          },
+          "seconds": {
+            "median": 0.0110218,
+            "minimum": 0.0109276,
+            "maximum": 0.0125503,
+            "samples": [
+              0.0125503,
+              0.0109276,
+              0.0110218,
+              0.0109399,
+              0.0111379
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 92028928,
+            "peak_rss_bytes": 92082176,
+            "peak_delta_bytes": 53248,
+            "final_rss_bytes": 92082176,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        }
+      },
+      "comparison": {
+        "rustures_valid": true,
+        "rustures_truth_hausdorff": 200.0,
+        "rustures_truth_precision_recall": [
+          0.0,
+          0.0
+        ],
+        "rustures_truth_rand_index": 0.7465615824447536,
+        "comparable": true,
+        "ruptures_valid": true,
+        "breakpoints_match": true,
+        "cross_hausdorff": 0.0,
+        "cross_rand_index": 1.0,
+        "time_speedup": 211.95769230769233,
+        "memory_ratio": 0.325
+      }
+    },
+    {
+      "case": {
+        "id": "window-l2-outliers",
+        "category": "detector",
+        "feature": "window",
+        "algorithm": "window",
+        "model": "l2",
+        "signal": "outliers",
+        "n": 720,
+        "d": 2,
+        "seed": 20261045,
+        "min_size": 8,
+        "jump": 4,
+        "n_bkps": 1,
+        "penalty": 12.0,
+        "width": 80,
+        "libraries": [
+          "rustures",
+          "ruptures"
+        ]
+      },
+      "measurements": {
+        "ruptures": {
+          "status": "ok",
+          "version": "1.1.10",
+          "metadata": {
+            "truth": [
+              240,
+              480,
+              720
+            ],
+            "n": 720
+          },
+          "result": {
+            "breakpoints": [
+              240,
+              720
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              240,
+              720
+            ]
+          },
+          "seconds": {
+            "median": 0.0107092,
+            "minimum": 0.0105752,
+            "maximum": 0.0107281,
+            "samples": [
+              0.0107108,
+              0.0105934,
+              0.0107092,
+              0.0107281,
+              0.0105752
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 91652096,
+            "peak_rss_bytes": 91717632,
+            "peak_delta_bytes": 65536,
+            "final_rss_bytes": 91717632,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        },
+        "rustures": {
+          "status": "ok",
+          "version": "0.1.1",
+          "metadata": {
+            "truth": [
+              240,
+              480,
+              720
+            ],
+            "n": 720
+          },
+          "result": {
+            "breakpoints": [
+              240,
+              720
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              240,
+              720
+            ]
+          },
+          "seconds": {
+            "median": 5.78e-05,
+            "minimum": 5.27e-05,
+            "maximum": 6.27e-05,
+            "samples": [
+              6.02e-05,
+              5.27e-05,
+              5.3e-05,
+              6.27e-05,
+              5.78e-05
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 41938944,
+            "peak_rss_bytes": 42102784,
+            "peak_delta_bytes": 163840,
+            "final_rss_bytes": 42102784,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        }
+      },
+      "comparison": {
+        "rustures_valid": true,
+        "rustures_truth_hausdorff": 240.0,
+        "rustures_truth_precision_recall": [
+          1.0,
+          0.5
+        ],
+        "rustures_truth_rand_index": 0.7774687065368567,
+        "comparable": true,
+        "ruptures_valid": true,
+        "breakpoints_match": true,
+        "cross_hausdorff": 0.0,
+        "cross_rand_index": 1.0,
+        "time_speedup": 185.280276816609,
+        "memory_ratio": 0.4
+      }
+    },
+    {
+      "case": {
+        "id": "dynp-model-l2",
+        "category": "model_search",
+        "feature": "Dynp(l2)",
+        "algorithm": "dynp",
+        "model": "l2",
+        "signal": "piecewise_mean",
+        "n": 360,
+        "d": 3,
+        "seed": 20261202,
+        "min_size": 6,
+        "jump": 4,
+        "n_bkps": 2,
+        "libraries": [
+          "rustures",
+          "ruptures"
+        ]
+      },
+      "measurements": {
+        "rustures": {
+          "status": "ok",
+          "version": "0.1.1",
+          "metadata": {
+            "truth": [
+              120,
+              240,
+              360
+            ],
+            "n": 360
+          },
+          "result": {
+            "breakpoints": [
+              120,
+              240,
+              360
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              120,
+              240,
+              360
+            ]
+          },
+          "seconds": {
+            "median": 0.0001407,
+            "minimum": 0.0001323,
+            "maximum": 0.0001499,
+            "samples": [
+              0.0001476,
+              0.0001323,
+              0.0001499,
+              0.0001407,
+              0.0001388
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 41930752,
+            "peak_rss_bytes": 42086400,
+            "peak_delta_bytes": 155648,
+            "final_rss_bytes": 42086400,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        },
+        "ruptures": {
+          "status": "ok",
+          "version": "1.1.10",
+          "metadata": {
+            "truth": [
+              120,
+              240,
+              360
+            ],
+            "n": 360
+          },
+          "result": {
+            "breakpoints": [
+              120,
+              240,
+              360
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              120,
+              240,
+              360
+            ]
+          },
+          "seconds": {
+            "median": 0.0987472,
+            "minimum": 0.0965742,
+            "maximum": 0.1001081,
+            "samples": [
+              0.0965742,
+              0.0987472,
+              0.1001081,
+              0.096722,
+              0.0994795
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 91848704,
+            "peak_rss_bytes": 93884416,
+            "peak_delta_bytes": 2035712,
+            "final_rss_bytes": 93884416,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        }
+      },
+      "comparison": {
+        "rustures_valid": true,
+        "rustures_truth_hausdorff": 0.0,
+        "rustures_truth_precision_recall": [
+          1.0,
+          1.0
+        ],
+        "rustures_truth_rand_index": 1.0,
+        "comparable": true,
+        "ruptures_valid": true,
+        "breakpoints_match": true,
+        "cross_hausdorff": 0.0,
+        "cross_rand_index": 1.0,
+        "time_speedup": 701.8280028429282,
+        "memory_ratio": 13.078947368421053
+      }
+    },
+    {
+      "case": {
+        "id": "dynp-model-l1",
+        "category": "model_search",
+        "feature": "Dynp(l1)",
+        "algorithm": "dynp",
+        "model": "l1",
+        "signal": "outliers",
+        "n": 360,
+        "d": 2,
+        "seed": 20261203,
+        "min_size": 6,
+        "jump": 4,
+        "n_bkps": 2,
+        "libraries": [
+          "rustures",
+          "ruptures"
+        ]
+      },
+      "measurements": {
+        "ruptures": {
+          "status": "ok",
+          "version": "1.1.10",
+          "metadata": {
+            "truth": [
+              120,
+              240,
+              360
+            ],
+            "n": 360
+          },
+          "result": {
+            "breakpoints": [
+              120,
+              240,
+              360
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              120,
+              240,
+              360
+            ]
+          },
+          "seconds": {
+            "median": 0.1489443,
+            "minimum": 0.1442353,
+            "maximum": 0.1512574,
+            "samples": [
+              0.1489443,
+              0.1488757,
+              0.1512574,
+              0.1442353,
+              0.1501934
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 91787264,
+            "peak_rss_bytes": 93880320,
+            "peak_delta_bytes": 2093056,
+            "final_rss_bytes": 93880320,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        },
+        "rustures": {
+          "status": "ok",
+          "version": "0.1.1",
+          "metadata": {
+            "truth": [
+              120,
+              240,
+              360
+            ],
+            "n": 360
+          },
+          "result": {
+            "breakpoints": [
+              120,
+              240,
+              360
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              120,
+              240,
+              360
+            ]
+          },
+          "seconds": {
+            "median": 0.0229693,
+            "minimum": 0.0222999,
+            "maximum": 0.0269793,
+            "samples": [
+              0.0228362,
+              0.0222999,
+              0.0269793,
+              0.0232591,
+              0.0229693
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 41959424,
+            "peak_rss_bytes": 42139648,
+            "peak_delta_bytes": 180224,
+            "final_rss_bytes": 42139648,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        }
+      },
+      "comparison": {
+        "rustures_valid": true,
+        "rustures_truth_hausdorff": 0.0,
+        "rustures_truth_precision_recall": [
+          1.0,
+          1.0
+        ],
+        "rustures_truth_rand_index": 1.0,
+        "comparable": true,
+        "ruptures_valid": true,
+        "breakpoints_match": true,
+        "cross_hausdorff": 0.0,
+        "cross_rand_index": 1.0,
+        "time_speedup": 6.484494520947525,
+        "memory_ratio": 11.613636363636363
+      }
+    },
+    {
+      "case": {
+        "id": "dynp-model-rank",
+        "category": "model_search",
+        "feature": "Dynp(rank)",
+        "algorithm": "dynp",
+        "model": "rank",
+        "signal": "integer_ties",
+        "n": 360,
+        "d": 2,
+        "seed": 20261204,
+        "min_size": 6,
+        "jump": 4,
+        "n_bkps": 2,
+        "libraries": [
+          "rustures",
+          "ruptures"
+        ]
+      },
+      "measurements": {
+        "rustures": {
+          "status": "ok",
+          "version": "0.1.1",
+          "metadata": {
+            "truth": [
+              120,
+              240,
+              360
+            ],
+            "n": 360
+          },
+          "result": {
+            "breakpoints": [
+              120,
+              240,
+              360
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              120,
+              240,
+              360
+            ]
+          },
+          "seconds": {
+            "median": 0.000498,
+            "minimum": 0.0004891,
+            "maximum": 0.0005184,
+            "samples": [
+              0.000498,
+              0.0004948,
+              0.0005063,
+              0.0005184,
+              0.0004891
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 41906176,
+            "peak_rss_bytes": 42106880,
+            "peak_delta_bytes": 200704,
+            "final_rss_bytes": 42106880,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        },
+        "ruptures": {
+          "status": "ok",
+          "version": "1.1.10",
+          "metadata": {
+            "truth": [
+              120,
+              240,
+              360
+            ],
+            "n": 360
+          },
+          "result": {
+            "breakpoints": [
+              120,
+              240,
+              360
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              120,
+              240,
+              360
+            ]
+          },
+          "seconds": {
+            "median": 0.0878699,
+            "minimum": 0.0841918,
+            "maximum": 0.0906731,
+            "samples": [
+              0.0841918,
+              0.0843021,
+              0.0878699,
+              0.0895706,
+              0.0906731
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 91889664,
+            "peak_rss_bytes": 94871552,
+            "peak_delta_bytes": 2981888,
+            "final_rss_bytes": 94871552,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        }
+      },
+      "comparison": {
+        "rustures_valid": true,
+        "rustures_truth_hausdorff": 0.0,
+        "rustures_truth_precision_recall": [
+          1.0,
+          1.0
+        ],
+        "rustures_truth_rand_index": 1.0,
+        "comparable": true,
+        "ruptures_valid": true,
+        "breakpoints_match": true,
+        "cross_hausdorff": 0.0,
+        "cross_rand_index": 1.0,
+        "time_speedup": 176.4455823293173,
+        "memory_ratio": 14.857142857142858
+      }
+    },
+    {
+      "case": {
+        "id": "dynp-model-normal",
+        "category": "model_search",
+        "feature": "Dynp(normal)",
+        "algorithm": "dynp",
+        "model": "normal",
+        "signal": "variance_shift",
+        "n": 360,
+        "d": 2,
+        "seed": 20261205,
+        "min_size": 6,
+        "jump": 4,
+        "n_bkps": 2,
+        "libraries": [
+          "rustures",
+          "ruptures"
+        ]
+      },
+      "measurements": {
+        "ruptures": {
+          "status": "ok",
+          "version": "1.1.10",
+          "metadata": {
+            "truth": [
+              120,
+              240,
+              360
+            ],
+            "n": 360
+          },
+          "result": {
+            "breakpoints": [
+              120,
+              240,
+              360
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              120,
+              240,
+              360
+            ]
+          },
+          "seconds": {
+            "median": 0.2081002,
+            "minimum": 0.2040429,
+            "maximum": 0.2111912,
+            "samples": [
+              0.2111912,
+              0.2081002,
+              0.205218,
+              0.2093846,
+              0.2040429
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 91684864,
+            "peak_rss_bytes": 93990912,
+            "peak_delta_bytes": 2306048,
+            "final_rss_bytes": 93990912,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": "C:\\Users\\denrew88\\Documents\\Study\\Codex\\rustures\\.integration-bench-env\\venv\\Lib\\site-packages\\ruptures\\costs\\costnormal.py:28: UserWarning: New behaviour in v1.1.5: a small bias is added to the covariance matrix to cope with truly constant segments (see PR#198).\n  warnings.warn("
+        },
+        "rustures": {
+          "status": "ok",
+          "version": "0.1.1",
+          "metadata": {
+            "truth": [
+              120,
+              240,
+              360
+            ],
+            "n": 360
+          },
+          "result": {
+            "breakpoints": [
+              120,
+              240,
+              360
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              120,
+              240,
+              360
+            ]
+          },
+          "seconds": {
+            "median": 0.0011351,
+            "minimum": 0.0011219,
+            "maximum": 0.0011407,
+            "samples": [
+              0.0011351,
+              0.0011407,
+              0.0011362,
+              0.0011219,
+              0.0011276
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 41852928,
+            "peak_rss_bytes": 42012672,
+            "peak_delta_bytes": 159744,
+            "final_rss_bytes": 42012672,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        }
+      },
+      "comparison": {
+        "rustures_valid": true,
+        "rustures_truth_hausdorff": 0.0,
+        "rustures_truth_precision_recall": [
+          1.0,
+          1.0
+        ],
+        "rustures_truth_rand_index": 1.0,
+        "comparable": true,
+        "ruptures_valid": true,
+        "breakpoints_match": true,
+        "cross_hausdorff": 0.0,
+        "cross_rand_index": 1.0,
+        "time_speedup": 183.3320412298476,
+        "memory_ratio": 14.435897435897436
+      }
+    },
+    {
+      "case": {
+        "id": "dynp-model-linear",
+        "category": "model_search",
+        "feature": "Dynp(linear)",
+        "algorithm": "dynp",
+        "model": "linear",
+        "signal": "linear_regression",
+        "n": 360,
+        "d": 3,
+        "seed": 20261206,
+        "min_size": 6,
+        "jump": 4,
+        "n_bkps": 2,
+        "libraries": [
+          "rustures",
+          "ruptures"
+        ]
+      },
+      "measurements": {
+        "rustures": {
+          "status": "ok",
+          "version": "0.1.1",
+          "metadata": {
+            "truth": [
+              120,
+              240,
+              360
+            ],
+            "n": 360
+          },
+          "result": {
+            "breakpoints": [
+              120,
+              240,
+              360
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              120,
+              240,
+              360
+            ]
+          },
+          "seconds": {
+            "median": 0.0030473,
+            "minimum": 0.0030276,
+            "maximum": 0.0033701,
+            "samples": [
+              0.0033701,
+              0.0030473,
+              0.0030368,
+              0.0030512,
+              0.0030276
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 41992192,
+            "peak_rss_bytes": 42156032,
+            "peak_delta_bytes": 163840,
+            "final_rss_bytes": 42156032,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        },
+        "ruptures": {
+          "status": "ok",
+          "version": "1.1.10",
+          "metadata": {
+            "truth": [
+              120,
+              240,
+              360
+            ],
+            "n": 360
+          },
+          "result": {
+            "breakpoints": [
+              120,
+              240,
+              360
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              120,
+              240,
+              360
+            ]
+          },
+          "seconds": {
+            "median": 0.0733932,
+            "minimum": 0.0724936,
+            "maximum": 0.0736862,
+            "samples": [
+              0.0733932,
+              0.0736862,
+              0.0724936,
+              0.072923,
+              0.073452
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 91881472,
+            "peak_rss_bytes": 94298112,
+            "peak_delta_bytes": 2416640,
+            "final_rss_bytes": 94298112,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        }
+      },
+      "comparison": {
+        "rustures_valid": true,
+        "rustures_truth_hausdorff": 0.0,
+        "rustures_truth_precision_recall": [
+          1.0,
+          1.0
+        ],
+        "rustures_truth_rand_index": 1.0,
+        "comparable": true,
+        "ruptures_valid": true,
+        "breakpoints_match": true,
+        "cross_hausdorff": 0.0,
+        "cross_rand_index": 1.0,
+        "time_speedup": 24.084665113379057,
+        "memory_ratio": 14.75
+      }
+    },
+    {
+      "case": {
+        "id": "dynp-model-ar",
+        "category": "model_search",
+        "feature": "Dynp(ar)",
+        "algorithm": "dynp",
+        "model": "ar",
+        "signal": "autoregressive",
+        "n": 360,
+        "d": 2,
+        "seed": 20261207,
+        "min_size": 10,
+        "jump": 4,
+        "n_bkps": 2,
+        "libraries": [
+          "rustures",
+          "ruptures"
+        ]
+      },
+      "measurements": {
+        "ruptures": {
+          "status": "ok",
+          "version": "1.1.10",
+          "metadata": {
+            "truth": [
+              120,
+              240,
+              360
+            ],
+            "n": 360
+          },
+          "result": {
+            "breakpoints": [
+              120,
+              132,
+              360
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              120,
+              132,
+              360
+            ]
+          },
+          "seconds": {
+            "median": 0.0991791,
+            "minimum": 0.0942057,
+            "maximum": 0.1009476,
+            "samples": [
+              0.0942057,
+              0.1009476,
+              0.0991924,
+              0.0991791,
+              0.0961658
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 91934720,
+            "peak_rss_bytes": 94142464,
+            "peak_delta_bytes": 2207744,
+            "final_rss_bytes": 94142464,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        },
+        "rustures": {
+          "status": "ok",
+          "version": "0.1.1",
+          "metadata": {
+            "truth": [
+              120,
+              240,
+              360
+            ],
+            "n": 360
+          },
+          "result": {
+            "breakpoints": [
+              116,
+              240,
+              360
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              116,
+              240,
+              360
+            ]
+          },
+          "seconds": {
+            "median": 0.0052495,
+            "minimum": 0.0051956,
+            "maximum": 0.0055843,
+            "samples": [
+              0.0051956,
+              0.0055843,
+              0.0053218,
+              0.005199,
+              0.0052495
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 42016768,
+            "peak_rss_bytes": 42180608,
+            "peak_delta_bytes": 163840,
+            "final_rss_bytes": 42180608,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        }
+      },
+      "comparison": {
+        "rustures_valid": true,
+        "rustures_truth_hausdorff": 4.0,
+        "rustures_truth_precision_recall": [
+          1.0,
+          1.0
+        ],
+        "rustures_truth_rand_index": 0.9853915196533581,
+        "comparable": true,
+        "ruptures_valid": true,
+        "breakpoints_match": false,
+        "cross_hausdorff": 108.0,
+        "cross_rand_index": 0.7647787062828846,
+        "time_speedup": 18.893056481569676,
+        "memory_ratio": 13.475
+      }
+    },
+    {
+      "case": {
+        "id": "dynp-model-clinear",
+        "category": "model_search",
+        "feature": "Dynp(clinear)",
+        "algorithm": "dynp",
+        "model": "clinear",
+        "signal": "trend",
+        "n": 360,
+        "d": 1,
+        "seed": 20261208,
+        "min_size": 6,
+        "jump": 4,
+        "n_bkps": 2,
+        "libraries": [
+          "rustures",
+          "ruptures"
+        ]
+      },
+      "measurements": {
+        "rustures": {
+          "status": "ok",
+          "version": "0.1.1",
+          "metadata": {
+            "truth": [
+              120,
+              240,
+              360
+            ],
+            "n": 360
+          },
+          "result": {
+            "breakpoints": [
+              236,
+              244,
+              360
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              236,
+              244,
+              360
+            ]
+          },
+          "seconds": {
+            "median": 0.0008226,
+            "minimum": 0.0008182,
+            "maximum": 0.0008287,
+            "samples": [
+              0.0008287,
+              0.000821,
+              0.0008236,
+              0.0008226,
+              0.0008182
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 41623552,
+            "peak_rss_bytes": 41766912,
+            "peak_delta_bytes": 143360,
+            "final_rss_bytes": 41766912,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        },
+        "ruptures": {
+          "status": "ok",
+          "version": "1.1.10",
+          "metadata": {
+            "truth": [
+              120,
+              240,
+              360
+            ],
+            "n": 360
+          },
+          "result": {
+            "breakpoints": [
+              236,
+              244,
+              360
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              236,
+              244,
+              360
+            ]
+          },
+          "seconds": {
+            "median": 0.0597367,
+            "minimum": 0.0596384,
+            "maximum": 0.0644408,
+            "samples": [
+              0.0644408,
+              0.0596455,
+              0.0596384,
+              0.0619139,
+              0.0597367
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 92094464,
+            "peak_rss_bytes": 94138368,
+            "peak_delta_bytes": 2043904,
+            "final_rss_bytes": 94138368,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        }
+      },
+      "comparison": {
+        "rustures_valid": true,
+        "rustures_truth_hausdorff": 116.0,
+        "rustures_truth_precision_recall": [
+          0.5,
+          0.5
+        ],
+        "rustures_truth_rand_index": 0.7699783348808419,
+        "comparable": true,
+        "ruptures_valid": true,
+        "breakpoints_match": true,
+        "cross_hausdorff": 0.0,
+        "cross_rand_index": 1.0,
+        "time_speedup": 72.61937758327254,
+        "memory_ratio": 14.257142857142858
+      }
+    },
+    {
+      "case": {
+        "id": "dynp-model-mahalanobis",
+        "category": "model_search",
+        "feature": "Dynp(mahalanobis)",
+        "algorithm": "dynp",
+        "model": "mahalanobis",
+        "signal": "correlated",
+        "n": 360,
+        "d": 3,
+        "seed": 20261209,
+        "min_size": 6,
+        "jump": 4,
+        "n_bkps": 2,
+        "libraries": [
+          "rustures",
+          "ruptures"
+        ]
+      },
+      "measurements": {
+        "ruptures": {
+          "status": "ok",
+          "version": "1.1.10",
+          "metadata": {
+            "truth": [
+              120,
+              240,
+              360
+            ],
+            "n": 360
+          },
+          "result": {
+            "breakpoints": [
+              120,
+              240,
+              360
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              120,
+              240,
+              360
+            ]
+          },
+          "seconds": {
+            "median": 0.071207,
+            "minimum": 0.0702365,
+            "maximum": 0.0719339,
+            "samples": [
+              0.0709721,
+              0.0702365,
+              0.0715944,
+              0.071207,
+              0.0719339
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 91893760,
+            "peak_rss_bytes": 95170560,
+            "peak_delta_bytes": 3276800,
+            "final_rss_bytes": 95170560,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        },
+        "rustures": {
+          "status": "ok",
+          "version": "0.1.1",
+          "metadata": {
+            "truth": [
+              120,
+              240,
+              360
+            ],
+            "n": 360
+          },
+          "result": {
+            "breakpoints": [
+              120,
+              240,
+              360
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              120,
+              240,
+              360
+            ]
+          },
+          "seconds": {
+            "median": 0.0009591,
+            "minimum": 0.0009544,
+            "maximum": 0.0058051,
+            "samples": [
+              0.0009562,
+              0.0009591,
+              0.0009544,
+              0.0058051,
+              0.0009658
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 41775104,
+            "peak_rss_bytes": 41951232,
+            "peak_delta_bytes": 176128,
+            "final_rss_bytes": 41951232,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        }
+      },
+      "comparison": {
+        "rustures_valid": true,
+        "rustures_truth_hausdorff": 0.0,
+        "rustures_truth_precision_recall": [
+          1.0,
+          1.0
+        ],
+        "rustures_truth_rand_index": 1.0,
+        "comparable": true,
+        "ruptures_valid": true,
+        "breakpoints_match": true,
+        "cross_hausdorff": 0.0,
+        "cross_rand_index": 1.0,
+        "time_speedup": 74.24356167240121,
+        "memory_ratio": 18.6046511627907
+      }
+    },
+    {
+      "case": {
+        "id": "kernel-linear-fused",
+        "category": "kernel",
+        "feature": "KernelCPD(linear,fused)",
+        "kernel": "linear",
+        "backend": "fused",
+        "signal": "correlated",
+        "n": 720,
+        "d": 3,
+        "seed": 20261402,
+        "min_size": 6,
+        "jump": 1,
+        "n_bkps": 3,
+        "gamma": 0.35,
+        "libraries": [
+          "rustures",
+          "ruptures"
+        ]
+      },
+      "measurements": {
+        "rustures": {
+          "status": "ok",
+          "version": "0.1.1",
+          "metadata": {
+            "truth": [
+              240,
+              480,
+              720
+            ],
+            "n": 720
+          },
+          "result": {
+            "breakpoints": [
+              240,
+              332,
+              480,
+              720
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              240,
+              332,
+              480,
+              720
+            ]
+          },
+          "seconds": {
+            "median": 0.0031155,
+            "minimum": 0.0031142,
+            "maximum": 0.0040229,
+            "samples": [
+              0.0031155,
+              0.0040229,
+              0.0031142,
+              0.0031459,
+              0.0031149
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 41869312,
+            "peak_rss_bytes": 42074112,
+            "peak_delta_bytes": 204800,
+            "final_rss_bytes": 42074112,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        },
+        "ruptures": {
+          "status": "ok",
+          "version": "1.1.10",
+          "metadata": {
+            "truth": [
+              240,
+              480,
+              720
+            ],
+            "n": 720
+          },
+          "result": {
+            "breakpoints": [
+              240,
+              332,
+              480,
+              720
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              240,
+              332,
+              480,
+              720
+            ]
+          },
+          "seconds": {
+            "median": 0.0039056,
+            "minimum": 0.0038528,
+            "maximum": 0.0040412,
+            "samples": [
+              0.0039056,
+              0.0039049,
+              0.0039773,
+              0.0038528,
+              0.0040412
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 92110848,
+            "peak_rss_bytes": 92217344,
+            "peak_delta_bytes": 106496,
+            "final_rss_bytes": 92217344,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        }
+      },
+      "comparison": {
+        "rustures_valid": true,
+        "rustures_truth_hausdorff": 92.0,
+        "rustures_truth_precision_recall": [
+          0.6666666666666666,
+          1.0
+        ],
+        "rustures_truth_rand_index": 0.9473960747952404,
+        "comparable": true,
+        "ruptures_valid": true,
+        "breakpoints_match": true,
+        "cross_hausdorff": 0.0,
+        "cross_rand_index": 1.0,
+        "time_speedup": 1.25360295297705,
+        "memory_ratio": 0.52
+      }
+    },
+    {
+      "case": {
+        "id": "kernel-linear-full",
+        "category": "kernel",
+        "feature": "KernelCPD(linear,full)",
+        "kernel": "linear",
+        "backend": "full",
+        "signal": "correlated",
+        "n": 720,
+        "d": 3,
+        "seed": 20261403,
+        "min_size": 6,
+        "jump": 1,
+        "n_bkps": 3,
+        "gamma": 0.35,
+        "libraries": [
+          "rustures",
+          "ruptures"
+        ]
+      },
+      "measurements": {
+        "ruptures": {
+          "status": "ok",
+          "version": "1.1.10",
+          "metadata": {
+            "truth": [
+              240,
+              480,
+              720
+            ],
+            "n": 720
+          },
+          "result": {
+            "breakpoints": [
+              240,
+              253,
+              480,
+              720
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              240,
+              253,
+              480,
+              720
+            ]
+          },
+          "seconds": {
+            "median": 0.0038614,
+            "minimum": 0.0038472,
+            "maximum": 0.0038784,
+            "samples": [
+              0.0038784,
+              0.0038685,
+              0.00386,
+              0.0038472,
+              0.0038614
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 91873280,
+            "peak_rss_bytes": 91975680,
+            "peak_delta_bytes": 102400,
+            "final_rss_bytes": 91975680,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        },
+        "rustures": {
+          "status": "ok",
+          "version": "0.1.1",
+          "metadata": {
+            "truth": [
+              240,
+              480,
+              720
+            ],
+            "n": 720
+          },
+          "result": {
+            "breakpoints": [
+              240,
+              253,
+              480,
+              720
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              240,
+              253,
+              480,
+              720
+            ]
+          },
+          "seconds": {
+            "median": 0.0100079,
+            "minimum": 0.0097987,
+            "maximum": 0.010692,
+            "samples": [
+              0.0101309,
+              0.0097987,
+              0.0100079,
+              0.0099681,
+              0.010692
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 42016768,
+            "peak_rss_bytes": 46366720,
+            "peak_delta_bytes": 4349952,
+            "final_rss_bytes": 42205184,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        }
+      },
+      "comparison": {
+        "rustures_valid": true,
+        "rustures_truth_hausdorff": 13.0,
+        "rustures_truth_precision_recall": [
+          0.6666666666666666,
+          1.0
+        ],
+        "rustures_truth_rand_index": 0.9885991346005254,
+        "comparable": true,
+        "ruptures_valid": true,
+        "breakpoints_match": true,
+        "cross_hausdorff": 0.0,
+        "cross_rand_index": 1.0,
+        "time_speedup": 0.3858351901997422,
+        "memory_ratio": 0.023540489642184557
+      }
+    },
+    {
+      "case": {
+        "id": "kernel-linear-streaming",
+        "category": "kernel",
+        "feature": "KernelCPD(linear,streaming)",
+        "kernel": "linear",
+        "backend": "streaming",
+        "signal": "correlated",
+        "n": 240,
+        "d": 3,
+        "seed": 20261404,
+        "min_size": 6,
+        "jump": 1,
+        "n_bkps": 3,
+        "gamma": 0.35,
+        "libraries": [
+          "rustures",
+          "ruptures"
+        ]
+      },
+      "measurements": {
+        "rustures": {
+          "status": "ok",
+          "version": "0.1.1",
+          "metadata": {
+            "truth": [
+              80,
+              160,
+              240
+            ],
+            "n": 240
+          },
+          "result": {
+            "breakpoints": [
+              80,
+              97,
+              160,
+              240
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              80,
+              97,
+              160,
+              240
+            ]
+          },
+          "seconds": {
+            "median": 0.7403095,
+            "minimum": 0.6583435,
+            "maximum": 0.8436102,
+            "samples": [
+              0.6701075,
+              0.6583435,
+              0.7403095,
+              0.8436102,
+              0.7819193
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 41725952,
+            "peak_rss_bytes": 41914368,
+            "peak_delta_bytes": 188416,
+            "final_rss_bytes": 41914368,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        },
+        "ruptures": {
+          "status": "ok",
+          "version": "1.1.10",
+          "metadata": {
+            "truth": [
+              80,
+              160,
+              240
+            ],
+            "n": 240
+          },
+          "result": {
+            "breakpoints": [
+              80,
+              97,
+              160,
+              240
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              80,
+              97,
+              160,
+              240
+            ]
+          },
+          "seconds": {
+            "median": 0.0005507,
+            "minimum": 0.0005376,
+            "maximum": 0.0007767,
+            "samples": [
+              0.0005412,
+              0.0005507,
+              0.0005638,
+              0.0007767,
+              0.0005376
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 91844608,
+            "peak_rss_bytes": 91947008,
+            "peak_delta_bytes": 102400,
+            "final_rss_bytes": 91947008,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        }
+      },
+      "comparison": {
+        "rustures_valid": true,
+        "rustures_truth_hausdorff": 17.0,
+        "rustures_truth_precision_recall": [
+          0.6666666666666666,
+          1.0
+        ],
+        "rustures_truth_rand_index": 0.9626569037656904,
+        "comparable": true,
+        "ruptures_valid": true,
+        "breakpoints_match": true,
+        "cross_hausdorff": 0.0,
+        "cross_rand_index": 1.0,
+        "time_speedup": 0.0007438780672137802,
+        "memory_ratio": 0.5434782608695652
+      }
+    },
+    {
+      "case": {
+        "id": "kernel-rbf-fused",
+        "category": "kernel",
+        "feature": "KernelCPD(rbf,fused)",
+        "kernel": "rbf",
+        "backend": "fused",
+        "signal": "piecewise_mean",
+        "n": 720,
+        "d": 3,
+        "seed": 20261412,
+        "min_size": 6,
+        "jump": 1,
+        "n_bkps": 3,
+        "gamma": 0.35,
+        "libraries": [
+          "rustures",
+          "ruptures"
+        ]
+      },
+      "measurements": {
+        "ruptures": {
+          "status": "ok",
+          "version": "1.1.10",
+          "metadata": {
+            "truth": [
+              240,
+              480,
+              720
+            ],
+            "n": 720
+          },
+          "result": {
+            "breakpoints": [
+              240,
+              462,
+              480,
+              720
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              240,
+              462,
+              480,
+              720
+            ]
+          },
+          "seconds": {
+            "median": 0.0070802,
+            "minimum": 0.0070389,
+            "maximum": 0.0072813,
+            "samples": [
+              0.0070389,
+              0.0070664,
+              0.007082,
+              0.0070802,
+              0.0072813
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 91881472,
+            "peak_rss_bytes": 92004352,
+            "peak_delta_bytes": 122880,
+            "final_rss_bytes": 92004352,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        },
+        "rustures": {
+          "status": "ok",
+          "version": "0.1.1",
+          "metadata": {
+            "truth": [
+              240,
+              480,
+              720
+            ],
+            "n": 720
+          },
+          "result": {
+            "breakpoints": [
+              240,
+              462,
+              480,
+              720
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              240,
+              462,
+              480,
+              720
+            ]
+          },
+          "seconds": {
+            "median": 0.0052162,
+            "minimum": 0.0051889,
+            "maximum": 0.0079998,
+            "samples": [
+              0.0051889,
+              0.0052761,
+              0.0052077,
+              0.0079998,
+              0.0052162
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 41963520,
+            "peak_rss_bytes": 42131456,
+            "peak_delta_bytes": 167936,
+            "final_rss_bytes": 42131456,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        }
+      },
+      "comparison": {
+        "rustures_valid": true,
+        "rustures_truth_hausdorff": 18.0,
+        "rustures_truth_precision_recall": [
+          0.6666666666666666,
+          1.0
+        ],
+        "rustures_truth_rand_index": 0.9845618915159945,
+        "comparable": true,
+        "ruptures_valid": true,
+        "breakpoints_match": true,
+        "cross_hausdorff": 0.0,
+        "cross_rand_index": 1.0,
+        "time_speedup": 1.3573482611863044,
+        "memory_ratio": 0.7317073170731707
+      }
+    },
+    {
+      "case": {
+        "id": "kernel-rbf-full",
+        "category": "kernel",
+        "feature": "KernelCPD(rbf,full)",
+        "kernel": "rbf",
+        "backend": "full",
+        "signal": "piecewise_mean",
+        "n": 720,
+        "d": 3,
+        "seed": 20261413,
+        "min_size": 6,
+        "jump": 1,
+        "n_bkps": 3,
+        "gamma": 0.35,
+        "libraries": [
+          "rustures",
+          "ruptures"
+        ]
+      },
+      "measurements": {
+        "rustures": {
+          "status": "ok",
+          "version": "0.1.1",
+          "metadata": {
+            "truth": [
+              240,
+              480,
+              720
+            ],
+            "n": 720
+          },
+          "result": {
+            "breakpoints": [
+              240,
+              480,
+              488,
+              720
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              240,
+              480,
+              488,
+              720
+            ]
+          },
+          "seconds": {
+            "median": 0.0147727,
+            "minimum": 0.0141953,
+            "maximum": 0.0153153,
+            "samples": [
+              0.0141953,
+              0.0145043,
+              0.0152245,
+              0.0153153,
+              0.0147727
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 42029056,
+            "peak_rss_bytes": 46379008,
+            "peak_delta_bytes": 4349952,
+            "final_rss_bytes": 42217472,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        },
+        "ruptures": {
+          "status": "ok",
+          "version": "1.1.10",
+          "metadata": {
+            "truth": [
+              240,
+              480,
+              720
+            ],
+            "n": 720
+          },
+          "result": {
+            "breakpoints": [
+              240,
+              480,
+              488,
+              720
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              240,
+              480,
+              488,
+              720
+            ]
+          },
+          "seconds": {
+            "median": 0.0076396,
+            "minimum": 0.0073138,
+            "maximum": 0.0077381,
+            "samples": [
+              0.0073138,
+              0.007647,
+              0.0077381,
+              0.0076396,
+              0.0075164
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 91877376,
+            "peak_rss_bytes": 91979776,
+            "peak_delta_bytes": 102400,
+            "final_rss_bytes": 91979776,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        }
+      },
+      "comparison": {
+        "rustures_valid": true,
+        "rustures_truth_hausdorff": 8.0,
+        "rustures_truth_precision_recall": [
+          0.6666666666666666,
+          1.0
+        ],
+        "rustures_truth_rand_index": 0.9928295472106321,
+        "comparable": true,
+        "ruptures_valid": true,
+        "breakpoints_match": true,
+        "cross_hausdorff": 0.0,
+        "cross_rand_index": 1.0,
+        "time_speedup": 0.5171431085718927,
+        "memory_ratio": 0.023540489642184557
+      }
+    },
+    {
+      "case": {
+        "id": "kernel-rbf-streaming",
+        "category": "kernel",
+        "feature": "KernelCPD(rbf,streaming)",
+        "kernel": "rbf",
+        "backend": "streaming",
+        "signal": "piecewise_mean",
+        "n": 240,
+        "d": 3,
+        "seed": 20261414,
+        "min_size": 6,
+        "jump": 1,
+        "n_bkps": 3,
+        "gamma": 0.35,
+        "libraries": [
+          "rustures",
+          "ruptures"
+        ]
+      },
+      "measurements": {
+        "ruptures": {
+          "status": "ok",
+          "version": "1.1.10",
+          "metadata": {
+            "truth": [
+              80,
+              160,
+              240
+            ],
+            "n": 240
+          },
+          "result": {
+            "breakpoints": [
+              61,
+              80,
+              160,
+              240
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              61,
+              80,
+              160,
+              240
+            ]
+          },
+          "seconds": {
+            "median": 0.0008327,
+            "minimum": 0.0008207,
+            "maximum": 0.0008433,
+            "samples": [
+              0.0008294,
+              0.0008433,
+              0.0008327,
+              0.0008328,
+              0.0008207
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 91758592,
+            "peak_rss_bytes": 91856896,
+            "peak_delta_bytes": 98304,
+            "final_rss_bytes": 91856896,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        },
+        "rustures": {
+          "status": "ok",
+          "version": "0.1.1",
+          "metadata": {
+            "truth": [
+              80,
+              160,
+              240
+            ],
+            "n": 240
+          },
+          "result": {
+            "breakpoints": [
+              61,
+              80,
+              160,
+              240
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              61,
+              80,
+              160,
+              240
+            ]
+          },
+          "seconds": {
+            "median": 2.9273967,
+            "minimum": 2.9131785,
+            "maximum": 3.865942,
+            "samples": [
+              3.865942,
+              3.4463372,
+              2.9131785,
+              2.91495,
+              2.9273967
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 41979904,
+            "peak_rss_bytes": 42168320,
+            "peak_delta_bytes": 188416,
+            "final_rss_bytes": 42168320,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        }
+      },
+      "comparison": {
+        "rustures_valid": true,
+        "rustures_truth_hausdorff": 19.0,
+        "rustures_truth_precision_recall": [
+          0.6666666666666666,
+          1.0
+        ],
+        "rustures_truth_rand_index": 0.9595885634588563,
+        "comparable": true,
+        "ruptures_valid": true,
+        "breakpoints_match": true,
+        "cross_hausdorff": 0.0,
+        "cross_rand_index": 1.0,
+        "time_speedup": 0.00028445068616767926,
+        "memory_ratio": 0.5217391304347826
+      }
+    },
+    {
+      "case": {
+        "id": "kernel-cosine-fused",
+        "category": "kernel",
+        "feature": "KernelCPD(cosine,fused)",
+        "kernel": "cosine",
+        "backend": "fused",
+        "signal": "correlated",
+        "n": 720,
+        "d": 3,
+        "seed": 20261422,
+        "min_size": 6,
+        "jump": 1,
+        "n_bkps": 3,
+        "gamma": 0.35,
+        "libraries": [
+          "rustures",
+          "ruptures"
+        ]
+      },
+      "measurements": {
+        "rustures": {
+          "status": "ok",
+          "version": "0.1.1",
+          "metadata": {
+            "truth": [
+              240,
+              480,
+              720
+            ],
+            "n": 720
+          },
+          "result": {
+            "breakpoints": [
+              240,
+              480,
+              572,
+              720
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              240,
+              480,
+              572,
+              720
+            ]
+          },
+          "seconds": {
+            "median": 0.0024356,
+            "minimum": 0.0024294,
+            "maximum": 0.0037063,
+            "samples": [
+              0.0037063,
+              0.0024356,
+              0.0025029,
+              0.0024337,
+              0.0024294
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 41930752,
+            "peak_rss_bytes": 42098688,
+            "peak_delta_bytes": 167936,
+            "final_rss_bytes": 42098688,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        },
+        "ruptures": {
+          "status": "ok",
+          "version": "1.1.10",
+          "metadata": {
+            "truth": [
+              240,
+              480,
+              720
+            ],
+            "n": 720
+          },
+          "result": {
+            "breakpoints": [
+              240,
+              480,
+              572,
+              720
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              240,
+              480,
+              572,
+              720
+            ]
+          },
+          "seconds": {
+            "median": 0.0052744,
+            "minimum": 0.0051644,
+            "maximum": 0.0053487,
+            "samples": [
+              0.0053487,
+              0.0052744,
+              0.0051644,
+              0.0052635,
+              0.0052898
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 91664384,
+            "peak_rss_bytes": 91758592,
+            "peak_delta_bytes": 94208,
+            "final_rss_bytes": 91758592,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        }
+      },
+      "comparison": {
+        "rustures_valid": true,
+        "rustures_truth_hausdorff": 92.0,
+        "rustures_truth_precision_recall": [
+          0.6666666666666666,
+          1.0
+        ],
+        "rustures_truth_rand_index": 0.9473960747952404,
+        "comparable": true,
+        "ruptures_valid": true,
+        "breakpoints_match": true,
+        "cross_hausdorff": 0.0,
+        "cross_rand_index": 1.0,
+        "time_speedup": 2.1655444243718183,
+        "memory_ratio": 0.5609756097560976
+      }
+    },
+    {
+      "case": {
+        "id": "kernel-cosine-full",
+        "category": "kernel",
+        "feature": "KernelCPD(cosine,full)",
+        "kernel": "cosine",
+        "backend": "full",
+        "signal": "correlated",
+        "n": 720,
+        "d": 3,
+        "seed": 20261423,
+        "min_size": 6,
+        "jump": 1,
+        "n_bkps": 3,
+        "gamma": 0.35,
+        "libraries": [
+          "rustures",
+          "ruptures"
+        ]
+      },
+      "measurements": {
+        "ruptures": {
+          "status": "ok",
+          "version": "1.1.10",
+          "metadata": {
+            "truth": [
+              240,
+              480,
+              720
+            ],
+            "n": 720
+          },
+          "result": {
+            "breakpoints": [
+              240,
+              482,
+              511,
+              720
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              240,
+              482,
+              511,
+              720
+            ]
+          },
+          "seconds": {
+            "median": 0.0052534,
+            "minimum": 0.0051633,
+            "maximum": 0.0054709,
+            "samples": [
+              0.0052485,
+              0.0054709,
+              0.0052534,
+              0.0051633,
+              0.0053493
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 91967488,
+            "peak_rss_bytes": 92065792,
+            "peak_delta_bytes": 98304,
+            "final_rss_bytes": 92065792,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        },
+        "rustures": {
+          "status": "ok",
+          "version": "0.1.1",
+          "metadata": {
+            "truth": [
+              240,
+              480,
+              720
+            ],
+            "n": 720
+          },
+          "result": {
+            "breakpoints": [
+              240,
+              482,
+              511,
+              720
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              240,
+              482,
+              511,
+              720
+            ]
+          },
+          "seconds": {
+            "median": 0.0112869,
+            "minimum": 0.0104623,
+            "maximum": 0.0164192,
+            "samples": [
+              0.0110758,
+              0.0114269,
+              0.0164192,
+              0.0104623,
+              0.0112869
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 41824256,
+            "peak_rss_bytes": 46174208,
+            "peak_delta_bytes": 4349952,
+            "final_rss_bytes": 42012672,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        }
+      },
+      "comparison": {
+        "rustures_valid": true,
+        "rustures_truth_hausdorff": 31.0,
+        "rustures_truth_precision_recall": [
+          0.6666666666666666,
+          1.0
+        ],
+        "rustures_truth_rand_index": 0.972890588780714,
+        "comparable": true,
+        "ruptures_valid": true,
+        "breakpoints_match": true,
+        "cross_hausdorff": 0.0,
+        "cross_rand_index": 1.0,
+        "time_speedup": 0.46544223834711035,
+        "memory_ratio": 0.022598870056497175
+      }
+    },
+    {
+      "case": {
+        "id": "kernel-cosine-streaming",
+        "category": "kernel",
+        "feature": "KernelCPD(cosine,streaming)",
+        "kernel": "cosine",
+        "backend": "streaming",
+        "signal": "correlated",
+        "n": 240,
+        "d": 3,
+        "seed": 20261424,
+        "min_size": 6,
+        "jump": 1,
+        "n_bkps": 3,
+        "gamma": 0.35,
+        "libraries": [
+          "rustures",
+          "ruptures"
+        ]
+      },
+      "measurements": {
+        "rustures": {
+          "status": "ok",
+          "version": "0.1.1",
+          "metadata": {
+            "truth": [
+              80,
+              160,
+              240
+            ],
+            "n": 240
+          },
+          "result": {
+            "breakpoints": [
+              80,
+              160,
+              166,
+              240
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              80,
+              160,
+              166,
+              240
+            ]
+          },
+          "seconds": {
+            "median": 1.1434063,
+            "minimum": 1.0284918,
+            "maximum": 1.1886475,
+            "samples": [
+              1.0284918,
+              1.1609899,
+              1.1886475,
+              1.1401659,
+              1.1434063
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 41893888,
+            "peak_rss_bytes": 42082304,
+            "peak_delta_bytes": 188416,
+            "final_rss_bytes": 42082304,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        },
+        "ruptures": {
+          "status": "ok",
+          "version": "1.1.10",
+          "metadata": {
+            "truth": [
+              80,
+              160,
+              240
+            ],
+            "n": 240
+          },
+          "result": {
+            "breakpoints": [
+              80,
+              160,
+              166,
+              240
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              80,
+              160,
+              166,
+              240
+            ]
+          },
+          "seconds": {
+            "median": 0.0006287,
+            "minimum": 0.0006197,
+            "maximum": 0.0006592,
+            "samples": [
+              0.0006494,
+              0.0006287,
+              0.0006592,
+              0.0006197,
+              0.0006263
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 91877376,
+            "peak_rss_bytes": 91971584,
+            "peak_delta_bytes": 94208,
+            "final_rss_bytes": 91971584,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        }
+      },
+      "comparison": {
+        "rustures_valid": true,
+        "rustures_truth_hausdorff": 6.0,
+        "rustures_truth_precision_recall": [
+          0.6666666666666666,
+          1.0
+        ],
+        "rustures_truth_rand_index": 0.9845188284518829,
+        "comparable": true,
+        "ruptures_valid": true,
+        "breakpoints_match": true,
+        "cross_hausdorff": 0.0,
+        "cross_rand_index": 1.0,
+        "time_speedup": 0.0005498482910230597,
+        "memory_ratio": 0.5
+      }
+    },
+    {
+      "case": {
+        "id": "custom-scalar-dynp",
+        "category": "custom_cost",
+        "feature": "dynp(custom scalar)",
+        "algorithm": "dynp",
+        "signal": "piecewise_mean",
+        "n": 420,
+        "d": 2,
+        "seed": 20261602,
+        "min_size": 6,
+        "jump": 4,
+        "n_bkps": 2,
+        "penalty": 12.0,
+        "batch": false,
+        "libraries": [
+          "rustures",
+          "ruptures"
+        ]
+      },
+      "measurements": {
+        "ruptures": {
+          "status": "ok",
+          "version": "1.1.10",
+          "metadata": {
+            "truth": [
+              140,
+              280,
+              420
+            ],
+            "n": 420
+          },
+          "result": {
+            "breakpoints": [
+              140,
+              280,
+              420
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              140,
+              280,
+              420
+            ]
+          },
+          "seconds": {
+            "median": 0.0946778,
+            "minimum": 0.0907144,
+            "maximum": 0.1009317,
+            "samples": [
+              0.0907144,
+              0.0946778,
+              0.0920412,
+              0.0957395,
+              0.1009317
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 91901952,
+            "peak_rss_bytes": 95342592,
+            "peak_delta_bytes": 3440640,
+            "final_rss_bytes": 95342592,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        },
+        "rustures": {
+          "status": "ok",
+          "version": "0.1.1",
+          "metadata": {
+            "truth": [
+              140,
+              280,
+              420
+            ],
+            "n": 420
+          },
+          "result": {
+            "breakpoints": [
+              140,
+              280,
+              420
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              140,
+              280,
+              420
+            ]
+          },
+          "seconds": {
+            "median": 0.0909676,
+            "minimum": 0.0905588,
+            "maximum": 0.0921045,
+            "samples": [
+              0.0921045,
+              0.0914224,
+              0.0905588,
+              0.0908565,
+              0.0909676
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 41877504,
+            "peak_rss_bytes": 42287104,
+            "peak_delta_bytes": 409600,
+            "final_rss_bytes": 42287104,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        }
+      },
+      "comparison": {
+        "rustures_valid": true,
+        "rustures_truth_hausdorff": 0.0,
+        "rustures_truth_precision_recall": [
+          1.0,
+          1.0
+        ],
+        "rustures_truth_rand_index": 1.0,
+        "comparable": true,
+        "ruptures_valid": true,
+        "breakpoints_match": true,
+        "cross_hausdorff": 0.0,
+        "cross_rand_index": 1.0,
+        "time_speedup": 1.0407859501624757,
+        "memory_ratio": 8.4
+      }
+    },
+    {
+      "case": {
+        "id": "custom-scalar-pelt",
+        "category": "custom_cost",
+        "feature": "pelt(custom scalar)",
+        "algorithm": "pelt",
+        "signal": "piecewise_mean",
+        "n": 800,
+        "d": 2,
+        "seed": 20261603,
+        "min_size": 6,
+        "jump": 4,
+        "n_bkps": 2,
+        "penalty": 12.0,
+        "batch": false,
+        "libraries": [
+          "rustures",
+          "ruptures"
+        ]
+      },
+      "measurements": {
+        "rustures": {
+          "status": "ok",
+          "version": "0.1.1",
+          "metadata": {
+            "truth": [
+              266,
+              533,
+              800
+            ],
+            "n": 800
+          },
+          "result": {
+            "breakpoints": [
+              268,
+              532,
+              540,
+              800
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              268,
+              532,
+              540,
+              800
+            ]
+          },
+          "seconds": {
+            "median": 0.3683685,
+            "minimum": 0.3648789,
+            "maximum": 0.3692465,
+            "samples": [
+              0.3692465,
+              0.3690821,
+              0.3683685,
+              0.3681132,
+              0.3648789
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 41951232,
+            "peak_rss_bytes": 43372544,
+            "peak_delta_bytes": 1421312,
+            "final_rss_bytes": 43372544,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        },
+        "ruptures": {
+          "status": "ok",
+          "version": "1.1.10",
+          "metadata": {
+            "truth": [
+              266,
+              533,
+              800
+            ],
+            "n": 800
+          },
+          "result": {
+            "breakpoints": [
+              268,
+              532,
+              540,
+              800
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              268,
+              532,
+              540,
+              800
+            ]
+          },
+          "seconds": {
+            "median": 0.0978784,
+            "minimum": 0.09741,
+            "maximum": 0.1023071,
+            "samples": [
+              0.1023071,
+              0.0974723,
+              0.09741,
+              0.0978784,
+              0.1008256
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 91660288,
+            "peak_rss_bytes": 91910144,
+            "peak_delta_bytes": 249856,
+            "final_rss_bytes": 91910144,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        }
+      },
+      "comparison": {
+        "rustures_valid": true,
+        "rustures_truth_hausdorff": 7.0,
+        "rustures_truth_precision_recall": [
+          0.6666666666666666,
+          1.0
+        ],
+        "rustures_truth_rand_index": 0.9901345431789738,
+        "comparable": true,
+        "ruptures_valid": true,
+        "breakpoints_match": true,
+        "cross_hausdorff": 0.0,
+        "cross_rand_index": 1.0,
+        "time_speedup": 0.2657078441832024,
+        "memory_ratio": 0.17579250720461095
+      }
+    },
+    {
+      "case": {
+        "id": "custom-batch-dynp",
+        "category": "rustures_only",
+        "feature": "Dynp(custom error_many)",
+        "algorithm": "dynp",
+        "signal": "piecewise_mean",
+        "n": 520,
+        "d": 2,
+        "seed": 20261622,
+        "min_size": 6,
+        "jump": 4,
+        "n_bkps": 2,
+        "batch": true,
+        "libraries": [
+          "rustures"
+        ],
+        "unsupported_reason": "ruptures custom costs have no endpoint error_many protocol"
+      },
+      "measurements": {
+        "rustures": {
+          "status": "ok",
+          "version": "0.1.1",
+          "metadata": {
+            "truth": [
+              173,
+              346,
+              520
+            ],
+            "n": 520
+          },
+          "result": {
+            "breakpoints": [
+              172,
+              348,
+              520
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              172,
+              348,
+              520
+            ]
+          },
+          "seconds": {
+            "median": 0.1395487,
+            "minimum": 0.1378858,
+            "maximum": 0.1419623,
+            "samples": [
+              0.1395487,
+              0.1392147,
+              0.1419623,
+              0.141284,
+              0.1378858
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 42074112,
+            "peak_rss_bytes": 43040768,
+            "peak_delta_bytes": 966656,
+            "final_rss_bytes": 43040768,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        }
+      },
+      "comparison": {
+        "rustures_valid": true,
+        "rustures_truth_hausdorff": 2.0,
+        "rustures_truth_precision_recall": [
+          1.0,
+          1.0
+        ],
+        "rustures_truth_rand_index": 0.9923151030087446,
+        "comparable": false,
+        "unsupported_reason": "ruptures custom costs have no endpoint error_many protocol"
+      }
+    },
+    {
+      "case": {
+        "id": "l1-potts",
+        "category": "rustures_only",
+        "feature": "L1Potts",
+        "signal": "integer_ties",
+        "n": 1400,
+        "d": 1,
+        "seed": 20261632,
+        "penalty": 4.0,
+        "libraries": [
+          "rustures"
+        ],
+        "unsupported_reason": "ruptures 1.1.10 has no L1Potts estimator"
+      },
+      "measurements": {
+        "rustures": {
+          "status": "ok",
+          "version": "0.1.1",
+          "metadata": {
+            "truth": [
+              466,
+              933,
+              1400
+            ],
+            "n": 1400
+          },
+          "result": {
+            "breakpoints": [
+              359,
+              382,
+              467,
+              934,
+              1400
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              359,
+              382,
+              467,
+              934,
+              1400
+            ]
+          },
+          "seconds": {
+            "median": 0.0001174,
+            "minimum": 0.0001134,
+            "maximum": 0.0001325,
+            "samples": [
+              0.0001246,
+              0.0001325,
+              0.0001174,
+              0.0001142,
+              0.0001134
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 41979904,
+            "peak_rss_bytes": 42143744,
+            "peak_delta_bytes": 163840,
+            "final_rss_bytes": 42143744,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        }
+      },
+      "comparison": {
+        "rustures_valid": true,
+        "rustures_truth_hausdorff": 107.0,
+        "rustures_truth_precision_recall": [
+          0.5,
+          1.0
+        ],
+        "rustures_truth_rand_index": 0.9572888798121106,
+        "comparable": false,
+        "unsupported_reason": "ruptures 1.1.10 has no L1Potts estimator"
+      }
+    },
+    {
+      "case": {
+        "id": "metric-hausdorff",
+        "category": "metric",
+        "feature": "hausdorff",
+        "metric": "hausdorff",
+        "n": 200000,
+        "calls": 500,
+        "seed": 20261702,
+        "libraries": [
+          "rustures",
+          "ruptures"
+        ]
+      },
+      "measurements": {
+        "ruptures": {
+          "status": "ok",
+          "version": "1.1.10",
+          "metadata": {
+            "truth": [
+              40000,
+              80000,
+              120000,
+              160000,
+              200000
+            ],
+            "n": 200000
+          },
+          "result": {
+            "value": 11.0,
+            "calls": 500
+          },
+          "memory_probe_result": {
+            "value": 11.0,
+            "calls": 500
+          },
+          "seconds": {
+            "median": 0.0090765,
+            "minimum": 0.0089797,
+            "maximum": 0.0100005,
+            "samples": [
+              0.0090765,
+              0.0089797,
+              0.0100005,
+              0.0090298,
+              0.0092737
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 91996160,
+            "peak_rss_bytes": 92082176,
+            "peak_delta_bytes": 86016,
+            "final_rss_bytes": 92082176,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        },
+        "rustures": {
+          "status": "ok",
+          "version": "0.1.1",
+          "metadata": {
+            "truth": [
+              40000,
+              80000,
+              120000,
+              160000,
+              200000
+            ],
+            "n": 200000
+          },
+          "result": {
+            "value": 11.0,
+            "calls": 500
+          },
+          "memory_probe_result": {
+            "value": 11.0,
+            "calls": 500
+          },
+          "seconds": {
+            "median": 0.0002374,
+            "minimum": 0.0002331,
+            "maximum": 0.0002724,
+            "samples": [
+              0.0002377,
+              0.0002351,
+              0.0002331,
+              0.0002724,
+              0.0002374
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 41771008,
+            "peak_rss_bytes": 41816064,
+            "peak_delta_bytes": 45056,
+            "final_rss_bytes": 41816064,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        }
+      },
+      "comparison": {
+        "rustures_valid": true,
+        "comparable": true,
+        "ruptures_valid": true,
+        "values_close": true,
+        "time_speedup": 38.23294018534119,
+        "memory_ratio": 1.9090909090909092
+      }
+    },
+    {
+      "case": {
+        "id": "metric-precision_recall",
+        "category": "metric",
+        "feature": "precision_recall",
+        "metric": "precision_recall",
+        "n": 200000,
+        "calls": 500,
+        "seed": 20261703,
+        "libraries": [
+          "rustures",
+          "ruptures"
+        ]
+      },
+      "measurements": {
+        "rustures": {
+          "status": "ok",
+          "version": "0.1.1",
+          "metadata": {
+            "truth": [
+              40000,
+              80000,
+              120000,
+              160000,
+              200000
+            ],
+            "n": 200000
+          },
+          "result": {
+            "value": [
+              0.75,
+              0.75
+            ],
+            "calls": 500
+          },
+          "memory_probe_result": {
+            "value": [
+              0.75,
+              0.75
+            ],
+            "calls": 500
+          },
+          "seconds": {
+            "median": 0.0002884,
+            "minimum": 0.0002847,
+            "maximum": 0.0002909,
+            "samples": [
+              0.0002907,
+              0.0002909,
+              0.0002874,
+              0.0002884,
+              0.0002847
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 41803776,
+            "peak_rss_bytes": 41857024,
+            "peak_delta_bytes": 53248,
+            "final_rss_bytes": 41857024,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        },
+        "ruptures": {
+          "status": "ok",
+          "version": "1.1.10",
+          "metadata": {
+            "truth": [
+              40000,
+              80000,
+              120000,
+              160000,
+              200000
+            ],
+            "n": 200000
+          },
+          "result": {
+            "value": [
+              0.75,
+              0.75
+            ],
+            "calls": 500
+          },
+          "memory_probe_result": {
+            "value": [
+              0.75,
+              0.75
+            ],
+            "calls": 500
+          },
+          "seconds": {
+            "median": 0.0027776,
+            "minimum": 0.0027664,
+            "maximum": 0.0028478,
+            "samples": [
+              0.0027776,
+              0.0027691,
+              0.0028478,
+              0.0027808,
+              0.0027664
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 91783168,
+            "peak_rss_bytes": 91795456,
+            "peak_delta_bytes": 12288,
+            "final_rss_bytes": 91795456,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        }
+      },
+      "comparison": {
+        "rustures_valid": true,
+        "comparable": true,
+        "ruptures_valid": true,
+        "values_close": true,
+        "time_speedup": 9.631067961165048,
+        "memory_ratio": 0.23076923076923078
+      }
+    },
+    {
+      "case": {
+        "id": "metric-rand_index",
+        "category": "metric",
+        "feature": "rand_index",
+        "metric": "rand_index",
+        "n": 200000,
+        "calls": 500,
+        "seed": 20261704,
+        "libraries": [
+          "rustures",
+          "ruptures"
+        ]
+      },
+      "measurements": {
+        "ruptures": {
+          "status": "ok",
+          "version": "1.1.10",
+          "metadata": {
+            "truth": [
+              40000,
+              80000,
+              120000,
+              160000,
+              200000
+            ],
+            "n": 200000
+          },
+          "result": {
+            "value": 0.9998960126300631,
+            "calls": 500
+          },
+          "memory_probe_result": {
+            "value": 0.9998960126300631,
+            "calls": 500
+          },
+          "seconds": {
+            "median": 0.0051202,
+            "minimum": 0.0051064,
+            "maximum": 0.0051563,
+            "samples": [
+              0.0051326,
+              0.0051563,
+              0.0051202,
+              0.0051064,
+              0.0051111
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 91938816,
+            "peak_rss_bytes": 91951104,
+            "peak_delta_bytes": 12288,
+            "final_rss_bytes": 91951104,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        },
+        "rustures": {
+          "status": "ok",
+          "version": "0.1.1",
+          "metadata": {
+            "truth": [
+              40000,
+              80000,
+              120000,
+              160000,
+              200000
+            ],
+            "n": 200000
+          },
+          "result": {
+            "value": 0.9998960126300631,
+            "calls": 500
+          },
+          "memory_probe_result": {
+            "value": 0.9998960126300631,
+            "calls": 500
+          },
+          "seconds": {
+            "median": 0.0002619,
+            "minimum": 0.0002506,
+            "maximum": 0.0003047,
+            "samples": [
+              0.0002545,
+              0.0003047,
+              0.0003009,
+              0.0002619,
+              0.0002506
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 41586688,
+            "peak_rss_bytes": 41635840,
+            "peak_delta_bytes": 49152,
+            "final_rss_bytes": 41635840,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        }
+      },
+      "comparison": {
+        "rustures_valid": true,
+        "comparable": true,
+        "ruptures_valid": true,
+        "values_close": true,
+        "time_speedup": 19.55021000381825,
+        "memory_ratio": 0.25
+      }
+    },
+    {
+      "case": {
+        "id": "dataset-pw_constant",
+        "category": "dataset",
+        "feature": "pw_constant",
+        "generator": "pw_constant",
+        "n": 80000,
+        "d": 3,
+        "n_bkps": 5,
+        "seed": 20261802,
+        "libraries": [
+          "rustures",
+          "ruptures"
+        ]
+      },
+      "measurements": {
+        "rustures": {
+          "status": "ok",
+          "version": "0.1.1",
+          "metadata": {
+            "n": 80000
+          },
+          "result": {
+            "shape": [
+              80000,
+              3
+            ],
+            "breakpoints": [
+              21410,
+              37925,
+              46895,
+              77167,
+              79626,
+              80000
+            ]
+          },
+          "memory_probe_result": {
+            "shape": [
+              80000,
+              3
+            ],
+            "breakpoints": [
+              21410,
+              37925,
+              46895,
+              77167,
+              79626,
+              80000
+            ]
+          },
+          "seconds": {
+            "median": 0.0150916,
+            "minimum": 0.014941,
+            "maximum": 0.0158087,
+            "samples": [
+              0.0150916,
+              0.0158087,
+              0.0149649,
+              0.014941,
+              0.0151271
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 41861120,
+            "peak_rss_bytes": 50311168,
+            "peak_delta_bytes": 8450048,
+            "final_rss_bytes": 42782720,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        },
+        "ruptures": {
+          "status": "ok",
+          "version": "1.1.10",
+          "metadata": {
+            "n": 80000
+          },
+          "result": {
+            "shape": [
+              80000,
+              3
+            ],
+            "breakpoints": [
+              12627,
+              26537,
+              41411,
+              54395,
+              66455,
+              80000
+            ]
+          },
+          "memory_probe_result": {
+            "shape": [
+              80000,
+              3
+            ],
+            "breakpoints": [
+              12627,
+              26537,
+              41411,
+              54395,
+              66455,
+              80000
+            ]
+          },
+          "seconds": {
+            "median": 0.0067306,
+            "minimum": 0.0066442,
+            "maximum": 0.0070097,
+            "samples": [
+              0.0070097,
+              0.0066442,
+              0.0067306,
+              0.0066895,
+              0.0068115
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 92037120,
+            "peak_rss_bytes": 98209792,
+            "peak_delta_bytes": 6172672,
+            "final_rss_bytes": 92446720,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        }
+      },
+      "comparison": {
+        "rustures_valid": true,
+        "comparable": true,
+        "ruptures_valid": true,
+        "same_sample_count": true,
+        "same_element_count": true,
+        "time_speedup": 0.4459831959500649,
+        "memory_ratio": 0.7304895782840524
+      }
+    },
+    {
+      "case": {
+        "id": "dataset-pw_linear",
+        "category": "dataset",
+        "feature": "pw_linear",
+        "generator": "pw_linear",
+        "n": 80000,
+        "d": 3,
+        "n_bkps": 5,
+        "seed": 20261803,
+        "libraries": [
+          "rustures",
+          "ruptures"
+        ]
+      },
+      "measurements": {
+        "ruptures": {
+          "status": "ok",
+          "version": "1.1.10",
+          "metadata": {
+            "n": 80000
+          },
+          "result": {
+            "shape": [
+              80000,
+              3
+            ],
+            "breakpoints": [
+              13605,
+              27803,
+              41450,
+              53682,
+              66245,
+              80000
+            ]
+          },
+          "memory_probe_result": {
+            "shape": [
+              80000,
+              3
+            ],
+            "breakpoints": [
+              13605,
+              27803,
+              41450,
+              53682,
+              66245,
+              80000
+            ]
+          },
+          "seconds": {
+            "median": 0.0075041,
+            "minimum": 0.0073176,
+            "maximum": 0.00782,
+            "samples": [
+              0.0073176,
+              0.0074216,
+              0.0075041,
+              0.00782,
+              0.0077575
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 91660288,
+            "peak_rss_bytes": 97579008,
+            "peak_delta_bytes": 5918720,
+            "final_rss_bytes": 93093888,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        },
+        "rustures": {
+          "status": "ok",
+          "version": "0.1.1",
+          "metadata": {
+            "n": 80000
+          },
+          "result": {
+            "shape": [
+              80000,
+              3
+            ],
+            "breakpoints": [
+              1807,
+              12370,
+              25001,
+              58449,
+              60570,
+              80000
+            ]
+          },
+          "memory_probe_result": {
+            "shape": [
+              80000,
+              3
+            ],
+            "breakpoints": [
+              1807,
+              12370,
+              25001,
+              58449,
+              60570,
+              80000
+            ]
+          },
+          "seconds": {
+            "median": 0.0138009,
+            "minimum": 0.0133356,
+            "maximum": 0.0159523,
+            "samples": [
+              0.0133356,
+              0.0138991,
+              0.0136682,
+              0.0138009,
+              0.0159523
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 41603072,
+            "peak_rss_bytes": 50024448,
+            "peak_delta_bytes": 8421376,
+            "final_rss_bytes": 41955328,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        }
+      },
+      "comparison": {
+        "rustures_valid": true,
+        "comparable": true,
+        "ruptures_valid": true,
+        "same_sample_count": true,
+        "same_element_count": true,
+        "time_speedup": 0.5437399010209479,
+        "memory_ratio": 0.7028210116731517
+      }
+    },
+    {
+      "case": {
+        "id": "dataset-pw_normal",
+        "category": "dataset",
+        "feature": "pw_normal",
+        "generator": "pw_normal",
+        "n": 80000,
+        "d": 2,
+        "n_bkps": 5,
+        "seed": 20261804,
+        "libraries": [
+          "rustures",
+          "ruptures"
+        ]
+      },
+      "measurements": {
+        "rustures": {
+          "status": "ok",
+          "version": "0.1.1",
+          "metadata": {
+            "n": 80000
+          },
+          "result": {
+            "shape": [
+              80000,
+              2
+            ],
+            "breakpoints": [
+              19156,
+              20075,
+              25430,
+              42595,
+              50189,
+              80000
+            ]
+          },
+          "memory_probe_result": {
+            "shape": [
+              80000,
+              2
+            ],
+            "breakpoints": [
+              19156,
+              20075,
+              25430,
+              42595,
+              50189,
+              80000
+            ]
+          },
+          "seconds": {
+            "median": 0.0162822,
+            "minimum": 0.0160617,
+            "maximum": 0.0165261,
+            "samples": [
+              0.0162822,
+              0.0161745,
+              0.0164113,
+              0.0165261,
+              0.0160617
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 41746432,
+            "peak_rss_bytes": 48873472,
+            "peak_delta_bytes": 7127040,
+            "final_rss_bytes": 42651648,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        },
+        "ruptures": {
+          "status": "ok",
+          "version": "1.1.10",
+          "metadata": {
+            "n": 80000
+          },
+          "result": {
+            "shape": [
+              80000,
+              2
+            ],
+            "breakpoints": [
+              13457,
+              26531,
+              40323,
+              53873,
+              67181,
+              80000
+            ]
+          },
+          "memory_probe_result": {
+            "shape": [
+              80000,
+              2
+            ],
+            "breakpoints": [
+              13457,
+              26531,
+              40323,
+              53873,
+              67181,
+              80000
+            ]
+          },
+          "seconds": {
+            "median": 0.0037882,
+            "minimum": 0.0037485,
+            "maximum": 0.0039586,
+            "samples": [
+              0.0039586,
+              0.0037485,
+              0.0037882,
+              0.0037572,
+              0.0038739
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 91635712,
+            "peak_rss_bytes": 93999104,
+            "peak_delta_bytes": 2363392,
+            "final_rss_bytes": 92717056,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        }
+      },
+      "comparison": {
+        "rustures_valid": true,
+        "comparable": true,
+        "ruptures_valid": true,
+        "same_sample_count": true,
+        "same_element_count": true,
+        "time_speedup": 0.23265897728808144,
+        "memory_ratio": 0.33160919540229883
+      }
+    },
+    {
+      "case": {
+        "id": "dataset-pw_wavy",
+        "category": "dataset",
+        "feature": "pw_wavy",
+        "generator": "pw_wavy",
+        "n": 80000,
+        "d": 1,
+        "n_bkps": 5,
+        "seed": 20261805,
+        "libraries": [
+          "rustures",
+          "ruptures"
+        ]
+      },
+      "measurements": {
+        "ruptures": {
+          "status": "ok",
+          "version": "1.1.10",
+          "metadata": {
+            "n": 80000
+          },
+          "result": {
+            "shape": [
+              80000
+            ],
+            "breakpoints": [
+              12175,
+              24966,
+              39415,
+              52536,
+              66449,
+              80000
+            ]
+          },
+          "memory_probe_result": {
+            "shape": [
+              80000
+            ],
+            "breakpoints": [
+              12175,
+              24966,
+              39415,
+              52536,
+              66449,
+              80000
+            ]
+          },
+          "seconds": {
+            "median": 0.0045274,
+            "minimum": 0.0043996,
+            "maximum": 0.0048671,
+            "samples": [
+              0.0045954,
+              0.0043996,
+              0.004455,
+              0.0048671,
+              0.0045274
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 91996160,
+            "peak_rss_bytes": 96829440,
+            "peak_delta_bytes": 4833280,
+            "final_rss_bytes": 93065216,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        },
+        "rustures": {
+          "status": "ok",
+          "version": "0.1.1",
+          "metadata": {
+            "n": 80000
+          },
+          "result": {
+            "shape": [
+              80000,
+              1
+            ],
+            "breakpoints": [
+              8781,
+              16980,
+              54289,
+              63364,
+              79143,
+              80000
+            ]
+          },
+          "memory_probe_result": {
+            "shape": [
+              80000,
+              1
+            ],
+            "breakpoints": [
+              8781,
+              16980,
+              54289,
+              63364,
+              79143,
+              80000
+            ]
+          },
+          "seconds": {
+            "median": 0.0087817,
+            "minimum": 0.0085445,
+            "maximum": 0.0088547,
+            "samples": [
+              0.0088074,
+              0.0088547,
+              0.0085445,
+              0.0087817,
+              0.0085809
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 41664512,
+            "peak_rss_bytes": 46268416,
+            "peak_delta_bytes": 4603904,
+            "final_rss_bytes": 42450944,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        }
+      },
+      "comparison": {
+        "rustures_valid": true,
+        "comparable": true,
+        "ruptures_valid": true,
+        "same_sample_count": true,
+        "same_element_count": true,
+        "time_speedup": 0.5155493810993316,
+        "memory_ratio": 1.0498220640569396
+      }
+    }
+  ]
+}

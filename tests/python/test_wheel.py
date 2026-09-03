@@ -1,4 +1,5 @@
 import json
+from concurrent.futures import ThreadPoolExecutor
 from importlib.metadata import version as distribution_version
 from pathlib import Path
 import unittest
@@ -34,12 +35,14 @@ class BatchL2CustomCost(ScalarL2CustomCost):
         super().__init__()
         self.batch_calls = 0
         self.maximum_batch = 0
+        self.segments_evaluated = 0
 
     def error_many(self, starts, ends):
         starts = np.asarray(starts)
         ends = np.asarray(ends)
         self.batch_calls += 1
         self.maximum_batch = max(self.maximum_batch, len(starts))
+        self.segments_evaluated += len(starts)
         return np.asarray(
             [
                 np.square(
@@ -224,6 +227,55 @@ class WheelSmokeTests(unittest.TestCase):
                 with self.subTest(model=model, detector=detector_name):
                     result = detector.fit(signal).predict(**stopping_rule)
                     self.assertEqual(result[-1], len(signal))
+
+    def test_builtin_detectors_are_safe_across_python_threads(self) -> None:
+        signal = np.repeat(np.array([0.0, 4.0, -2.0, 3.0]), 30)
+
+        # Shared fitted detectors exercise concurrent read-only predict calls.
+        # Timing is deliberately not asserted: CI machines can have one CPU or
+        # highly variable scheduling, while result equality is deterministic.
+        prediction_cases = [
+            (
+                rustures.Dynp(model="l2", min_size=5, jump=1).fit(signal),
+                lambda detector, value: detector.predict(n_bkps=value),
+                [1, 2, 3, 1, 2, 3, 1, 3],
+            ),
+            (
+                rustures.Pelt(model="l2", min_size=5, jump=1).fit(signal),
+                lambda detector, value: detector.predict(pen=value),
+                [1.0, 4.0, 12.0, 1.0, 4.0, 12.0, 1.0, 12.0],
+            ),
+            (
+                rustures.KernelCPD(
+                    kernel="linear", backend="fused", min_size=5, jump=1
+                ).fit(signal),
+                lambda detector, value: detector.predict(n_bkps=value),
+                [1, 2, 3, 1, 2, 3, 1, 3],
+            ),
+        ]
+        for detector, predict, arguments in prediction_cases:
+            with self.subTest(detector=type(detector).__name__):
+                expected = [predict(detector, value) for value in arguments]
+                with ThreadPoolExecutor(max_workers=4) as pool:
+                    futures = [
+                        pool.submit(predict, detector, value) for value in arguments
+                    ]
+                    actual = [future.result(timeout=10.0) for future in futures]
+                self.assertEqual(actual, expected)
+
+        # Mutable fit_predict calls use one detector per task. This is the
+        # recommended public pattern for a batch of independent signals.
+        signals = [signal + offset for offset in np.linspace(-1.0, 1.0, 8)]
+
+        def fit_predict(item):
+            return rustures.Pelt(model="l2", min_size=5, jump=1).fit_predict(
+                item, pen=4.0
+            )
+
+        expected = [fit_predict(item) for item in signals]
+        with ThreadPoolExecutor(max_workers=4) as pool:
+            actual = list(pool.map(fit_predict, signals))
+        self.assertEqual(actual, expected)
 
     def test_l1_potts_weighted_smoke_and_validation(self) -> None:
         signal = np.array([0.0, 0.0, 1.0, 9.0, 9.0, 10.0])
@@ -414,6 +466,47 @@ class WheelSmokeTests(unittest.TestCase):
                 self.assertEqual(batch.error_calls, 0)
                 self.assertLessEqual(batch.maximum_batch, len(signal))
 
+    def test_custom_pelt_batch_rechecks_only_selected_segments(self) -> None:
+        signal = np.repeat(np.array([0.0, 5.0, -2.0]), 4)
+        batch = BatchL2CustomCost()
+        breakpoints = rustures.Pelt(
+            custom_cost=batch,
+            min_size=1,
+            jump=1,
+        ).fit_predict(signal, pen=1.0)
+
+        # Unpruned Pelt evaluates every (start, end) grid pair once. Final
+        # objective reconstruction must then request only the selected
+        # segments, rather than expanding each request to all possible starts.
+        search_segments = len(signal) * (len(signal) + 1) // 2
+        self.assertEqual(batch.segments_evaluated, search_segments + len(breakpoints))
+        self.assertEqual(batch.batch_calls, len(signal) + len(breakpoints))
+        self.assertEqual(batch.error_calls, 0)
+
+    def test_custom_cost_can_explicitly_enable_safe_pelt_pruning(self) -> None:
+        class PrunableBatchL2Cost(BatchL2CustomCost):
+            # L2 satisfies the PELT inequality with K=0. Custom costs remain
+            # unpruned unless they explicitly make this mathematical promise.
+            pelt_pruning_constant = 0.0
+
+        signal = np.repeat(np.array([0.0, 8.0, -5.0, 4.0]), 20)
+        unpruned_cost = BatchL2CustomCost()
+        pruned_cost = PrunableBatchL2Cost()
+        unpruned = rustures.Pelt(
+            custom_cost=unpruned_cost, min_size=2, jump=1
+        ).fit(signal)
+        pruned = rustures.Pelt(
+            custom_cost=pruned_cost, min_size=2, jump=1
+        ).fit(signal)
+
+        self.assertFalse(unpruned.uses_pelt_pruning)
+        self.assertTrue(pruned.uses_pelt_pruning)
+        self.assertEqual(pruned.predict(pen=1.0), unpruned.predict(pen=1.0))
+        self.assertLess(
+            pruned_cost.segments_evaluated,
+            unpruned_cost.segments_evaluated,
+        )
+
     def test_custom_cost_matches_native_l2_across_small_parameter_grid(self) -> None:
         rng = np.random.default_rng(20260901)
         for n_samples in [6, 8, 10]:
@@ -516,6 +609,15 @@ class WheelSmokeTests(unittest.TestCase):
         invalid_batch.error_many = 3
         with self.assertRaisesRegex(TypeError, "error_many"):
             rustures.Pelt(custom_cost=invalid_batch).fit(np.arange(6.0))
+
+        invalid_pruning = ScalarL2CustomCost()
+        invalid_pruning.pelt_pruning_constant = np.inf
+        with self.assertRaisesRegex(ValueError, "pelt_pruning_constant.*finite"):
+            rustures.Pelt(custom_cost=invalid_pruning).fit(np.arange(6.0))
+
+        invalid_pruning.pelt_pruning_constant = "zero"
+        with self.assertRaisesRegex(TypeError, "pelt_pruning_constant"):
+            rustures.Pelt(custom_cost=invalid_pruning).fit(np.arange(6.0))
 
         self.assertEqual(
             rustures.Dynp(

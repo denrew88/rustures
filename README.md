@@ -43,8 +43,9 @@ independent implementation rather than a complete drop-in replacement.
   jobs before allocating their main tables.
 - **Kernel CPD without mandatory quadratic storage.** The default fused backend is
   exact and does not materialize a full Gram matrix.
-- **Custom Python costs when the built-ins are not enough.** Dynp and Pelt accept
-  scalar callbacks and optional endpoint-batched callbacks.
+- **Endpoint-batched custom Python costs.** Dynp and Pelt accept ordinary scalar
+  callbacks plus an optional vectorized `error_many(starts, ends)` protocol that
+  is not available in ruptures' scalar-only custom-cost interface.
 - **Multivariate input is first-class.** Most costs accept an `(n_samples,
   n_features)` NumPy array; scalar signals may remain one-dimensional.
 - **Python-safe failure boundaries.** Invalid data, allocation limits, numerical
@@ -179,7 +180,8 @@ class CustomCost:
     def fit(self, signal): ...
     def error(self, start: int, end: int) -> float: ...
 
-    # Optional: calculate several segments ending at the same endpoint.
+    # Optional pairwise batch: result[i] == error(starts[i], ends[i]).
+    # This is not a Cartesian product of every start and end.
     def error_many(self, starts, ends): ...
 ```
 
@@ -209,6 +211,21 @@ class BernoulliCost:
             return 0.0
         return -(ones * np.log(p) + (length - ones) * np.log1p(-p))
 
+    def error_many(self, starts, ends):
+        starts = np.asarray(starts, dtype=np.intp)
+        ends = np.asarray(ends, dtype=np.intp)
+        lengths = ends - starts
+        ones = self.prefix[ends] - self.prefix[starts]
+        probabilities = ones / lengths
+        mixed = (ones > 0.0) & (ones < lengths)
+        costs = np.zeros(len(starts), dtype=np.float64)
+        costs[mixed] = (
+            -ones[mixed] * np.log(probabilities[mixed])
+            -(lengths[mixed] - ones[mixed])
+            * np.log1p(-probabilities[mixed])
+        )
+        return costs
+
 
 binary_signal = np.r_[np.zeros(80), np.ones(60), np.zeros(90)]
 
@@ -219,11 +236,44 @@ breakpoints = rpt.Dynp(
 ).fit_predict(binary_signal, n_bkps=2)
 ```
 
-`error_many` avoids one Python call per segment candidate. The adapter retains only
-one endpoint batch, so it does not silently build an `O(n²)` Python cost table.
+Unlike ruptures' custom-cost protocol, which calls `error(start, end)` once per
+candidate, Rustures can send every candidate ending at the current endpoint through
+one `error_many` call. This makes NumPy broadcasting and prefix-array indexing
+possible without storing a full `O(n²)` cost table. Search algorithms batch only
+the candidates they currently need, while a standalone segment request evaluates
+only that segment.
+
+The batch contract is pairwise, not Cartesian. For one-dimensional arrays with
+shape `(m,)`, the returned `float64` array must also have shape `(m,)` and satisfy
+`costs[i] == error(int(starts[i]), int(ends[i]))`. During endpoint batching, all
+entries of `ends` normally contain the same endpoint:
+
+```text
+starts = [0,   4,   8]
+ends   = [20, 20, 20]
+costs  = [C(0,20), C(4,20), C(8,20)]
+```
+
+`error_many` must be genuinely vectorized to provide the largest benefit. Wrapping
+scalar `error` calls in a Python list comprehension reduces Rust/Python crossings
+but retains the Python loop. In a local pruned-Pelt workload (`N=800`, two features,
+`jump=4`), a vectorized prefix-L2 callback reduced Rustures' callback count from
+6,586 to 203 and predict time from 75.40 ms to 2.96 ms. This 25.5x figure is an
+internal scalar-versus-vectorized Rustures comparison, not a claim that every
+custom cost or every workload is 25.5x faster than ruptures.
 Exceptions raised by a custom cost preserve their Python type, message, and
 traceback. Custom Pelt uses the exact unpruned path because arbitrary user costs do
-not automatically satisfy the PELT pruning inequality.
+not automatically satisfy the PELT pruning inequality. A cost whose author has
+proved the PELT inequality may explicitly expose a finite constant:
+
+```python
+class PrunableCustomCost(CustomCost):
+    pelt_pruning_constant = 0.0
+```
+
+This is a mathematical correctness promise, not a tuning flag: an invalid value
+can prune the optimal partition. After fitting, `Pelt.uses_pelt_pruning` reports
+whether the optimized path is active.
 
 ## Included utilities
 
@@ -240,28 +290,36 @@ Evaluation metrics:
 - `precision_recall`
 - `rand_index`
 
-All generators require an explicit seed and return `(signal, breakpoints)`.
+All generators require an explicit seed and return `(signal, breakpoints)`. A seed
+is reproducible within a Rustures version; generator streams may change between
+releases when the documented RNG implementation is optimized.
 
 ## Performance snapshot
 
-The latest local comparison used Windows 11 x86-64, Python 3.11, a release abi3
-wheel, `N=400`, `min_size=5`, `jump=5`, and the median of five alternating runs.
-Times include a fresh `Dynp.fit_predict` call.
+The latest integration benchmark used Windows x86-64, Python 3.11, Rustures
+0.1.1, ruptures 1.1.10, isolated worker processes, and five warmed timing runs.
+It exercised 57 cost, detector, kernel, custom-cost, metric, and dataset cases.
+Rustures returned valid results in every case; 39 of 40 comparable breakpoint
+results matched exactly. The remaining AR case uses a documented different
+segment-boundary policy.
 
-| Model | K | rustures | pinned ruptures | Relative speed |
-|---|---:|---:|---:|---:|
-| Linear | 1 | 1.868 ms | 4.526 ms | 2.42× |
-| Linear | 4 | 1.936 ms | 115.019 ms | 59.42× |
-| Linear | 8 | 2.035 ms | 136.428 ms | 67.04× |
-| AR | 1 | 3.738 ms | 6.039 ms | 1.62× |
-| AR | 4 | 4.428 ms | 155.526 ms | 35.12× |
-| AR | 8 | 4.274 ms | 194.458 ms | 45.50× |
+| Measured group | Geometric-mean result versus ruptures |
+|---|---:|
+| L2 Dynp, four signal families (`N=720`) | 1347.00× faster |
+| L2 Pelt, four signal families (`N=1200`) | 668.77× faster |
+| Fused KernelCPD, linear/RBF/cosine (`N=720`) | 1.37× faster |
+| Full-Gram KernelCPD (`N=720`) | 1.89× slower |
+| Gram-free streaming KernelCPD (`N=720`) | 1.12× slower |
+| Scalar custom Pelt with proven pruning opt-in (`N=800`) | 1.07× slower |
+| Synthetic dataset generators (`N=80000`) | 1.33× faster |
 
-These are machine- and workload-specific results, not universal guarantees. Raw
-data is available in
-[`artifacts/validation/phase9-final-regression-benchmark.json`](artifacts/validation/phase9-final-regression-benchmark.json),
-and the benchmark driver is
-[`benchmarks/benchmark_phase7_costs.py`](benchmarks/benchmark_phase7_costs.py).
+The streaming backend incrementally reuses each symmetric kernel pair while
+retaining only `O(n)` endpoint state; fused remains the default high-throughput
+path. These are machine- and workload-specific measurements, not universal
+guarantees. Raw timing, breakpoint, environment, and process-RSS data is available
+in [`artifacts/validation/integration-comparison-optimized-windows-py311.json`](artifacts/validation/integration-comparison-optimized-windows-py311.json),
+and the reproducible driver is
+[`benchmarks/integration_comparison.py`](benchmarks/integration_comparison.py).
 
 ## Correctness and safety
 

@@ -9,9 +9,9 @@ const NO_PREDECESSOR: usize = usize::MAX;
 
 /// Exact penalized change-point detection using PELT pruning.
 ///
-/// The pruning constant is zero, which is valid for the L2 segment cost and for
-/// other costs whose value cannot increase when a segment is split. The result is
-/// exact on the selected search grid when that pruning condition holds.
+/// A cost opts into pruning by returning a constant that satisfies the PELT
+/// segment-combination inequality. The common L2 constant is zero. Costs that
+/// return `None` use exact unpruned optimal partitioning on the selected grid.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct Pelt {
     grid: SearchGrid,
@@ -180,6 +180,7 @@ fn solve_pruned<C: SegmentCost>(
     left_path: &mut Vec<usize>,
     right_path: &mut Vec<usize>,
 ) -> Result<(), Error> {
+    let pruning_constant = cost.pelt_pruning_constant().unwrap_or(0.0);
     let mut active = Vec::with_capacity(positions.len());
     let mut evaluated = Vec::with_capacity(positions.len());
     let mut evaluated_starts = Vec::with_capacity(positions.len());
@@ -230,7 +231,12 @@ fn solve_pruned<C: SegmentCost>(
 
         if best_cost[end_index].is_finite() {
             for &(start_index, segment_cost) in &evaluated {
-                let pruning_score = best_cost[start_index] + segment_cost;
+                let pruning_score = best_cost[start_index] + segment_cost + pruning_constant;
+                if !pruning_score.is_finite() {
+                    return Err(Error::NonFiniteObjective {
+                        value: pruning_score,
+                    });
+                }
                 if pruning_score > best_cost[end_index]
                     && !objective_values_tied(pruning_score, best_cost[end_index])
                 {
@@ -377,126 +383,5 @@ fn finish_segmentation<C: SegmentCost>(
 }
 
 #[cfg(test)]
-mod tests {
-    use super::*;
-    use crate::oracle::best_penalized;
-    use crate::{CostL2, SignalView};
-
-    fn l2(signal: &[f64]) -> CostL2 {
-        CostL2::fit(SignalView::new(signal, signal.len(), 1).unwrap()).unwrap()
-    }
-
-    #[test]
-    fn finds_known_penalized_partition() {
-        let cost = l2(&[0.0, 0.0, 0.0, 10.0, 10.0, 10.0, -5.0, -5.0, -5.0]);
-        let result = Pelt::new(1, 1)
-            .unwrap()
-            .predict_penalty(&cost, 1.0)
-            .unwrap();
-        assert_eq!(result.breakpoints, [3, 6, 9]);
-        assert_eq!(result.segment_cost, 0.0);
-        assert_eq!(result.objective, 2.0);
-    }
-
-    #[test]
-    fn large_penalty_selects_no_changes() {
-        let cost = l2(&[0.0, 0.0, 10.0, 10.0]);
-        let result = Pelt::new(1, 1)
-            .unwrap()
-            .predict_penalty(&cost, 1_000.0)
-            .unwrap();
-        assert_eq!(result.breakpoints, [4]);
-        assert_eq!(result.segment_cost, 100.0);
-        assert_eq!(result.objective, 100.0);
-    }
-
-    #[test]
-    fn tied_objectives_use_lexicographically_smallest_partition() {
-        let cost = l2(&[0.0, 1.0]);
-        let result = Pelt::new(1, 1)
-            .unwrap()
-            .predict_penalty(&cost, 0.5)
-            .unwrap();
-        assert_eq!(result.breakpoints, [1, 2]);
-        assert_eq!(result.objective, 0.5);
-    }
-
-    #[test]
-    fn matches_brute_force_and_unpruned_solver_on_small_problems() {
-        for n_samples in 1..=10 {
-            let signal: Vec<_> = (0..n_samples)
-                .map(|index| ((index * 7 + n_samples * 3) % 11) as f64)
-                .collect();
-            let cost = l2(&signal);
-            for min_size in 1..=n_samples.min(3) {
-                for penalty in [0.1, 1.0, 5.0, 20.0, 100.0] {
-                    let expected = best_penalized(n_samples, min_size, penalty, |segment| {
-                        cost.cost(segment).unwrap()
-                    })
-                    .unwrap();
-                    let grid = SearchGrid::new(min_size, 1).unwrap();
-                    let unpruned = solve_penalized(&cost, grid, penalty, false).unwrap();
-                    let pruned = solve_penalized(&cost, grid, penalty, true).unwrap();
-                    assert_eq!(
-                        unpruned.breakpoints, expected.0,
-                        "unpruned mismatch: n={n_samples}, min_size={min_size}, penalty={penalty}, signal={signal:?}"
-                    );
-                    assert!(objective_values_tied(unpruned.objective, expected.1));
-                    assert_eq!(
-                        pruned.breakpoints, unpruned.breakpoints,
-                        "pruning mismatch: n={n_samples}, min_size={min_size}, penalty={penalty}, signal={signal:?}"
-                    );
-                    assert!(objective_values_tied(pruned.objective, unpruned.objective));
-                }
-            }
-        }
-    }
-
-    #[test]
-    fn pruning_and_unpruned_solver_match_on_approximate_grids() {
-        for n_samples in 2..=20 {
-            let signal: Vec<_> = (0..n_samples)
-                .map(|index| ((index * 13 + n_samples) % 17) as f64)
-                .collect();
-            let cost = l2(&signal);
-            for jump in 2..=4 {
-                let grid = SearchGrid::new(1, jump).unwrap();
-                for penalty in [0.25, 3.0, 30.0] {
-                    let unpruned = solve_penalized(&cost, grid, penalty, false).unwrap();
-                    let pruned = solve_penalized(&cost, grid, penalty, true).unwrap();
-                    assert_eq!(pruned.breakpoints, unpruned.breakpoints);
-                    assert!(objective_values_tied(pruned.objective, unpruned.objective));
-                }
-            }
-        }
-    }
-
-    #[test]
-    fn jump_restricts_internal_breakpoints_but_not_terminal_sample() {
-        let cost = l2(&[0.0, 0.0, 0.0, 9.0, 9.0, 9.0, 9.0]);
-        let exact = Pelt::new(1, 1)
-            .unwrap()
-            .predict_penalty(&cost, 1.0)
-            .unwrap();
-        let grid = Pelt::new(1, 2)
-            .unwrap()
-            .predict_penalty(&cost, 1.0)
-            .unwrap();
-        assert_eq!(exact.breakpoints, [3, 7]);
-        assert_eq!(grid.breakpoints, [2, 4, 7]);
-    }
-
-    #[test]
-    fn rejects_invalid_penalty_and_unsupported_stopping_rules() {
-        let cost = l2(&[0.0, 1.0]);
-        let detector = Pelt::new(1, 1).unwrap();
-        assert!(matches!(
-            detector.predict_penalty(&cost, 0.0),
-            Err(Error::InvalidPenalty { .. })
-        ));
-        assert!(matches!(
-            detector.predict(&cost, Stop::Changes(1)),
-            Err(Error::UnsupportedStoppingRule { .. })
-        ));
-    }
-}
+#[path = "../../tests/unit/search/pelt.rs"]
+mod tests;

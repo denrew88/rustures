@@ -1,0 +1,65 @@
+:root {
+  --rustures-gradient-start: #4051b5;
+  --rustures-gradient-end: #00b8d4;
+}
+
+.rustures-hero {
+  padding: 2.6rem 2rem;
+  margin: 0 0 2rem;
+  color: white;
+  background: linear-gradient(135deg, var(--rustures-gradient-start), var(--rustures-gradient-end));
+  border-radius: 0.8rem;
+}
+
+.rustures-hero h1 {
+  margin: 0 0 0.5rem;
+  color: white;
+  font-weight: 700;
+}
+
+.rustures-hero p {
+  max-width: 46rem;
+  margin-bottom: 1.2rem;
+  font-size: 1.05rem;
+}
+
+.rustures-hero .md-button {
+  margin: 0.25rem 0.4rem 0.25rem 0;
+}
+
+.rustures-hero .md-button--primary {
+  color: #303f9f;
+  background: white;
+  border-color: white;
+}
+
+.rustures-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  gap: 0.8rem;
+  margin: 1.3rem 0;
+}
+
+.rustures-stat {
+  padding: 1rem;
+  border: 0.05rem solid var(--md-default-fg-color--lightest);
+  border-radius: 0.5rem;
+}
+
+.rustures-stat strong {
+  display: block;
+  margin-bottom: 0.2rem;
+  color: var(--md-primary-fg-color);
+  font-size: 1.25rem;
+}
+
+.rustures-figure {
+  display: block;
+  width: 100%;
+  margin: 1.2rem auto 1.6rem;
+  padding: 0.35rem;
+  background: white;
+  border: 0.05rem solid var(--md-default-fg-color--lightest);
+  border-radius: 0.55rem;
+  box-shadow: 0 0.2rem 0.8rem rgb(0 0 0 / 8%);
+}

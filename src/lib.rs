@@ -7,6 +7,7 @@ mod python;
 mod search;
 
 #[cfg(test)]
+#[path = "../tests/support/mod.rs"]
 mod testing;
 
 pub use core::error::Error;

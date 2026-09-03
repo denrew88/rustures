@@ -76,6 +76,7 @@ perf.data.old
 
 # Research scratch space and cloned upstream source
 /tmp/
+/.tmp/
 
 # Local Codex research, planning, and verification documents
 /AGENTS.md

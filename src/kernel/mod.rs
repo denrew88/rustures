@@ -1,4 +1,5 @@
 use std::ops::Range;
+use std::sync::Mutex;
 
 use crate::{
     validate_segment, Dynp, Error, FusedKernelCPD, Pelt, SegmentCost, Segmentation, SignalView,
@@ -39,6 +40,46 @@ fn centered_linear_values(signal: SignalView<'_>) -> Result<Vec<f64>, Error> {
         }
     }
     Ok(centered)
+}
+
+fn normalized_cosine_values(signal: SignalView<'_>) -> Result<(Vec<f64>, usize), Error> {
+    let shape = signal.shape();
+    let normalized_features = shape
+        .n_features
+        .checked_add(1)
+        .ok_or(Error::NumericalFailure {
+            context: "computing normalized cosine dimensions",
+        })?;
+    let capacity =
+        shape
+            .n_samples
+            .checked_mul(normalized_features)
+            .ok_or(Error::NumericalFailure {
+                context: "computing normalized cosine dimensions",
+            })?;
+    let mut normalized = Vec::with_capacity(capacity);
+    for index in 0..shape.n_samples {
+        let row = signal.row(index).ok_or(Error::NumericalFailure {
+            context: "reading a signal row for cosine normalization",
+        })?;
+        let scale = row.iter().map(|value| value.abs()).fold(0.0, f64::max);
+        if scale == 0.0 {
+            normalized.extend(std::iter::repeat_n(0.0, shape.n_features));
+            normalized.push(1.0);
+        } else {
+            let scaled_norm = row
+                .iter()
+                .map(|value| {
+                    let scaled = value / scale;
+                    scaled * scaled
+                })
+                .sum::<f64>()
+                .sqrt();
+            normalized.extend(row.iter().map(|value| (value / scale) / scaled_norm));
+            normalized.push(0.0);
+        }
+    }
+    Ok((normalized, normalized_features))
 }
 
 #[derive(Clone, Copy, Debug, Default)]
@@ -243,24 +284,38 @@ impl<K: Kernel> FullGramPrefix<K> {
             });
         }
 
+        // Use the prefix allocation as a temporary dense Gram matrix. The
+        // matrix is symmetric, so each pair is evaluated once and mirrored.
+        // A second cache-friendly row pass turns it into a 2-D prefix in
+        // place, without retaining another O(n^2) buffer.
         let mut prefix = vec![0.0; entries];
         let mut diagonal_prefix = vec![0.0; side];
         for row in 0..shape.n_samples {
             let row_values = signal.row(row).ok_or(Error::NumericalFailure {
                 context: "reading a signal row for a Gram prefix",
             })?;
-            for column in 0..shape.n_samples {
+            for column in row..shape.n_samples {
                 let column_values = signal.row(column).ok_or(Error::NumericalFailure {
                     context: "reading a signal column for a Gram prefix",
                 })?;
                 let value = kernel.similarity(row_values, column_values);
                 let target = (row + 1) * side + column + 1;
-                prefix[target] =
-                    value + prefix[row * side + column + 1] + prefix[(row + 1) * side + column]
-                        - prefix[row * side + column];
+                prefix[target] = value;
+                if row != column {
+                    prefix[(column + 1) * side + row + 1] = value;
+                }
             }
-            diagonal_prefix[row + 1] =
-                diagonal_prefix[row] + kernel.similarity(row_values, row_values);
+            diagonal_prefix[row + 1] = diagonal_prefix[row] + prefix[(row + 1) * side + row + 1];
+        }
+
+        for row in 1..side {
+            let row_offset = row * side;
+            let previous_offset = (row - 1) * side;
+            let mut row_sum = 0.0;
+            for column in 1..side {
+                row_sum += prefix[row_offset + column];
+                prefix[row_offset + column] = prefix[previous_offset + column] + row_sum;
+            }
         }
         Ok(Self {
             prefix,
@@ -311,15 +366,76 @@ impl<K: Kernel> SegmentCost for FullGramPrefix<K> {
             value
         })
     }
+
+    fn costs_ending_at(
+        &self,
+        starts: &[usize],
+        end: usize,
+        output: &mut Vec<f64>,
+    ) -> Result<(), Error> {
+        output.clear();
+        output
+            .try_reserve(starts.len())
+            .map_err(|_| Error::AllocationFailure {
+                context: "allocating a full-Gram endpoint cost batch",
+            })?;
+        for &start in starts {
+            validate_segment(start..end, self.n_samples, 1)?;
+        }
+        if starts.is_empty() {
+            return Ok(());
+        }
+
+        let side = self.n_samples + 1;
+        let end_row = end * side;
+        let end_corner = self.prefix[end_row + end];
+        let end_diagonal = self.diagonal_prefix[end];
+        for &start in starts {
+            let start_row = start * side;
+            let block = end_corner - self.prefix[start_row + end] - self.prefix[end_row + start]
+                + self.prefix[start_row + start];
+            let diagonal = end_diagonal - self.diagonal_prefix[start];
+            let value = diagonal - block / (end - start) as f64;
+            output.push(if value < 0.0 && value > -1e-10 {
+                0.0
+            } else {
+                value
+            });
+        }
+        Ok(())
+    }
 }
 
-#[derive(Clone, Debug)]
+#[derive(Debug, Default)]
+struct StreamingEndpointCache {
+    end: usize,
+    block_sums: Vec<f64>,
+}
+
+#[derive(Debug)]
 pub struct StreamingKernelCost<K> {
     values: Vec<f64>,
     diagonal_prefix: Vec<f64>,
     n_samples: usize,
     n_features: usize,
     kernel: K,
+    endpoint_cache: Mutex<StreamingEndpointCache>,
+}
+
+impl<K: Kernel> Clone for StreamingKernelCost<K> {
+    fn clone(&self) -> Self {
+        Self {
+            values: self.values.clone(),
+            diagonal_prefix: self.diagonal_prefix.clone(),
+            n_samples: self.n_samples,
+            n_features: self.n_features,
+            kernel: self.kernel.clone(),
+            // A clone receives an independent, empty sweep. Sharing this
+            // mutable optimization state would add contention between two
+            // otherwise independent detectors.
+            endpoint_cache: Mutex::new(StreamingEndpointCache::default()),
+        }
+    }
 }
 
 impl<K: Kernel> StreamingKernelCost<K> {
@@ -338,6 +454,7 @@ impl<K: Kernel> StreamingKernelCost<K> {
             n_samples: shape.n_samples,
             n_features: shape.n_features,
             kernel,
+            endpoint_cache: Mutex::new(StreamingEndpointCache::default()),
         }
     }
 
@@ -347,6 +464,45 @@ impl<K: Kernel> StreamingKernelCost<K> {
 
     fn row(&self, index: usize) -> &[f64] {
         &self.values[index * self.n_features..(index + 1) * self.n_features]
+    }
+
+    fn reset_endpoint_cache(&self, cache: &mut StreamingEndpointCache) -> Result<(), Error> {
+        cache.end = 0;
+        if cache.block_sums.len() != self.n_samples {
+            cache.block_sums.clear();
+            cache
+                .block_sums
+                .try_reserve_exact(self.n_samples)
+                .map_err(|_| Error::AllocationFailure {
+                    context: "allocating streaming kernel endpoint state",
+                })?;
+            cache.block_sums.resize(self.n_samples, 0.0);
+        } else {
+            cache.block_sums.fill(0.0);
+        }
+        Ok(())
+    }
+
+    /// Extend all block sums `sum(k(i,j), i,j in start..end)` to `target_end`.
+    ///
+    /// For a newly appended row `last`, every old block gains its diagonal
+    /// value and twice the suffix sum `sum(k(i,last), i=start..last)`. One
+    /// reverse sweep therefore updates every possible start in O(end) kernel
+    /// evaluations, and successive endpoint batches cost O(n^2) in total.
+    fn extend_endpoint_cache(&self, cache: &mut StreamingEndpointCache, target_end: usize) {
+        while cache.end < target_end {
+            let last = cache.end;
+            let last_row = self.row(last);
+            let diagonal = self.kernel.similarity(last_row, last_row);
+            cache.block_sums[last] = diagonal;
+
+            let mut cross_sum = 0.0;
+            for start in (0..last).rev() {
+                cross_sum += self.kernel.similarity(self.row(start), last_row);
+                cache.block_sums[start] += diagonal + 2.0 * cross_sum;
+            }
+            cache.end += 1;
+        }
     }
 }
 
@@ -379,6 +535,47 @@ impl<K: Kernel> SegmentCost for StreamingKernelCost<K> {
             value
         })
     }
+
+    fn costs_ending_at(
+        &self,
+        starts: &[usize],
+        end: usize,
+        output: &mut Vec<f64>,
+    ) -> Result<(), Error> {
+        output.clear();
+        output
+            .try_reserve(starts.len())
+            .map_err(|_| Error::AllocationFailure {
+                context: "allocating a streaming kernel endpoint cost batch",
+            })?;
+        for &start in starts {
+            validate_segment(start..end, self.n_samples, 1)?;
+        }
+        if starts.is_empty() {
+            return Ok(());
+        }
+
+        let mut cache = self
+            .endpoint_cache
+            .lock()
+            .unwrap_or_else(|poisoned| poisoned.into_inner());
+        if cache.block_sums.len() != self.n_samples || end < cache.end {
+            self.reset_endpoint_cache(&mut cache)?;
+        }
+        self.extend_endpoint_cache(&mut cache, end);
+
+        let end_diagonal = self.diagonal_prefix[end];
+        for &start in starts {
+            let diagonal = end_diagonal - self.diagonal_prefix[start];
+            let value = diagonal - cache.block_sums[start] / (end - start) as f64;
+            output.push(if value < 0.0 && value > -1e-10 {
+                0.0
+            } else {
+                value
+            });
+        }
+        Ok(())
+    }
 }
 
 #[derive(Clone, Copy, Debug, PartialEq)]
@@ -398,10 +595,10 @@ pub enum KernelBackend {
 pub enum KernelCost {
     FullLinear(FullGramPrefix<LinearKernel>),
     FullRbf(FullGramPrefix<RbfKernel>),
-    FullCosine(FullGramPrefix<CosineKernel>),
+    FullCosine(FullGramPrefix<LinearKernel>),
     StreamingLinear(StreamingKernelCost<LinearKernel>),
     StreamingRbf(StreamingKernelCost<RbfKernel>),
-    StreamingCosine(StreamingKernelCost<CosineKernel>),
+    StreamingCosine(StreamingKernelCost<LinearKernel>),
 }
 
 #[derive(Clone, Debug)]
@@ -437,30 +634,8 @@ impl FusedKernel {
             }
             KernelKind::Cosine => {
                 let shape = signal.shape();
-                let mut normalized = Vec::with_capacity(shape.n_samples * (shape.n_features + 1));
-                for index in 0..shape.n_samples {
-                    let row = signal.row(index).ok_or(Error::NumericalFailure {
-                        context: "reading a signal row for cosine normalization",
-                    })?;
-                    let scale = row.iter().map(|value| value.abs()).fold(0.0, f64::max);
-                    if scale == 0.0 {
-                        normalized.extend(std::iter::repeat_n(0.0, shape.n_features));
-                        normalized.push(1.0);
-                    } else {
-                        let scaled_norm = row
-                            .iter()
-                            .map(|value| {
-                                let scaled = value / scale;
-                                scaled * scaled
-                            })
-                            .sum::<f64>()
-                            .sqrt();
-                        normalized.extend(row.iter().map(|value| (value / scale) / scaled_norm));
-                        normalized.push(0.0);
-                    }
-                }
-                let normalized_signal =
-                    SignalView::new(&normalized, shape.n_samples, shape.n_features + 1)?;
+                let (normalized, n_features) = normalized_cosine_values(signal)?;
+                let normalized_signal = SignalView::new(&normalized, shape.n_samples, n_features)?;
                 Self::Cosine(FusedKernelCPD::fit(
                     normalized_signal,
                     LinearKernel,
@@ -522,10 +697,20 @@ impl KernelCost {
                 Self::StreamingLinear(StreamingKernelCost::fit(centered_signal, LinearKernel))
             }
             (KernelKind::Cosine, KernelBackend::FullGram) => {
-                Self::FullCosine(FullGramPrefix::fit(signal, CosineKernel, max_gram_bytes)?)
+                let shape = signal.shape();
+                let (normalized, n_features) = normalized_cosine_values(signal)?;
+                let normalized_signal = SignalView::new(&normalized, shape.n_samples, n_features)?;
+                Self::FullCosine(FullGramPrefix::fit(
+                    normalized_signal,
+                    LinearKernel,
+                    max_gram_bytes,
+                )?)
             }
             (KernelKind::Cosine, KernelBackend::Streaming) => {
-                Self::StreamingCosine(StreamingKernelCost::fit(signal, CosineKernel))
+                let shape = signal.shape();
+                let (normalized, n_features) = normalized_cosine_values(signal)?;
+                let normalized_signal = SignalView::new(&normalized, shape.n_samples, n_features)?;
+                Self::StreamingCosine(StreamingKernelCost::fit(normalized_signal, LinearKernel))
             }
             (KernelKind::Rbf(policy), KernelBackend::FullGram) => {
                 let kernel = RbfKernel::new(resolve_gamma(signal, policy)?)?;
@@ -573,10 +758,10 @@ impl SegmentCost for KernelCost {
         match self {
             Self::FullLinear(cost) => cost.n_features(),
             Self::FullRbf(cost) => cost.n_features(),
-            Self::FullCosine(cost) => cost.n_features(),
+            Self::FullCosine(cost) => cost.n_features() - 1,
             Self::StreamingLinear(cost) => cost.n_features(),
             Self::StreamingRbf(cost) => cost.n_features(),
-            Self::StreamingCosine(cost) => cost.n_features(),
+            Self::StreamingCosine(cost) => cost.n_features() - 1,
         }
     }
     fn min_size(&self) -> usize {
@@ -593,6 +778,22 @@ impl SegmentCost for KernelCost {
             Self::StreamingLinear(cost) => cost.cost(segment),
             Self::StreamingRbf(cost) => cost.cost(segment),
             Self::StreamingCosine(cost) => cost.cost(segment),
+        }
+    }
+
+    fn costs_ending_at(
+        &self,
+        starts: &[usize],
+        end: usize,
+        output: &mut Vec<f64>,
+    ) -> Result<(), Error> {
+        match self {
+            Self::FullLinear(cost) => cost.costs_ending_at(starts, end, output),
+            Self::FullRbf(cost) => cost.costs_ending_at(starts, end, output),
+            Self::FullCosine(cost) => cost.costs_ending_at(starts, end, output),
+            Self::StreamingLinear(cost) => cost.costs_ending_at(starts, end, output),
+            Self::StreamingRbf(cost) => cost.costs_ending_at(starts, end, output),
+            Self::StreamingCosine(cost) => cost.costs_ending_at(starts, end, output),
         }
     }
 }
@@ -636,166 +837,5 @@ impl KernelCPD {
 }
 
 #[cfg(test)]
-mod tests {
-    use super::*;
-    use crate::oracle::{best_fixed_changes, best_penalized};
-    use crate::CostL2;
-
-    #[test]
-    fn full_and_streaming_costs_match_for_all_kernels() {
-        let values = [0., 0., 1., 0., 1., 1., 0., 1.];
-        let signal = SignalView::new(&values, 4, 2).unwrap();
-        macro_rules! compare {
-            ($kernel:expr) => {{
-                let full = FullGramPrefix::fit(signal, $kernel, usize::MAX).unwrap();
-                let streaming = StreamingKernelCost::fit(signal, $kernel);
-                for start in 0..4 {
-                    for end in start + 1..=4 {
-                        assert!(
-                            (full.cost(start..end).unwrap() - streaming.cost(start..end).unwrap())
-                                .abs()
-                                < 1e-12
-                        );
-                    }
-                }
-            }};
-        }
-        compare!(LinearKernel);
-        compare!(CosineKernel);
-        compare!(RbfKernel::new(0.7).unwrap());
-    }
-
-    #[test]
-    fn cosine_zero_vector_and_memory_limit_are_explicit() {
-        assert_eq!(CosineKernel.similarity(&[0., 0.], &[0., 0.]), 1.0);
-        assert_eq!(CosineKernel.similarity(&[0., 0.], &[1., 0.]), 0.0);
-        let signal = SignalView::new(&[0., 1., 2.], 3, 1).unwrap();
-        assert!(matches!(
-            FullGramPrefix::fit(signal, LinearKernel, 8),
-            Err(Error::GramMemoryLimit { .. })
-        ));
-    }
-
-    #[test]
-    fn sampled_gamma_is_deterministic() {
-        let signal = SignalView::new(&[0., 1., 3., 8.], 4, 1).unwrap();
-        let policy = GammaPolicy::SampledMedian { pairs: 20, seed: 9 };
-        assert_eq!(
-            resolve_gamma(signal, policy).unwrap(),
-            resolve_gamma(signal, policy).unwrap()
-        );
-    }
-
-    #[test]
-    fn full_and_streaming_exact_detectors_match() {
-        let values = [0., 0., 0., 4., 4., 4., -3., -3., -3.];
-        let signal = SignalView::new(&values, 9, 1).unwrap();
-        let kind = KernelKind::Rbf(GammaPolicy::Fixed(0.5));
-        let full = KernelCPD::fit(signal, kind, KernelBackend::FullGram, 1, 1, usize::MAX).unwrap();
-        let streaming = KernelCPD::fit(signal, kind, KernelBackend::Streaming, 1, 1, 0).unwrap();
-        let full_fixed = full.predict_changes(2).unwrap();
-        let streaming_fixed = streaming.predict_changes(2).unwrap();
-        let brute_fixed = best_fixed_changes(9, 1, 2, |segment| full.cost().cost(segment).unwrap())
-            .unwrap()
-            .unwrap();
-        assert_eq!(full_fixed.breakpoints, streaming_fixed.breakpoints);
-        assert_eq!(full_fixed.breakpoints, brute_fixed.0);
-        assert!((full_fixed.objective - streaming_fixed.objective).abs() < 1e-10);
-        assert!((full_fixed.objective - brute_fixed.1).abs() < 1e-10);
-        let full_penalty = full.predict_penalty(1.0).unwrap();
-        let streaming_penalty = streaming.predict_penalty(1.0).unwrap();
-        let brute_penalty =
-            best_penalized(9, 1, 1.0, |segment| full.cost().cost(segment).unwrap()).unwrap();
-        assert_eq!(full_penalty.breakpoints, streaming_penalty.breakpoints);
-        assert_eq!(full_penalty.breakpoints, brute_penalty.0);
-        assert!((full_penalty.objective - streaming_penalty.objective).abs() < 1e-10);
-        assert!((full_penalty.objective - brute_penalty.1).abs() < 1e-10);
-        assert_eq!(streaming.cost().stored_gram_entries(), 0);
-    }
-
-    #[test]
-    fn linear_detectors_are_stable_under_large_feature_translations() {
-        let base = [
-            0.0, 1.0, 0.0, 2.0, 0.0, 1.0, 5.0, -2.0, 5.0, -1.0, 5.0, -2.0, -3.0, 4.0, -3.0, 5.0,
-            -3.0, 4.0,
-        ];
-        let mut translated = base;
-        for row in translated.chunks_exact_mut(2) {
-            row[0] += 1.0e12;
-            row[1] -= 1.0e12;
-        }
-        let base_signal = SignalView::new(&base, 9, 2).unwrap();
-        let translated_signal = SignalView::new(&translated, 9, 2).unwrap();
-
-        let base_fused = FusedKernel::fit(base_signal, KernelKind::Linear, 1, 1).unwrap();
-        let translated_fused =
-            FusedKernel::fit(translated_signal, KernelKind::Linear, 1, 1).unwrap();
-        assert_eq!(
-            base_fused.predict_changes(2).unwrap().breakpoints,
-            translated_fused.predict_changes(2).unwrap().breakpoints
-        );
-        assert_eq!(
-            base_fused.predict_penalty(1.0).unwrap().breakpoints,
-            translated_fused.predict_penalty(1.0).unwrap().breakpoints
-        );
-
-        let l2 = CostL2::fit(translated_signal).unwrap();
-        for backend in [KernelBackend::FullGram, KernelBackend::Streaming] {
-            let base_detector =
-                KernelCPD::fit(base_signal, KernelKind::Linear, backend, 1, 1, usize::MAX).unwrap();
-            let translated_detector = KernelCPD::fit(
-                translated_signal,
-                KernelKind::Linear,
-                backend,
-                1,
-                1,
-                usize::MAX,
-            )
-            .unwrap();
-            assert_eq!(
-                base_detector.predict_changes(2).unwrap().breakpoints,
-                translated_detector.predict_changes(2).unwrap().breakpoints
-            );
-            assert_eq!(
-                base_detector.predict_penalty(1.0).unwrap().breakpoints,
-                translated_detector
-                    .predict_penalty(1.0)
-                    .unwrap()
-                    .breakpoints
-            );
-            for start in 0..9 {
-                for end in start + 1..=9 {
-                    let kernel_cost = translated_detector.cost().cost(start..end).unwrap();
-                    let l2_cost = l2.cost(start..end).unwrap();
-                    assert!(
-                        (kernel_cost - l2_cost).abs() <= 1.0e-12,
-                        "segment {start}..{end}: kernel={kernel_cost}, l2={l2_cost}"
-                    );
-                }
-            }
-        }
-    }
-
-    #[test]
-    fn linear_centering_overflow_is_a_typed_error() {
-        let values = [f64::MAX, -f64::MAX];
-        let signal = SignalView::new(&values, 2, 1).unwrap();
-        assert!(matches!(
-            FusedKernel::fit(signal, KernelKind::Linear, 1, 1),
-            Err(Error::NumericalFailure {
-                context: "centering linear kernel observations"
-            })
-        ));
-        assert!(matches!(
-            KernelCost::fit(
-                signal,
-                KernelKind::Linear,
-                KernelBackend::Streaming,
-                usize::MAX
-            ),
-            Err(Error::NumericalFailure {
-                context: "centering linear kernel observations"
-            })
-        ));
-    }
-}
+#[path = "../../tests/unit/kernel.rs"]
+mod tests;

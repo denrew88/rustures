@@ -1,0 +1,372 @@
+{
+  "schema_version": 1,
+  "complete": true,
+  "generated_at": "2026-09-03T07:04:10+0900",
+  "profile": "standard",
+  "repeats": 5,
+  "seed": 20260902,
+  "environment": {
+    "OS": "Windows-10-10.0.26200-SP0",
+    "CPU": "Intel64 Family 6 Model 140 Stepping 1, GenuineIntel",
+    "Python": "3.11.14 | packaged by Anaconda, Inc. | (main, Oct 21 2025, 18:30:03) [MSC v.1929 64 bit (AMD64)]",
+    "NumPy": "1.26.4",
+    "psutil": "7.1.3",
+    "logical CPUs": 8,
+    "rustures": "0.1.1",
+    "ruptures": "1.1.10",
+    "SciPy": "1.16.3"
+  },
+  "methodology": {
+    "timing_scope": "warmed fresh estimator fit+predict/operation, process import excluded",
+    "memory_scope": "incremental process RSS after import and input construction",
+    "sample_interval_ms": 1.0,
+    "thread_limits": 1
+  },
+  "cases": [
+    {
+      "case": {
+        "id": "custom-scalar-dynp",
+        "category": "custom_cost",
+        "feature": "dynp(custom scalar)",
+        "algorithm": "dynp",
+        "signal": "piecewise_mean",
+        "n": 420,
+        "d": 2,
+        "seed": 20261602,
+        "min_size": 6,
+        "jump": 4,
+        "n_bkps": 2,
+        "penalty": 12.0,
+        "batch": false,
+        "libraries": [
+          "rustures",
+          "ruptures"
+        ]
+      },
+      "measurements": {
+        "rustures": {
+          "status": "ok",
+          "version": "0.1.1",
+          "metadata": {
+            "truth": [
+              140,
+              280,
+              420
+            ],
+            "n": 420
+          },
+          "result": {
+            "breakpoints": [
+              140,
+              280,
+              420
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              140,
+              280,
+              420
+            ]
+          },
+          "seconds": {
+            "median": 0.2313121,
+            "minimum": 0.2082463,
+            "maximum": 0.4506955,
+            "samples": [
+              0.4506955,
+              0.2082463,
+              0.2242002,
+              0.2664108,
+              0.2313121
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 42110976,
+            "peak_rss_bytes": 42651648,
+            "peak_delta_bytes": 540672,
+            "final_rss_bytes": 42651648,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        },
+        "ruptures": {
+          "status": "ok",
+          "version": "1.1.10",
+          "metadata": {
+            "truth": [
+              140,
+              280,
+              420
+            ],
+            "n": 420
+          },
+          "result": {
+            "breakpoints": [
+              140,
+              280,
+              420
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              140,
+              280,
+              420
+            ]
+          },
+          "seconds": {
+            "median": 0.2505273,
+            "minimum": 0.2091733,
+            "maximum": 0.2698,
+            "samples": [
+              0.2091733,
+              0.2481413,
+              0.2505273,
+              0.2625319,
+              0.2698
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 93315072,
+            "peak_rss_bytes": 95932416,
+            "peak_delta_bytes": 2617344,
+            "final_rss_bytes": 95932416,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        }
+      },
+      "comparison": {
+        "rustures_valid": true,
+        "rustures_truth_hausdorff": 0.0,
+        "rustures_truth_precision_recall": [
+          1.0,
+          1.0
+        ],
+        "rustures_truth_rand_index": 1.0,
+        "comparable": true,
+        "ruptures_valid": true,
+        "breakpoints_match": true,
+        "cross_hausdorff": 0.0,
+        "cross_rand_index": 1.0,
+        "time_speedup": 1.0830704489734866,
+        "memory_ratio": 4.840909090909091
+      }
+    },
+    {
+      "case": {
+        "id": "custom-scalar-pelt",
+        "category": "custom_cost",
+        "feature": "pelt(custom scalar)",
+        "algorithm": "pelt",
+        "signal": "piecewise_mean",
+        "n": 800,
+        "d": 2,
+        "seed": 20261603,
+        "min_size": 6,
+        "jump": 4,
+        "n_bkps": 2,
+        "penalty": 12.0,
+        "batch": false,
+        "libraries": [
+          "rustures",
+          "ruptures"
+        ]
+      },
+      "measurements": {
+        "ruptures": {
+          "status": "ok",
+          "version": "1.1.10",
+          "metadata": {
+            "truth": [
+              266,
+              533,
+              800
+            ],
+            "n": 800
+          },
+          "result": {
+            "breakpoints": [
+              268,
+              532,
+              540,
+              800
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              268,
+              532,
+              540,
+              800
+            ]
+          },
+          "seconds": {
+            "median": 0.2072244,
+            "minimum": 0.1583544,
+            "maximum": 0.27541,
+            "samples": [
+              0.1583544,
+              0.2072244,
+              0.1856733,
+              0.235099,
+              0.27541
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 93401088,
+            "peak_rss_bytes": 93593600,
+            "peak_delta_bytes": 192512,
+            "final_rss_bytes": 93593600,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        },
+        "rustures": {
+          "status": "ok",
+          "version": "0.1.1",
+          "metadata": {
+            "truth": [
+              266,
+              533,
+              800
+            ],
+            "n": 800
+          },
+          "result": {
+            "breakpoints": [
+              268,
+              532,
+              540,
+              800
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              268,
+              532,
+              540,
+              800
+            ]
+          },
+          "seconds": {
+            "median": 0.9907009,
+            "minimum": 0.7236068,
+            "maximum": 1.6518212,
+            "samples": [
+              0.9907009,
+              1.1303401,
+              1.6518212,
+              0.8072386,
+              0.7236068
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 42123264,
+            "peak_rss_bytes": 43679744,
+            "peak_delta_bytes": 1556480,
+            "final_rss_bytes": 43679744,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        }
+      },
+      "comparison": {
+        "rustures_valid": true,
+        "rustures_truth_hausdorff": 7.0,
+        "rustures_truth_precision_recall": [
+          0.6666666666666666,
+          1.0
+        ],
+        "rustures_truth_rand_index": 0.9901345431789738,
+        "comparable": true,
+        "ruptures_valid": true,
+        "breakpoints_match": true,
+        "cross_hausdorff": 0.0,
+        "cross_rand_index": 1.0,
+        "time_speedup": 0.2091694879857281,
+        "memory_ratio": 0.12368421052631579
+      }
+    },
+    {
+      "case": {
+        "id": "custom-batch-dynp",
+        "category": "rustures_only",
+        "feature": "Dynp(custom error_many)",
+        "algorithm": "dynp",
+        "signal": "piecewise_mean",
+        "n": 520,
+        "d": 2,
+        "seed": 20261622,
+        "min_size": 6,
+        "jump": 4,
+        "n_bkps": 2,
+        "batch": true,
+        "libraries": [
+          "rustures"
+        ],
+        "unsupported_reason": "ruptures custom costs have no endpoint error_many protocol"
+      },
+      "measurements": {
+        "rustures": {
+          "status": "ok",
+          "version": "0.1.1",
+          "metadata": {
+            "truth": [
+              173,
+              346,
+              520
+            ],
+            "n": 520
+          },
+          "result": {
+            "breakpoints": [
+              172,
+              348,
+              520
+            ]
+          },
+          "memory_probe_result": {
+            "breakpoints": [
+              172,
+              348,
+              520
+            ]
+          },
+          "seconds": {
+            "median": 0.1876375,
+            "minimum": 0.1697134,
+            "maximum": 0.2201468,
+            "samples": [
+              0.1697134,
+              0.1772798,
+              0.1876375,
+              0.1985603,
+              0.2201468
+            ]
+          },
+          "memory": {
+            "baseline_rss_bytes": 42287104,
+            "peak_rss_bytes": 43180032,
+            "peak_delta_bytes": 892928,
+            "final_rss_bytes": 43180032,
+            "sampling_interval_seconds": 0.001
+          },
+          "stderr": ""
+        }
+      },
+      "comparison": {
+        "rustures_valid": true,
+        "rustures_truth_hausdorff": 2.0,
+        "rustures_truth_precision_recall": [
+          1.0,
+          1.0
+        ],
+        "rustures_truth_rand_index": 0.9923151030087446,
+        "comparable": false,
+        "unsupported_reason": "ruptures custom costs have no endpoint error_many protocol"
+      }
+    }
+  ]
+}

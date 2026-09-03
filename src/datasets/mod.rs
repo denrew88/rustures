@@ -3,16 +3,22 @@ use std::f64::consts::TAU;
 use crate::Error;
 
 #[derive(Clone, Debug)]
-struct SplitMix64(u64);
+struct SplitMix64 {
+    state: u64,
+    spare_normal: Option<f64>,
+}
 
 impl SplitMix64 {
     fn new(seed: u64) -> Self {
-        Self(seed)
+        Self {
+            state: seed,
+            spare_normal: None,
+        }
     }
 
     fn next_u64(&mut self) -> u64 {
-        self.0 = self.0.wrapping_add(0x9e37_79b9_7f4a_7c15);
-        let mut value = self.0;
+        self.state = self.state.wrapping_add(0x9e37_79b9_7f4a_7c15);
+        let mut value = self.state;
         value = (value ^ (value >> 30)).wrapping_mul(0xbf58_476d_1ce4_e5b9);
         value = (value ^ (value >> 27)).wrapping_mul(0x94d0_49bb_1331_11eb);
         value ^ (value >> 31)
@@ -23,7 +29,15 @@ impl SplitMix64 {
     }
 
     fn normal(&mut self) -> f64 {
-        (-2.0 * self.uniform().ln()).sqrt() * (TAU * self.uniform()).cos()
+        if let Some(value) = self.spare_normal.take() {
+            return value;
+        }
+
+        let radius = (-2.0 * self.uniform().ln()).sqrt();
+        let angle = TAU * self.uniform();
+        let (sine, cosine) = angle.sin_cos();
+        self.spare_normal = Some(radius * sine);
+        radius * cosine
     }
 }
 
@@ -199,23 +213,5 @@ pub fn piecewise_wavy(
 }
 
 #[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn generators_are_seeded_and_well_shaped() {
-        for generator in [
-            piecewise_constant,
-            piecewise_linear,
-            piecewise_normal,
-            piecewise_wavy,
-        ] {
-            let first = generator(50, 3, 4, 0.2, 7).unwrap();
-            let second = generator(50, 3, 4, 0.2, 7).unwrap();
-            assert_eq!(first, second);
-            assert_eq!(first.0.len(), 150);
-            assert_eq!(first.1.len(), 5);
-            assert_eq!(first.1.last(), Some(&50));
-        }
-    }
-}
+#[path = "../../tests/unit/datasets.rs"]
+mod tests;

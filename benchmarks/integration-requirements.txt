@@ -1,0 +1,5 @@
+# Versions used by the 2026-09-03 Windows/Python 3.11 comparison.
+numpy==1.26.4
+scipy==1.16.3
+ruptures==1.1.10
+psutil==7.1.3

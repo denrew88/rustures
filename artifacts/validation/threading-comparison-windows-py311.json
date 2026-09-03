@@ -1,0 +1,72 @@
+{
+  "benchmark": "predict-only KernelCPD linear thread scaling",
+  "config": {
+    "n_samples": 3000,
+    "n_features": 3,
+    "n_bkps": 12,
+    "min_size": 10,
+    "tasks": 8,
+    "workers": [
+      1,
+      2,
+      4,
+      8
+    ],
+    "repeats": 5,
+    "seed": 20260903
+  },
+  "environment": {
+    "logical_cpus": 8,
+    "platform": "Windows-10-10.0.26200-SP0",
+    "python": "3.11.14",
+    "rustures": "0.1.1",
+    "ruptures": "v1.1.10"
+  },
+  "same_breakpoints_between_libraries": true,
+  "libraries": {
+    "rustures": {
+      "1": {
+        "median_seconds": 0.5825316000264138,
+        "jobs_per_second": 13.733160569550657,
+        "speedup_vs_one_worker": 1.0
+      },
+      "2": {
+        "median_seconds": 0.5279250999446958,
+        "jobs_per_second": 15.153664792293567,
+        "speedup_vs_one_worker": 1.1034360747148382
+      },
+      "4": {
+        "median_seconds": 0.33454760001040995,
+        "jobs_per_second": 23.912890123112728,
+        "speedup_vs_one_worker": 1.7412517680840855
+      },
+      "8": {
+        "median_seconds": 0.26899889996275306,
+        "jobs_per_second": 29.739898568758907,
+        "speedup_vs_one_worker": 2.1655538372352976
+      }
+    },
+    "ruptures": {
+      "1": {
+        "median_seconds": 1.1348908999934793,
+        "jobs_per_second": 7.049135736347843,
+        "speedup_vs_one_worker": 1.0
+      },
+      "2": {
+        "median_seconds": 0.9571849000640213,
+        "jobs_per_second": 8.357841833343715,
+        "speedup_vs_one_worker": 1.1856548300308247
+      },
+      "4": {
+        "median_seconds": 0.9494660999625921,
+        "jobs_per_second": 8.425787924724423,
+        "speedup_vs_one_worker": 1.1952937551305862
+      },
+      "8": {
+        "median_seconds": 0.9349090000614524,
+        "jobs_per_second": 8.556982550680496,
+        "speedup_vs_one_worker": 1.2139052035212858
+      }
+    }
+  }
+}
